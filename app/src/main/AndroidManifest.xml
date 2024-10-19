@@ -13,6 +13,12 @@
         android:theme="@style/Theme.MobdeveMobileApp"
         tools:targetApi="31">
         <activity
+            android:name=".CompanyPageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MainPageActivity"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

@@ -1,11 +1,13 @@
 package com.example.mobdevemobileapp;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -26,15 +28,10 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        TextView titleTextView = findViewById(R.id.title_text_view);
+    }
 
-        SpannableStringBuilder spannable = new SpannableStringBuilder("Welcome to\nInternSHIP");
-
-        // Apply different font sizes and styles
-        spannable.setSpan(new RelativeSizeSpan(25f / 24f), 0, 10, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // "Welcome to"
-        spannable.setSpan(new RelativeSizeSpan(45f / 24f), 11, 21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // "InternSHIP"
-        spannable.setSpan(new StyleSpan(Typeface.BOLD), 17, 21, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE); // "SHIP"
-
-        titleTextView.setText(spannable);
+    public void goToMainPage(View v) {
+        Intent intent = new Intent(this, MainPageActivity.class);
+        startActivity(intent);
     }
 }
