@@ -53,7 +53,8 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
                 intent.putExtra("companyImage", company.getCompanyImage());
                 intent.putExtra("companyLocation", company.getCompanyLocation());
                 intent.putExtra("rating", company.getRating());
-                intent.putExtra("reviews", company.getReviews().size());
+                intent.putExtra("reviews", company.getReviews());
+                intent.putExtra("reviewsCount", company.getReviews().size());
 
                 activity.startActivity(intent);
             }

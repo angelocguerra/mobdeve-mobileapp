@@ -6,12 +6,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.RatingBar;
 
+import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class CompanyPageActivity extends AppCompatActivity {
 
@@ -32,6 +35,20 @@ public class CompanyPageActivity extends AppCompatActivity {
         });
 
         this.populatePage();
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        Review[] reviews = new Review[] {
+            new Review(3.0f, "Review Title 1", new User("User 1"), "Date 1", "asdf"),
+            new Review(4.0f, "Review Title 2", new User("User 2"), "Date 2", "fdsa"),
+            new Review(5.0f, "Review Title 3", new User("User 3"), "Date 3", "1234"),
+            new Review(2.0f, "Review Title 4", new User("User 4"), "Date 4", "4321")
+        };
+
+        ReviewAdapter reviewAdapter = new ReviewAdapter(reviews, this);
+        recyclerView.setAdapter(reviewAdapter);
     }
 
     public void populatePage() {

@@ -23,6 +23,8 @@ public class MainPageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+
+
         Company[] companies = new Company[]{
                 new Company("Los Polos Hermanos", R.drawable.los_pollos_hermanos, "Albuquerque", 4.5f),
                 new Company("Dunder Mifflin Inc.", R.drawable.dunder_mifflin, "Scranton", 3.0f),
