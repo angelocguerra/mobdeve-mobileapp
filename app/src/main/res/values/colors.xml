@@ -3,4 +3,13 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
+
+    <color name="strong_blue">#FF006BB9</color>
+    <color name="pale_orange">#FFFFE3B3</color>
+    <color name="very_light_orange">#FFFFC973</color>
+    <color name="very_dark_gray">#FF1E1E1E</color>
+    <color name="dark_gray">#FF808080</color>
+    <color name="very_light_gray">#FFD9D9D9</color>
+    <color name="soft_red">#FFF25A65</color>
+
 </resources>
