@@ -5,67 +5,103 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#006BB9"
+    android:background="@color/strong_blue"
+    android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/title_text_view"
+        android:id="@+id/tvLoginWelcome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="138dp"
-        android:fontFamily="@font/inter"
-        android:text="Welcome to InternSHIP"
+        android:fontFamily="@font/inter_medium"
+        android:text="Welcome to"
         android:textAlignment="center"
-        android:textColor="#FFE3B3"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textColor="@color/pale_orange"
+        android:textSize="25sp" />
+
+    <LinearLayout
+        android:id="@+id/llLoginTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:textAlignment="center">
+
+        <TextView
+            android:id="@+id/title_text_view2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/inter_medium"
+            android:text="Intern"
+            android:textAlignment="center"
+            android:textColor="@color/pale_orange"
+            android:textSize="45sp" />
+
+        <TextView
+            android:id="@+id/title_text_view3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/inter_black"
+            android:text="SHIP"
+            android:textAlignment="center"
+            android:textColor="#FFE3B3"
+            android:textSize="45sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/subtitle_text_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
-        android:fontFamily="@font/inter"
+        android:layout_marginTop="35dp"
+        android:fontFamily="@font/inter_semibold"
         android:text="Sailing through coporate slavery"
         android:textAlignment="center"
-        android:textColor="#FFE3B3"
-        android:textSize="16sp"
+        android:textColor="@color/pale_orange"
+        android:textSize="20sp"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="200dp"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="35dp"
         app:srcCompat="@drawable/boat" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register_button"
-        android:layout_width="230dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="35dp"
-        android:fontFamily="@font/inter"
+        android:layout_marginTop="50dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:fontFamily="@font/inter_bold"
         android:text="Register"
-        android:textColor="#FFE3B3"
-        android:textSize="20dp"
+        android:textColor="@color/pale_orange"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
         app:cornerRadius="20dp"
-        app:strokeColor="#FFE3B3"
+        app:strokeColor="@color/pale_orange"
         app:strokeWidth="2.5dp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
-        android:layout_width="230dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="12.5dp"
-        android:fontFamily="@font/inter"
+        android:layout_marginTop="15dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:fontFamily="@font/inter_bold"
         android:text="Login"
         android:textColor="#FFE3B3"
         android:textSize="20dp"
@@ -77,13 +113,15 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/test_button"
-        android:layout_width="230dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="12.5dp"
-        android:fontFamily="@font/inter"
-        android:text="Go to Main Page"
+        android:layout_marginTop="15dp"
+        android:paddingTop="7dp"
+        android:paddingBottom="7dp"
+        android:fontFamily="@font/inter_bold"
         android:onClick="goToMainPage"
+        android:text="Go to Main Page"
         android:textColor="#FFE3B3"
         android:textSize="20dp"
         android:textStyle="bold"
