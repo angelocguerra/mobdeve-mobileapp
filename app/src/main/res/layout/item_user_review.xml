@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cvItemUserReview"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="5dp"
+    app:strokeColor="@color/moonstone_blue"
+    app:strokeWidth="0.5dp">
+
+    <LinearLayout
+        android:id="@+id/llUserReviewCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <LinearLayout
+            android:id="@+id/llUserReviewRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvUserReviewRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center"
+                android:text="4.35"
+                android:textColor="@color/french_blue"
+                android:textSize="18sp" />
+
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/srbUserReviewRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                app:srb_borderColor="@color/french_blue"
+                app:srb_fillColor="@color/chardonnay"
+                app:srb_isIndicator="false"
+                app:srb_numberOfStars="5"
+                app:srb_rating="4.35"
+                app:srb_starBorderWidth="1.5"
+                app:srb_starCornerRadius="2"
+                app:srb_starSize="10dp"
+                app:srb_starsSeparation="1dp"
+                app:srb_stepSize="0.01" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvUserReviewComapnyLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:focusable="false"
+                android:clickable="false"
+                app:cardElevation="0dp"
+                app:cardCornerRadius="10dp"
+                android:layout_marginTop="10dp">
+
+                <ImageView
+                    android:id="@+id/ivReviewCompanyLogo"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/los_pollos_hermanos">
+                </ImageView>
+
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llUserReviewContent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:gravity="center|start"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/llUserReviewIndustryRestaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvUserReviewIndustry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semibold"
+                    android:gravity="center|start"
+                    android:text="Restaurants"
+                    android:textColor="#FF404040"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvUserReviewIndustryRestaurantDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:gravity="center|start"
+                    android:text="•"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"
+                    android:textColor="#FF404040"
+                    android:textSize="11sp" />
+
+                <LinearLayout
+                    android:id="@+id/llUserReviewRestaurant"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvUserReviewRestaurant"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter"
+                        android:gravity="center|start"
+                        android:text="Los Pollos Hermanos"
+                        android:textColor="#FF404040"
+                        android:textSize="11sp" />
+
+                    <ImageView
+                        android:id="@+id/ivUserReviewRestaurant"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:src="@drawable/underline"
+                        app:tint="@color/dark_jungle_green">
+                    </ImageView>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvUserReviewTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Fast-paced but Rewarding Work Environment"
+                android:textColor="@color/french_blue"
+                android:layout_marginTop="5dp"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/llUserReviewAuthorDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp">
+
+                <TextView
+                    android:id="@+id/tvUserReviewPostedby"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="Posted by"
+                    android:layout_marginEnd="3dp"/>
+
+                <LinearLayout
+                    android:id="@+id/llUserReviewAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvUserReviewAuthor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="10sp"
+                        android:text="Skywalker22"
+                        />
+
+                    <ImageView
+                        android:id="@+id/ivUserReviewAuthor"
+                        android:layout_width="match_parent"
+                        android:layout_height="0.6dp"
+                        android:src="@drawable/underline"
+                        app:tint="@color/dark_jungle_green">
+
+                    </ImageView>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvUserReviewAuthorDateDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="•"
+                    android:layout_marginStart="3dp"
+                    android:layout_marginEnd="3dp"/>
+
+                <TextView
+                    android:id="@+id/UserReviewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10sp"
+                    android:text="Oct 15" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvRewiewContent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="I had a great experience interning at Los Pollos Hermanos. The work environment was fast-paced, and at times it felt overwhelming, especially..."
+                android:textSize="12sp"
+                android:layout_marginTop="5dp"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnHelpful"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:backgroundTint="@color/light_grey"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center|start"
+                android:paddingStart="15dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="2dp"
+                android:text="Helpful?"
+                android:textColor="@color/dark_jungle_green"
+                android:textSize="14sp"
+                android:layout_marginTop="5dp"
+                app:cornerRadius="500dp"
+                app:icon="@drawable/helpful"
+                app:iconGravity="start"
+                app:iconPadding="7dp"
+                app:iconTint="@color/dark_jungle_green" />
+        </LinearLayout>
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

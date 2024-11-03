@@ -48,7 +48,7 @@
                     android:id="@+id/ivUnderline"
                     android:layout_width="match_parent"
                     android:layout_height="0.6dp"
-                    app:srcCompat="@drawable/underline">
+                    android:src="@drawable/underline">
 
                 </ImageView>
 
@@ -126,7 +126,7 @@
                     app:srb_starsSeparation="1dp"
                     app:srb_starBorderWidth="3"
                     app:srb_starCornerRadius="4"
-                    app:srb_borderColor="@color/dark_jungle_green"
+                    app:srb_borderColor="@color/french_blue"
                     app:srb_fillColor="@color/chardonnay"
                     android:layout_marginStart="5dp"
                     app:srb_isIndicator="false"
@@ -139,7 +139,7 @@
                     android:layout_marginStart="3dp"
                     android:fontFamily="@font/inter"
                     android:text="|"
-                    android:textColor="@color/dark_jungle_green"
+                    android:textColor="@color/french_blue"
                     android:textSize="12sp">
 
                 </TextView>
@@ -151,7 +151,7 @@
                     android:layout_marginStart="3dp"
                     android:fontFamily="@font/inter"
                     android:text="100"
-                    android:textColor="@color/dark_jungle_green"
+                    android:textColor="@color/french_blue"
                     android:textSize="12sp">
 
                 </TextView>
@@ -162,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter"
                     android:text=" reviews"
-                    android:textColor="@color/dark_jungle_green"
+                    android:textColor="@color/french_blue"
                     android:textSize="12sp">
 
                 </TextView>
