@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    app:strokeColor="@color/strong_blue"
+    app:strokeColor="@color/moonstone_blue"
     app:strokeWidth="0.5dp"
     app:cardCornerRadius="5dp">
 
@@ -41,13 +41,13 @@
                     android:fontFamily="@font/inter_semibold"
                     android:gravity="center|start"
                     android:text="Restaurants"
-                    android:textColor="@color/strong_blue"
+                    android:textColor="@color/french_blue"
                     android:textSize="11sp" />
 
                 <ImageView
                     android:id="@+id/ivUnderline"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0.6dp"
                     app:srcCompat="@drawable/underline">
 
                 </ImageView>
@@ -63,7 +63,7 @@
                 android:fontFamily="@font/inter_bold"
                 android:gravity="center|start"
                 android:text="Los Pollos Hermanos"
-                android:textColor="@color/strong_blue"
+                android:textColor="@color/french_blue"
                 android:textSize="20sp" />
 
             <LinearLayout
@@ -91,7 +91,7 @@
                     android:fontFamily="@font/inter_semibold"
                     android:gravity="center|start"
                     android:text="Albuquerque"
-                    android:textColor="@color/strong_blue"
+                    android:textColor="@color/french_blue"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semibold"
                     android:text="4.35"
-                    android:textColor="@color/strong_blue"
+                    android:textColor="@color/french_blue"
                     android:textSize="12sp">
 
                 </TextView>
@@ -126,8 +126,8 @@
                     app:srb_starsSeparation="1dp"
                     app:srb_starBorderWidth="3"
                     app:srb_starCornerRadius="4"
-                    app:srb_borderColor="@color/very_dark_gray"
-                    app:srb_fillColor="@color/very_light_orange"
+                    app:srb_borderColor="@color/dark_jungle_green"
+                    app:srb_fillColor="@color/chardonnay"
                     android:layout_marginStart="5dp"
                     app:srb_isIndicator="false"
                     />
@@ -139,7 +139,7 @@
                     android:layout_marginStart="3dp"
                     android:fontFamily="@font/inter"
                     android:text="|"
-                    android:textColor="@color/very_dark_gray"
+                    android:textColor="@color/dark_jungle_green"
                     android:textSize="12sp">
 
                 </TextView>
@@ -151,7 +151,7 @@
                     android:layout_marginStart="3dp"
                     android:fontFamily="@font/inter"
                     android:text="100"
-                    android:textColor="@color/very_dark_gray"
+                    android:textColor="@color/dark_jungle_green"
                     android:textSize="12sp">
 
                 </TextView>
@@ -162,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter"
                     android:text=" reviews"
-                    android:textColor="@color/very_dark_gray"
+                    android:textColor="@color/dark_jungle_green"
                     android:textSize="12sp">
 
                 </TextView>

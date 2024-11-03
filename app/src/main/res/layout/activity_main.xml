@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+    android:id="@+id/main_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/strong_blue"
+    android:background="@color/french_blue"
     android:gravity="center"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -18,7 +18,7 @@
         android:fontFamily="@font/inter_medium"
         android:text="Welcome to"
         android:textAlignment="center"
-        android:textColor="@color/pale_orange"
+        android:textColor="@color/pale_peach"
         android:textSize="25sp" />
 
     <LinearLayout
@@ -37,7 +37,7 @@
             android:fontFamily="@font/inter_medium"
             android:text="Intern"
             android:textAlignment="center"
-            android:textColor="@color/pale_orange"
+            android:textColor="@color/pale_peach"
             android:textSize="45sp" />
 
         <TextView
@@ -63,7 +63,7 @@
         android:fontFamily="@font/inter_semibold"
         android:text="Sailing through coporate slavery"
         android:textAlignment="center"
-        android:textColor="@color/pale_orange"
+        android:textColor="@color/pale_peach"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -85,12 +85,12 @@
         android:paddingBottom="7dp"
         android:fontFamily="@font/inter_bold"
         android:text="Register"
-        android:textColor="@color/pale_orange"
+        android:textColor="@color/pale_peach"
         android:textSize="20sp"
         android:textStyle="bold"
         app:backgroundTint="@android:color/transparent"
         app:cornerRadius="20dp"
-        app:strokeColor="@color/pale_orange"
+        app:strokeColor="@color/pale_peach"
         app:strokeWidth="2.5dp" />
 
     <com.google.android.material.button.MaterialButton
