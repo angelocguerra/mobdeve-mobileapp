@@ -6,8 +6,4 @@
     </style>
 
     <style name="Theme.MobdeveMobileApp" parent="Base.Theme.MobdeveMobileApp" />
-
-    <style name="CustomRatingBarStyle" parent="Widget.AppCompat.RatingBar">
-        <item name="android:progressDrawable">@drawable/ratingbar</item>
-    </style>
 </resources>
