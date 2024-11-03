@@ -4,38 +4,28 @@ import java.util.ArrayList;
 
 public class Company {
 
+    private String companyIndustry;
     private String companyName;
-    private Integer companyImage;
-    private String companyLocation;
-    private float rating;
-    private ArrayList<Review> reviews;
 
-    public Company(String companyName, Integer companyImage, String companyLocation, float rating) {
+    private String companyLocation;
+    private float companyRating;
+    private Integer companyImage;
+    private ArrayList<Review> companyReviews;
+
+    public Company(String companyIndustry, String companyName, Integer companyImage, String companyLocation, float rating) {
+        this.companyIndustry = companyIndustry;
         this.companyName = companyName;
-        this.companyImage = companyImage;
         this.companyLocation = companyLocation;
-        this.rating = rating;
-        this.reviews = new ArrayList<Review>();
+        this.companyRating = rating;
+        this.companyImage = companyImage;
+        this.companyReviews = new ArrayList<Review>();
     }
 
-    // getters and setters
+    // Getters
+    public String getCompanyIndustry() {return companyIndustry;}
     public String getCompanyName() {return companyName;}
-
-    public void setCompanyName(String companyName) {this.companyName = companyName;}
-
-    public Integer getCompanyImage() {return companyImage;}
-
-    public void setCompanyImage(Integer companyImage) {this.companyImage = companyImage;}
-
     public String getCompanyLocation() {return companyLocation;}
-
-    public void setCompanyLocation(String companyLocation) {this.companyLocation = companyLocation;}
-
-    public float getRating() {return rating;}
-
-    public void setRating(float rating) {this.rating = rating;}
-
-    public ArrayList<Review> getReviews() {return reviews;}
-
-    public void setReviews(ArrayList<Review> reviews) {this.reviews = reviews;}
+    public float getCompanyRating() {return companyRating;}
+    public Integer getCompanyImage() {return companyImage;}
+    public ArrayList<Review> getCompanyReviews() {return companyReviews;}
 }
