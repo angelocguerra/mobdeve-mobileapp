@@ -132,7 +132,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvRewiewContent"
+                android:id="@+id/tvReviewContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="I had a great experience interning at Los Pollos Hermanos. The work environment was fast-paced, and at times it felt overwhelming, especially..."

@@ -10,6 +10,8 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
     Review[] reviews;
     CompanyPageActivity activity;
@@ -31,11 +33,13 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         final Review review = reviews[position];
-        holder.reviewTitleView.setText(review.getReviewTitle());
-        holder.userView.setText(review.getUser().getUsername());
-        holder.datePostedView.setText(review.getDatePosted());
-        holder.reviewRatingView.setRating(review.getRatingScore());
-        holder.reviewTextView.setText(review.getReviewText());
+
+        holder.tvReviewRating.setText(String.valueOf(review.getRatingScore()));
+        holder.tvReviewTitle.setText(review.getReviewTitle());
+        holder.tvReviewAuthor.setText(review.getUser().getUsername());
+        holder.tvReviewDate.setText(review.getDatePosted());
+        holder.tvReviewContent.setText(review.getReviewText());
+        holder.srbReviewRating.setRating(review.getRatingScore());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,19 +63,17 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView reviewTitleView;
-        TextView userView;
-        TextView datePostedView;
-        RatingBar reviewRatingView;
-        TextView reviewTextView;
+        TextView tvReviewRating, tvReviewTitle, tvReviewAuthor, tvReviewDate, tvReviewContent;
+        SimpleRatingBar srbReviewRating;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            reviewTitleView = itemView.findViewById(R.id.reviewTitleView);
-            userView = itemView.findViewById(R.id.userView);
-            datePostedView = itemView.findViewById(R.id.datePostedView);
-            reviewRatingView = itemView.findViewById(R.id.reviewRatingView);
-            reviewTextView = itemView.findViewById(R.id.reviewTextView);
+            tvReviewRating = itemView.findViewById(R.id.tvReviewRating);
+            tvReviewTitle = itemView.findViewById(R.id.tvReviewTitle);
+            tvReviewAuthor = itemView.findViewById(R.id.tvReviewAuthor);
+            tvReviewDate = itemView.findViewById(R.id.tvReviewDate);
+            tvReviewContent = itemView.findViewById(R.id.tvReviewContent);
+            srbReviewRating = itemView.findViewById(R.id.srbReviewRating);
         }
     }
 }

@@ -2,6 +2,7 @@ package com.example.mobdevemobileapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.RatingBar;
@@ -16,12 +17,13 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+
 public class CompanyPageActivity extends AppCompatActivity {
 
-    ImageView pageImageView;
-    TextView pageNameView;
-    TextView pageLocationView;
-    RatingBar pageRatingView;
+    TextView tvIndustry, tvCompanyTitle, tvCompanyLocation, tvCompanyRating, tvCompanyReviewCount;
+    ImageView ivCompanyLogo;
+    SimpleRatingBar srbCompanyRating;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,24 +54,43 @@ public class CompanyPageActivity extends AppCompatActivity {
     }
 
     public void populatePage() {
-        pageImageView = findViewById(R.id.pageImageView);
-        pageNameView = findViewById(R.id.pageNameView);
-        pageLocationView = findViewById(R.id.pageLocationView);
-        pageRatingView = findViewById(R.id.pageRatingView);
+        tvIndustry = findViewById(R.id.tvIndustry);
+        tvCompanyTitle = findViewById(R.id.tvCompanyTitle);
+        tvCompanyLocation = findViewById(R.id.tvCompanyLocation);
+        tvCompanyRating = findViewById(R.id.tvCompanyRating);
+        tvCompanyReviewCount = findViewById(R.id.tvCompanyReviewCount);
+        ivCompanyLogo = findViewById(R.id.ivCompanyLogo);
+        srbCompanyRating = findViewById(R.id.srbCompanyRating);
 
         Intent intent = getIntent();
-        // Get image resource
-        int imageResource = intent.getIntExtra("companyImage", 0);
-        pageImageView.setImageResource(imageResource);
 
-        String pageName = intent.getStringExtra("companyName");
-        pageNameView.setText(pageName);
+        String industry = intent.getStringExtra("companyIndustry");
+        tvIndustry.setText(industry);
+        Log.d("addIndustry", "Industry added");
 
-        String pageLocation = intent.getStringExtra("companyLocation");
-        pageLocationView.setText(pageLocation);
+        String companyTitle = intent.getStringExtra("companyName");
+        tvCompanyTitle.setText(companyTitle);
+        Log.d("addTitle", "Title added");
 
-        float pageRating = intent.getFloatExtra("rating", 0);
-        pageRatingView.setRating(pageRating);
+        String companyLocation = intent.getStringExtra("companyLocation");
+        tvCompanyLocation.setText(companyLocation);
+        Log.d("addLocation", "Location added");
+
+        int reviewsCount = intent.getIntExtra("reviewsCount", 0);
+        tvCompanyReviewCount.setText(String.valueOf(reviewsCount));
+        Log.d("addCount",  "Count added");
+
+        float companyRating = intent.getFloatExtra("companyRating", 0);
+        tvCompanyRating.setText(String.valueOf(companyRating));
+        Log.d("addRating", "Numerical Rating added");
+
+        int companyLogo = intent.getIntExtra("companyImage", 0);
+        ivCompanyLogo.setImageResource(companyLogo);
+        Log.d("addLogo", "Logo added");
+
+        // Set Simple Rating Bar
+        srbCompanyRating.setRating(companyRating);
+        Log.d("addRatingBar", "Rating Bar added");
 
     }
 }

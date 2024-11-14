@@ -10,7 +10,7 @@
     tools:context=".CompanyPageActivity">
 
     <TextView
-        android:id="@+id/reviewTitleView"
+        android:id="@+id/tvReviewTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
@@ -24,33 +24,45 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/userView"
+            android:id="@+id/tvReviewAuthor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="5dp"
             android:text="username" />
 
         <TextView
-            android:id="@+id/datePostedView"
+            android:id="@+id/tvReviewDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="date posted" />
 
     </LinearLayout>
 
-    <RatingBar
-        android:id="@+id/reviewRatingView"
+    <TextView
+        android:id="@+id/tvReviewRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:isIndicator="true"
-        android:numStars="5"
-        android:progressTint="#FFC107"
-        android:rating="5"
-        android:stepSize="0.5"
-        style="?android:attr/ratingBarStyleSmall" />
+        android:text="Review Rating here" />
+
+    <com.iarcuschin.simpleratingbar.SimpleRatingBar
+        android:id="@+id/srbReviewRating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srb_starSize="18dp"
+        app:srb_numberOfStars="5"
+        app:srb_rating="4.35"
+        app:srb_stepSize="0.01"
+        app:srb_starsSeparation="1dp"
+        app:srb_starBorderWidth="3"
+        app:srb_starCornerRadius="4"
+        app:srb_borderColor="@color/french_blue"
+        app:srb_fillColor="@color/chardonnay"
+        android:layout_marginStart="5dp"
+        app:srb_isIndicator="false"
+        />
 
     <TextView
-        android:id="@+id/reviewTextView"
+        android:id="@+id/tvReviewContent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Review Text Body Here" />

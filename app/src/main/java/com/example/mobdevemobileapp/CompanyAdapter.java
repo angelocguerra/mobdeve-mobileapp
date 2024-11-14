@@ -41,17 +41,20 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         holder.tvCompanyReviewCount.setText(String.valueOf(company.getCompanyReviews().size()));
         holder.ivCompanyLogo.setImageResource(company.getCompanyImage());
 
-        holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(activity, CompanyPageActivity.class);
-            intent.putExtra("companyIndustry", company.getCompanyIndustry());
-            intent.putExtra("companyName", company.getCompanyName());
-            intent.putExtra("companyLocation", company.getCompanyLocation());
-            intent.putExtra("companyRating", company.getCompanyRating());
-            intent.putExtra("companyImage", company.getCompanyImage());
-            intent.putExtra("reviewsCount", company.getCompanyReviews().size());
-            intent.putExtra("companyReviews", company.getCompanyReviews());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, CompanyPageActivity.class);
+                intent.putExtra("companyIndustry", company.getCompanyIndustry());
+                intent.putExtra("companyName", company.getCompanyName());
+                intent.putExtra("companyLocation", company.getCompanyLocation());
+                intent.putExtra("companyRating", company.getCompanyRating());
+                intent.putExtra("companyImage", company.getCompanyImage());
+                intent.putExtra("reviewsCount", company.getCompanyReviews().size());
+                intent.putExtra("companyReviews", company.getCompanyReviews());
 
-            activity.startActivity(intent);
+                activity.startActivity(intent);
+            }
         });
     }
 
