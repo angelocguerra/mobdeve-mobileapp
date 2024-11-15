@@ -155,6 +155,8 @@
                 android:textSize="14sp"
                 android:layout_marginTop="5dp"
                 app:cornerRadius="500dp"
+                app:toggleCheckedStateOnClick="true"
+                android:checkable="true"
                 app:icon="@drawable/helpful"
                 app:iconGravity="start"
                 app:iconPadding="7dp"

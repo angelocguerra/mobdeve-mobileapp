@@ -18,7 +18,7 @@ public class Company {
         this.companyLocation = companyLocation;
         this.companyRating = rating;
         this.companyImage = companyImage;
-        this.companyReviews = new ArrayList<Review>();
+        this.companyReviews = new ArrayList<>();
     }
 
     // Getters

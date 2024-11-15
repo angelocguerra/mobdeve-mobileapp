@@ -1,5 +1,6 @@
 package com.example.mobdevemobileapp;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
@@ -55,6 +57,30 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
                 activity.startActivity(intent);
             }
         });
+
+        holder.btnHelpful.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                if (holder.btnHelpful.isChecked()) {
+                    Log.d("showChecked", "Button.isChecked = " + holder.btnHelpful.isChecked());
+                    holder.btnHelpful.setBackgroundColor(activity.getResources().getColor(R.color.french_blue));
+                    holder.btnHelpful.setTextColor(activity.getResources().getColor(R.color.pale_peach));
+                    holder.btnHelpful.setIcon(activity.getResources().getDrawable(R.drawable.helpful_toggled));
+                    Log.d("showChecked", "Button.isChecked = " + holder.btnHelpful.isChecked());
+                    review.setHelpful(review.getHelpful() + 1);
+                }
+                else {
+                    Log.d("showChecked", "Button.isChecked = " + holder.btnHelpful.isChecked());
+                    holder.btnHelpful.setBackgroundColor(activity.getResources().getColor(R.color.light_grey));
+                    holder.btnHelpful.setTextColor(activity.getResources().getColor(R.color.dark_jungle_green));
+                    holder.btnHelpful.setIcon(activity.getResources().getDrawable(R.drawable.helpful));
+                    Log.d("showChecked","Button.isChecked = " + holder.btnHelpful.isChecked());
+                    review.setHelpful(review.getHelpful() - 1);
+                }
+            }
+        });
     }
 
     @Override
@@ -66,6 +92,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
         TextView tvReviewRating, tvReviewTitle, tvReviewAuthor, tvReviewDate, tvReviewContent;
         SimpleRatingBar srbReviewRating;
 
+        MaterialButton btnHelpful;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvReviewRating = itemView.findViewById(R.id.tvReviewRating);
@@ -74,6 +102,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             tvReviewDate = itemView.findViewById(R.id.tvReviewDate);
             tvReviewContent = itemView.findViewById(R.id.tvReviewContent);
             srbReviewRating = itemView.findViewById(R.id.srbReviewRating);
+            btnHelpful = itemView.findViewById(R.id.btnHelpful);
         }
     }
 }
