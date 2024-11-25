@@ -1,71 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="10dp"
-    android:orientation="vertical"
-    tools:context=".CompanyPageActivity">
-
-    <TextView
-        android:id="@+id/tvReviewTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Review Title"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    android:background="@color/white_smoke">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Intern"
+                android:textSize="24sp"
+                android:textColor="@color/french_blue" />
+
+            <TextView
+                android:id="@+id/tvHeader2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_black"
+                android:text="SHIP"
+                android:textSize="24sp"
+                android:textColor="@color/french_blue" />
+        </LinearLayout>
+
+        <!-- Company Info -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp">
+
+            <ImageView
+                android:id="@+id/ivCompanyLogo"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="centerCrop"
+                android:contentDescription="Company Logo" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvCompanyIndustry"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_semibold"
+                    android:textColor="@color/french_blue"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvCompanyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:textColor="@color/french_blue"
+                    android:textSize="20sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:id="@+id/ivLocationIcon"
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:contentDescription="Location Icon" />
+
+                    <TextView
+                        android:id="@+id/tvCompanyLocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="4dp"
+                        android:fontFamily="@font/inter"
+                        android:textColor="@color/grey"
+                        android:textSize="12sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Ratings -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="16dp">
+
+            <TextView
+                android:id="@+id/tvWorkEnvironmentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Work Environment"
+                android:textColor="@color/french_blue"
+                android:textSize="14sp" />
+
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/srbWorkEnvironment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srb_starSize="20dp"
+                app:srb_numberOfStars="5"
+                app:srb_stepSize="1"
+                app:srb_isIndicator="true" />
+
+            <TextView
+                android:id="@+id/tvMentorshipLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Mentorship"
+                android:textColor="@color/french_blue"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp" />
+
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/srbMentorship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srb_starSize="20dp"
+                app:srb_numberOfStars="5"
+                app:srb_stepSize="1"
+                app:srb_isIndicator="true" />
+
+            <TextView
+                android:id="@+id/tvWorkloadLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Workload"
+                android:textColor="@color/french_blue"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp" />
+
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/srbWorkload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srb_starSize="20dp"
+                app:srb_numberOfStars="5"
+                app:srb_stepSize="1"
+                app:srb_isIndicator="true" />
+        </LinearLayout>
+
+        <!-- Review Content -->
         <TextView
-            android:id="@+id/tvReviewAuthor"
+            android:id="@+id/tvReviewTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="5dp"
-            android:text="username" />
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter_bold"
+            android:textSize="18sp"
+            android:textColor="@color/french_blue" />
 
         <TextView
-            android:id="@+id/tvReviewDate"
+            android:id="@+id/tvReviewDetails"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="date posted" />
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/inter"
+            android:textSize="14sp"
+            android:textColor="@color/grey" />
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnHelpful"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/light_grey"
+                android:text="Helpful?"
+                android:textColor="@color/french_blue"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_medium"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/french_blue"
+                android:text="Edit"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_medium"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/red"
+                android:text="Delete"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:fontFamily="@font/inter_medium" />
+        </LinearLayout>
 
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/tvReviewRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Review Rating here" />
-
-    <com.iarcuschin.simpleratingbar.SimpleRatingBar
-        android:id="@+id/srbReviewRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srb_starSize="18dp"
-        app:srb_numberOfStars="5"
-        app:srb_rating="4.35"
-        app:srb_stepSize="0.01"
-        app:srb_starsSeparation="1dp"
-        app:srb_starBorderWidth="3"
-        app:srb_starCornerRadius="4"
-        app:srb_borderColor="@color/french_blue"
-        app:srb_fillColor="@color/chardonnay"
-        android:layout_marginStart="5dp"
-        app:srb_isIndicator="false"
-        />
-
-    <TextView
-        android:id="@+id/tvReviewContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Review Text Body Here" />
-
-
-</LinearLayout>
+</ScrollView>

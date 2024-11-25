@@ -3,6 +3,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="transparent">#00000000</color>
+    <color name="red">#FF0000</color>
+
 
     <color name="french_blue">#FF006BB9</color>
     <color name="pale_peach">#FFFFE3B3</color>
@@ -13,5 +15,9 @@
     <color name="bean_red">#FFF25A65</color>
     <color name="moonstone_blue">#FF7AAACE</color>
     <color name="white_smoke">#FFF4F4F5</color>
+    <color name="grey">#808080</color>
 
+    <color name="star_border">#B0BEC5</color> <!-- Light grey for the star borders -->
+    <color name="gray_darker">#616161</color> <!-- Dark grey for text or hints -->
+    <color name="star_fill">#FFD700</color> <!-- Gold color for filled stars -->
 </resources>

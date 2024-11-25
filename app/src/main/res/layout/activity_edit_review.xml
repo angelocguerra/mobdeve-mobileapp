@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Header -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="16dp">
+
+            <TextView
+                android:id="@+id/tvHeader"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Intern"
+                android:textSize="24sp"
+                android:textColor="@color/french_blue" />
+
+            <TextView
+                android:id="@+id/tvHeader2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_black"
+                android:text="SHIP"
+                android:textSize="24sp"
+                android:textColor="@color/french_blue" />
+        </LinearLayout>
+
+        <!-- Edit Review Title -->
+        <TextView
+            android:id="@+id/tvEditReviewTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:text="Edit Review"
+            android:textSize="20sp"
+            android:textColor="@color/french_blue"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Company -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="10dp"
+            android:background="@drawable/rounded_grey_background"
+            android:layout_marginBottom="16dp">
+
+            <ImageView
+                android:id="@+id/ivCompanyLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginEnd="10dp"
+                android:contentDescription="Company Logo" />
+
+            <TextView
+                android:id="@+id/tvCompanyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:textColor="@color/french_blue"
+                android:textSize="18sp" />
+        </LinearLayout>
+
+        <!-- Ratings -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Ratings"
+                android:textColor="@color/french_blue"
+                android:textSize="18sp"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Work Environment:"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/srbWorkEnvironment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srb_starSize="22dp"
+                app:srb_numberOfStars="5" app:srb_fillColor="@color/star_fill" app:srb_borderColor="@color/star_border"
+                app:srb_stepSize="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Mentorship:"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp" />
+
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/srbMentorship"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srb_starSize="20dp"
+                app:srb_numberOfStars="5"
+                app:srb_stepSize="1" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_medium"
+                android:text="Workload:"
+                android:textColor="@color/grey"
+                android:textSize="14sp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp" />
+
+            <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                android:id="@+id/srbWorkload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srb_starSize="20dp"
+                app:srb_numberOfStars="5"
+                app:srb_stepSize="1" />
+        </LinearLayout>
+
+        <!-- Dropdowns -->
+        <Spinner
+            android:id="@+id/spnInternshipType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/light_grey"
+            android:padding="8dp"
+            android:prompt="Select Internship Type" />
+
+        <Spinner
+            android:id="@+id/spnAllowanceProvision"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@color/light_grey"
+            android:padding="8dp"
+            android:prompt="Allowance Provision" />
+
+        <!-- Headline -->
+        <EditText
+            android:id="@+id/etReviewHeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Review Headline*"
+            android:background="@color/light_grey"
+            android:padding="10dp"
+            android:textColorHint="@color/gray_darker"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Post Content -->
+        <EditText
+            android:id="@+id/etReviewContent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Share some of your internship experiences"
+            android:background="@color/light_grey"
+            android:padding="10dp"
+            android:gravity="top"
+            android:lines="6"
+            android:textColorHint="@color/grey"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/btnSaveChanges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Save Changes"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/french_blue"
+                android:layout_marginEnd="8dp" />
+
+            <Button
+                android:id="@+id/btnDiscardChanges"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discard"
+                android:textColor="@color/grey"
+                android:backgroundTint="@color/light_grey" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>
