@@ -69,13 +69,13 @@
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/french_blue"
+            android:fontFamily="@font/inter_bold"
+            android:onClick="login"
             android:text="Log In"
             android:textColor="@color/white"
-            android:textSize="16sp"
-            android:fontFamily="@font/inter_bold"
-            android:backgroundTint="@color/french_blue"
-            android:layout_marginBottom="10dp"
-            android:onClick="navigateToMainPage"/>
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tvForgotPassword"

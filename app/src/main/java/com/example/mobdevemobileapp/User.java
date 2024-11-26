@@ -2,6 +2,8 @@ package com.example.mobdevemobileapp;
 
 public class User {
     String username;
+    String email;
+
 
     public User(String username) {
         this.username = username;

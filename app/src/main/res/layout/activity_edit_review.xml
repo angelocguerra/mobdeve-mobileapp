@@ -103,9 +103,9 @@
                 android:id="@+id/srbWorkEnvironment"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srb_starSize="22dp"
-                app:srb_numberOfStars="5" app:srb_fillColor="@color/star_fill" app:srb_borderColor="@color/star_border"
-                app:srb_stepSize="1" />
+                app:srb_starSize="20dp"
+                app:srb_numberOfStars="5"
+                app:srb_stepSize="0.1" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 app:srb_starSize="20dp"
                 app:srb_numberOfStars="5"
-                app:srb_stepSize="1" />
+                app:srb_stepSize="0.1" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 app:srb_starSize="20dp"
                 app:srb_numberOfStars="5"
-                app:srb_stepSize="1" />
+                app:srb_stepSize="0.1" />
         </LinearLayout>
 
         <!-- Dropdowns -->
@@ -201,6 +201,7 @@
                 android:layout_height="wrap_content"
                 android:text="Save Changes"
                 android:textColor="@color/white"
+                android:onClick="saveChanges"
                 android:backgroundTint="@color/french_blue"
                 android:layout_marginEnd="8dp" />
 
@@ -209,6 +210,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Discard"
+                android:onClick="discardChanges"
                 android:textColor="@color/grey"
                 android:backgroundTint="@color/light_grey" />
         </LinearLayout>
