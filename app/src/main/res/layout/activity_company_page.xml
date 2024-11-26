@@ -74,7 +74,7 @@
         app:srb_borderColor="@color/french_blue"
         app:srb_fillColor="@color/chardonnay"
         android:layout_marginStart="5dp"
-        app:srb_isIndicator="false"
+        app:srb_isIndicator="true"
         />
 
     <TextView

@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.content.Intent;
@@ -14,12 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
+import java.util.ArrayList;
+
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder> {
-    Review[] reviews;
+    ArrayList<Review> reviews;
+    Company company;
     CompanyPageActivity activity;
 
-    public ReviewAdapter(Review[] reviews, CompanyPageActivity activity) {
+    public ReviewAdapter(ArrayList<Review> reviews, Company company, CompanyPageActivity activity) {
         this.reviews = reviews;
+        this.company = company;
         this.activity = activity;
     }
 
@@ -34,7 +39,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final Review review = reviews[position];
+        final Review review = reviews.get(position);
 
         holder.tvReviewRating.setText(String.valueOf(review.getRatingScore()));
         holder.tvReviewTitle.setText(review.getReviewTitle());
@@ -47,6 +52,19 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(activity, ReviewPageActivity.class);
+                intent.putExtra("companyName", company.getCompanyName());
+                intent.putExtra("companyLocation", company.getCompanyLocation());
+                intent.putExtra("companyImage", company.getCompanyImage());
+                intent.putExtra("companyIndustry", company.getCompanyIndustry());
+
+                intent.putExtra("workEnvironment", review.getWorkEnvironment());
+                intent.putExtra("mentorship", review.getMentorship());
+                intent.putExtra("workload", review.getWorkload());
+                intent.putExtra("internshipType", review.convertInternshipType(review.getInternshipType()));
+//                Log.d("showInternship", "Internship Type: " + review.convertInternshipType(review.getInternshipType()));
+                intent.putExtra("allowanceProvision", review.convertAllowanceProvision(review.getAllowanceProvision()));
+//                Log.d("showAllowance", "Allowance Provision: " + review.convertAllowanceProvision(review.getAllowanceProvision()));
+
                 intent.putExtra("reviewTitle", review.getReviewTitle());
                 intent.putExtra("user", review.getUser().getUsername());
                 intent.putExtra("datePosted", review.getDatePosted());
@@ -85,10 +103,11 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return reviews.length;
+        return reviews.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+
         TextView tvReviewRating, tvReviewTitle, tvReviewAuthor, tvReviewDate, tvReviewContent;
         SimpleRatingBar srbReviewRating;
 
@@ -96,6 +115,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             tvReviewRating = itemView.findViewById(R.id.tvReviewRating);
             tvReviewTitle = itemView.findViewById(R.id.tvReviewTitle);
             tvReviewAuthor = itemView.findViewById(R.id.tvReviewAuthor);

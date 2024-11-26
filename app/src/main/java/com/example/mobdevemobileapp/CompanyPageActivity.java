@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
+import java.util.ArrayList;
+
 public class CompanyPageActivity extends AppCompatActivity {
 
     TextView tvIndustry, tvCompanyTitle, tvCompanyLocation, tvCompanyRating, tvCompanyReviewCount;
@@ -36,24 +38,6 @@ public class CompanyPageActivity extends AppCompatActivity {
             return insets;
         });
 
-        this.populatePage();
-
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        Review[] reviews = new Review[] {
-            new Review(3.0f, "Review Title 1", new User("User 1"), "Date 1", "asdf"),
-            new Review(4.0f, "Review Title 2", new User("User 2"), "Date 2", "fdsa"),
-            new Review(5.0f, "Review Title 3", new User("User 3"), "Date 3", "1234"),
-            new Review(2.0f, "Review Title 4", new User("User 4"), "Date 4", "4321")
-        };
-
-        ReviewAdapter reviewAdapter = new ReviewAdapter(reviews, this);
-        recyclerView.setAdapter(reviewAdapter);
-    }
-
-    public void populatePage() {
         tvIndustry = findViewById(R.id.tvIndustry);
         tvCompanyTitle = findViewById(R.id.tvCompanyTitle);
         tvCompanyLocation = findViewById(R.id.tvCompanyLocation);
@@ -61,6 +45,33 @@ public class CompanyPageActivity extends AppCompatActivity {
         tvCompanyReviewCount = findViewById(R.id.tvCompanyReviewCount);
         ivCompanyLogo = findViewById(R.id.ivCompanyLogo);
         srbCompanyRating = findViewById(R.id.srbCompanyRating);
+
+        Company currentCompany = this.populatePage();
+
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ArrayList<Review> reviews = new ArrayList<Review>() {
+            {
+                add(new Review(3.0f, 1.0f, 2.0f, 3.0f, InternshipType.F2F, AllowanceProvision.THIRTY_FORTY, "Review Title 1", new User("User 1"), "Date 1", "asdf"));
+                add(new Review(4.0f, 1.0f, 2.0f, 3.0f, InternshipType.ONLINE, AllowanceProvision.TEN_TWENTY, "Review Title 2", new User("User 2"), "Date 2", "fdsa"));
+                add(new Review(5.0f, 1.0f, 2.0f, 3.0f, InternshipType.HYBRID, AllowanceProvision.TWENTY_THIRTY, "Review Title 3", new User("User 3"), "Date 3", "1234"));
+                add(new Review(2.0f, 1.0f, 2.0f, 3.0f, InternshipType.F2F, AllowanceProvision.LESS_THAN_TEN, "Review Title 4", new User("User 4"), "Date 4", "4321"));
+            }
+        };
+
+        currentCompany.setCompanyReviews(reviews);
+
+        tvCompanyReviewCount.setText(String.valueOf(reviews.size()));
+
+
+        ReviewAdapter reviewAdapter = new ReviewAdapter(reviews, currentCompany, this);
+        recyclerView.setAdapter(reviewAdapter);
+    }
+
+    public Company populatePage() {
+
 
         Intent intent = getIntent();
 
@@ -92,5 +103,6 @@ public class CompanyPageActivity extends AppCompatActivity {
         srbCompanyRating.setRating(companyRating);
         Log.d("addRatingBar", "Rating Bar added");
 
+        return new Company(industry, companyTitle, companyLogo, companyLocation, companyRating);
     }
 }

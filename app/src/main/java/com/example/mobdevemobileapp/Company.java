@@ -6,7 +6,6 @@ public class Company {
 
     private String companyIndustry;
     private String companyName;
-
     private String companyLocation;
     private float companyRating;
     private Integer companyImage;
@@ -28,4 +27,13 @@ public class Company {
     public float getCompanyRating() {return companyRating;}
     public Integer getCompanyImage() {return companyImage;}
     public ArrayList<Review> getCompanyReviews() {return companyReviews;}
+
+    // Setters
+    public void setCompanyIndustry(String companyIndustry) {this.companyIndustry = companyIndustry;}
+    public void setCompanyName(String companyName) {this.companyName = companyName;}
+
+    public void setCompanyLocation(String companyLocation) {this.companyLocation = companyLocation;}
+    public void setCompanyRating(float companyRating) {this.companyRating = companyRating;}
+    public void setCompanyImage(Integer companyImage) {this.companyImage = companyImage;}
+    public void setCompanyReviews(ArrayList<Review> companyReviews) {this.companyReviews = companyReviews;}
 }

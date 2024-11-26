@@ -2,9 +2,9 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white_smoke">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -51,11 +51,12 @@
                 android:layout_height="80dp"
                 android:layout_marginEnd="16dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/boat"
                 android:contentDescription="Company Logo" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <TextView
@@ -64,7 +65,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semibold"
                     android:textColor="@color/french_blue"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:text="Sample Industry"/>
 
                 <TextView
                     android:id="@+id/tvCompanyName"
@@ -72,7 +74,8 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@color/french_blue"
-                    android:textSize="20sp" />
+                    android:textSize="20sp"
+                    android:text="Sample Name"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -83,6 +86,7 @@
                         android:id="@+id/ivLocationIcon"
                         android:layout_width="16dp"
                         android:layout_height="16dp"
+                        android:src="@drawable/ic_location"
                         android:contentDescription="Location Icon" />
 
                     <TextView
@@ -92,7 +96,8 @@
                         android:layout_marginStart="4dp"
                         android:fontFamily="@font/inter"
                         android:textColor="@color/grey"
-                        android:textSize="12sp" />
+                        android:textSize="12sp"
+                        android:text="Sample Location"/>
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -119,7 +124,7 @@
                 android:layout_height="wrap_content"
                 app:srb_starSize="20dp"
                 app:srb_numberOfStars="5"
-                app:srb_stepSize="1"
+                app:srb_stepSize="0.01"
                 app:srb_isIndicator="true" />
 
             <TextView
@@ -161,6 +166,25 @@
                 app:srb_isIndicator="true" />
         </LinearLayout>
 
+        <Spinner
+            android:id="@+id/spnInternshipType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@color/light_grey"
+            android:padding="8dp"
+            android:prompt="@string/select_internship_type" />
+
+        <Spinner
+            android:id="@+id/spnAllowanceProvision"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:background="@color/light_grey"
+            android:padding="8dp"
+            android:prompt="@string/allowance_provision" />
+
         <!-- Review Content -->
         <TextView
             android:id="@+id/tvReviewTitle"
@@ -168,17 +192,51 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/inter_bold"
+            android:textColor="@color/french_blue"
             android:textSize="18sp"
-            android:textColor="@color/french_blue" />
+            android:text="Sample Title"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:id="@+id/tvReviewAuthor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/grey"
+                android:text="Sample Author" />
+
+            <TextView
+                android:id="@+id/tvDivider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/grey"
+                android:text="   |   " />
+
+            <TextView
+                android:id="@+id/tvReviewDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter"
+                android:textColor="@color/grey"
+                android:text="Sample Date" />
+
+        </LinearLayout>
+
 
         <TextView
-            android:id="@+id/tvReviewDetails"
+            android:id="@+id/tvReviewContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:fontFamily="@font/inter"
+            android:textColor="@color/grey"
             android:textSize="14sp"
-            android:textColor="@color/grey" />
+            android:text="Sample Content"/>
 
         <!-- Buttons -->
         <LinearLayout
@@ -188,16 +246,25 @@
             android:layout_marginTop="16dp"
             android:gravity="center_horizontal">
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnHelpful"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:backgroundTint="@color/light_grey"
+                android:fontFamily="@font/inter_bold"
+                android:gravity="center|start"
                 android:text="Helpful?"
-                android:textColor="@color/french_blue"
+                android:textColor="@color/dark_jungle_green"
                 android:textSize="14sp"
-                android:fontFamily="@font/inter_medium"
-                android:layout_marginEnd="8dp" />
+                android:onClick="toggleHelpful"
+                android:layout_marginRight="8dp"
+                app:cornerRadius="500dp"
+                app:toggleCheckedStateOnClick="true"
+                android:checkable="true"
+                app:icon="@drawable/helpful"
+                app:iconGravity="start"
+                app:iconPadding="7dp"
+                app:iconTint="@color/dark_jungle_green" />
 
             <Button
                 android:id="@+id/btnEdit"
