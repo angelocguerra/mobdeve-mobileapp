@@ -85,8 +85,10 @@ public class SignUpActivity extends AppCompatActivity {
         FirestoreManager.getInstance().checkIfUserExists("username", username, task -> {
             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                 userExists.set(true);
+
                 EditText etUsername = findViewById(R.id.etUsername);
-                etUsername.setError("Username already exists")
+                etUsername.setError("Username already exists");
+
                 Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
             } else {
                 FirestoreManager.getInstance().checkIfUserExists("email", email, emailTask -> {
