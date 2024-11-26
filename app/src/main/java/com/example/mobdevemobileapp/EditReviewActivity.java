@@ -21,11 +21,14 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+
 public class EditReviewActivity extends AppCompatActivity {
 
     ImageView ivCompanyLogo;
     TextView tvCompanyName;
     EditText etReviewHeadline, etReviewContent;
+    SimpleRatingBar srbWorkEnvironment, srbMentorship, srbWorkload;
 
     Spinner spnInternshipType;
     Spinner spnAllowanceProvision;
@@ -34,21 +37,22 @@ public class EditReviewActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_edit_review);
 
         ivCompanyLogo = findViewById(R.id.ivCompanyLogo);
         tvCompanyName = findViewById(R.id.tvCompanyName);
+
+        srbMentorship = findViewById(R.id.srbMentorship);
+        srbWorkEnvironment = findViewById(R.id.srbWorkEnvironment);
+        srbWorkload = findViewById(R.id.srbWorkload);
+
         etReviewHeadline = findViewById(R.id.etReviewHeadline);
         etReviewContent = findViewById(R.id.etReviewContent);
         spnInternshipType = findViewById(R.id.spnInternshipType);
         spnAllowanceProvision = findViewById(R.id.spnAllowanceProvision);
 
-        setupSpinners();
-
         populatePage();
-
-
-        Navbar.setupNavbar(this);
     }
 
     public void populatePage() {
@@ -56,29 +60,29 @@ public class EditReviewActivity extends AppCompatActivity {
 
         int companyLogo = intent.getIntExtra("companyLogo", 0);
         String companyName = intent.getStringExtra("companyName");
-        String reviewHeadline = intent.getStringExtra("reviewHeadline");
+
+        float workEnvironment = intent.getFloatExtra("workEnvironment", 0);
+        float mentorship = intent.getFloatExtra("mentorship", 0);
+        float workload = intent.getFloatExtra("workload", 0);
+
+        String reviewHeadline = intent.getStringExtra("reviewTitle");
         String reviewContent = intent.getStringExtra("reviewContent");
         String internshipType = intent.getStringExtra("internshipType");
-        for (InternshipType type : InternshipType.values()) {
-            if (convertInternshipType(type).equals(internshipType)) {
-                spnInternshipType.setSelection(type.ordinal());
-            }
-        }
-
         String allowanceProvision = intent.getStringExtra("allowanceProvision");
-        for (AllowanceProvision allowance: AllowanceProvision.values()) {
-            if (convertAllowanceProvision(allowance).equals(allowanceProvision)) {
-                spnAllowanceProvision.setSelection(allowance.ordinal());
-            }
-        }
+
+        setupSpinners(internshipType, allowanceProvision);
 
         ivCompanyLogo.setImageResource(companyLogo);
         tvCompanyName.setText(companyName);
+
+        srbWorkEnvironment.setRating(workEnvironment);
+        srbMentorship.setRating(mentorship);
+        srbWorkload.setRating(workload);
+
         etReviewHeadline.setText(reviewHeadline);
         etReviewContent.setText(reviewContent);
     }
-    public void setupSpinners() {
-
+    public void setupSpinners(String internshipType, String allowanceProvision) {
 
         ArrayList<String> types = new ArrayList<>();
         ArrayList<String> allowances = new ArrayList<>();
@@ -98,6 +102,17 @@ public class EditReviewActivity extends AppCompatActivity {
 
         spnInternshipType.setAdapter(internshipTypeAdapter);
         spnAllowanceProvision.setAdapter(allowanceProvisionAdapter);
+
+        spnInternshipType.setSelection(types.indexOf(internshipType));
+        spnAllowanceProvision.setSelection(allowances.indexOf(allowanceProvision));
+    }
+
+    public void saveChanges(View v) {
+        // TODO: save changes to database and display back to ReviewPageActivity
+    }
+
+    public void discardChanges(View v) {
+        // TODO: discard changes and return to ReviewPageActivity
     }
 
     public InternshipType stringToInternshipType(String string) {
