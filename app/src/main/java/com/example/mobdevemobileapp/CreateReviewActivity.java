@@ -1,19 +1,49 @@
 package com.example.mobdevemobileapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
+
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CreateReviewActivity extends AppCompatActivity {
+    private FirestoreManager db;
+    private String currentUsername;
+    private SharedPreferences sharedPreferences;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_review);
+
+        db = FirestoreManager.getInstance();
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        currentUsername = sharedPreferences.getString("username", "");
+        user = new User(currentUsername);
+
+        db.getUser(currentUsername, task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    user = db.getUserFromDocument(document);
+                } else {
+                    Log.d("FirestoreManager", "No such document");
+                }
+            } else {
+                Log.d("FirestoreManager", "get failed with ", task.getException());
+            }
+        });
 
         setupSpinners();
 
@@ -21,8 +51,49 @@ public class CreateReviewActivity extends AppCompatActivity {
         Navbar.setupNavbar(this);
     }
 
+    public Review getReviewDetails(View v){
+        Review review = null;
+
+        SimpleRatingBar ratingBar = findViewById(R.id.srbWorkEnvironment);
+        SimpleRatingBar ratingBar2 = findViewById(R.id.srbMentorship);
+        SimpleRatingBar ratingBar3 = findViewById(R.id.srbWorkload);
+        Spinner spnInternshipType = findViewById(R.id.spnInternshipType);
+        Spinner spnAllowanceProvision = findViewById(R.id.spnAllowanceProvision);
+        EditText etHeadline = findViewById(R.id.etReviewHeadline);
+        EditText etContent = findViewById(R.id.etReviewContent);
+        //get the values from the views
+        float workEnvironmentRating = ratingBar.getRating();
+        float mentorshipRating = ratingBar2.getRating();
+        float workloadRating = ratingBar3.getRating();
+        InternshipType internshipType = Review.stringToInternshipType(spnInternshipType.getSelectedItem().toString());
+        AllowanceProvision allowanceProvision = Review.stringToAllowanceProvision(spnAllowanceProvision.getSelectedItem().toString());
+        String datePosted = new Date().toString();
+
+        float avgRating = (workEnvironmentRating + mentorshipRating + workloadRating) / 3;
+
+
+
+        String headline = etHeadline.getText().toString();
+        String content = etContent.getText().toString();
+
+
+        //create a new review object
+        review = new Review(avgRating, workEnvironmentRating, mentorshipRating, workloadRating, internshipType, allowanceProvision, headline, user, datePosted, content);
+        return review;
+
+    }
+
     public void postReview(View v) {
-        //do smth
+
+        Review review = getReviewDetails(v);
+        db.addReviewToUser(currentUsername, review, task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this, "Review added successfully", Toast.LENGTH_SHORT).show();
+                finish(); // Close the activity
+            } else {
+                Toast.makeText(this, "Failed to add review", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void discardReview(View v){

@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     // LoginActivity.java
+    // LoginActivity.java
     public void login(View view) {
         String username = ((TextView) findViewById(R.id.etUsername)).getText().toString();
         String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
@@ -76,16 +77,22 @@ public class LoginActivity extends AppCompatActivity {
         db.getUser(username, task -> {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
-                if (document.exists() && document.getString("password").equals(password)) {
-                    // Save login state and profile data
-                    SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putBoolean("isLoggedIn", true);
-                    editor.putString("username", username);
-                    editor.apply();
+                if (document.exists()) {
+                    String storedHashedPassword = document.getString("password");
+                    String inputHashedPassword = User.hashPassword(password);
+                    if (storedHashedPassword.equals(inputHashedPassword)) {
+                        // Save login state and profile data
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("isLoggedIn", true);
+                        editor.putString("username", username);
+                        editor.apply();
 
-                    // Navigate to MainPageActivity
-                    navigateToMainPage();
+                        // Navigate to MainPageActivity
+                        navigateToMainPage();
+                    } else {
+                        Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                 }
