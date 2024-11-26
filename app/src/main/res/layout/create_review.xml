@@ -214,5 +214,11 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    <!-- Navbar Section -->
+    <include
+        layout="@layout/navbar"
+        android:id="@+id/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 </ScrollView>
