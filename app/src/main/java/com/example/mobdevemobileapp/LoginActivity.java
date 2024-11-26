@@ -1,6 +1,8 @@
 // LoginActivity.java
 package com.example.mobdevemobileapp;
-
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.widget.ProgressBar;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,6 +12,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,6 +23,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 public class LoginActivity extends AppCompatActivity {
     private FirestoreManager db;
+    private AlertDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,10 +75,21 @@ public class LoginActivity extends AppCompatActivity {
     // LoginActivity.java
     // LoginActivity.java
     public void login(View view) {
+        // Show the loading screen
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.progress_dialog_login, null);
+
+        builder.setView(dialogView);
+        builder.setCancelable(false);
+        progressDialog = builder.create();
+        progressDialog.show();
+
         String username = ((TextView) findViewById(R.id.etUsername)).getText().toString();
         String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
 
         db.getUser(username, task -> {
+            progressDialog.dismiss();
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists()) {

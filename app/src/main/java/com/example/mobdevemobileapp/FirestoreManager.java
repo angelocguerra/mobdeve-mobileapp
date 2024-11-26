@@ -32,12 +32,11 @@ public class FirestoreManager {
         return db;
     }
 
-    public void addUser(String userId, Map<String, Object> user) {
-        db.collection("users").document(userId)
-                .set(user)
-                .addOnSuccessListener(aVoid -> Log.d("FirestoreManager", "DocumentSnapshot successfully written!"))
-                .addOnFailureListener(e -> Log.w("FirestoreManager", "Error writing document", e));
-    }
+    public void addUser(String userId, Map<String, Object> user, OnCompleteListener<Void> onCompleteListener) {
+    db.collection("users").document(userId)
+            .set(user)
+            .addOnCompleteListener(onCompleteListener);
+}
 
     public void getUser(String userName, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         db.collection("users").document(userName).get().addOnCompleteListener(onCompleteListener);
