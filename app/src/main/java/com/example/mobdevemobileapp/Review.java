@@ -64,7 +64,7 @@ public class Review {
         return output;
     }
 
-    public InternshipType stringToInternshipType(String string) {
+    public static InternshipType stringToInternshipType(String string) {
         InternshipType output = null;
         if(string.equals("Full Face to Face"))
             output = InternshipType.F2F;
@@ -77,7 +77,7 @@ public class Review {
 
     public void setAllowanceProvision(AllowanceProvision allowanceProvision) {this.allowanceProvision = allowanceProvision;}
 
-    public AllowanceProvision stringToAllowanceProvision(String string) {
+    public static AllowanceProvision stringToAllowanceProvision(String string) {
         AllowanceProvision output = null;
         if(string.equals("Less than 10k"))
             output = AllowanceProvision.LESS_THAN_TEN;

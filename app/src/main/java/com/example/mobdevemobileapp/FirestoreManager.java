@@ -100,18 +100,34 @@ public class FirestoreManager {
 
         //add test to reviews which is a field in the user document
         Map<String, Object> reviewMap = new HashMap<>();
-        reviewMap.put("title", "Review Title");
-        reviewMap.put("rating", "5");
-        reviewMap.put("content", "I hate this company");
+        reviewMap.put("workEnvironment", review.getWorkEnvironment());
+        reviewMap.put("mentorship", review.getMentorship());
+        reviewMap.put("workload", review.getWorkload());
+        reviewMap.put("internshipType", review.getInternshipType());
+        reviewMap.put("allowanceProvision", review.getAllowanceProvision());
+        reviewMap.put("reviewTitle", review.getReviewTitle());
+        reviewMap.put("user", review.getUser().getUsername());
+        reviewMap.put("datePosted", review.getDatePosted());
+        reviewMap.put("reviewText", review.getReviewText());
+        reviewMap.put("helpful", review.getHelpful());
+
         // Add other review fields as needed
 
         db.collection("users").document(username).collection("reviews")
-                .document("Review Title").set(reviewMap)
+                .document(review.getReviewTitle()).set(reviewMap)
                 .addOnCompleteListener(onCompleteListener);
 
     }
 
     public void fetchReviews(String username, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         db.collection("users").document(username).collection("reviews").get().addOnCompleteListener(onCompleteListener);
+    }
+
+    public User getUserFromDocument(DocumentSnapshot document) {
+        String username = document.getString("username");
+        String email = document.getString("email");
+        String password = document.getString("password");
+        String profileCreated = document.getString("profileCreated");
+        return new User(username, email, password, profileCreated);
     }
 }
