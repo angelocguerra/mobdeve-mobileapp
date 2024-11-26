@@ -22,7 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
-    private FirebaseFirestore db = FirestoreManager.getInstance();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
