@@ -1,31 +1,29 @@
 package com.example.mobdevemobileapp;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+public class ChangePassword extends AppCompatActivity {
 
-public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.profile_page);
-
+        setContentView(R.layout.change_password_page);
         // Set up the navbar
         Navbar.setupNavbar(this);
-        // Reference to the Profile Settings button
-        Button btnProfileSettings = findViewById(R.id.btnProfileSettings);
 
-        // Set OnClickListener for navigation
-        btnProfileSettings.setOnClickListener(new View.OnClickListener() {
+        Button btnChangeUsername = findViewById(R.id.btnChangePassword);
+
+        btnChangeUsername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ProfileActivity.this, EditProfile.class);
+                Intent intent = new Intent(ChangePassword.this, ProfileActivity.class);
                 startActivity(intent);
             }
         });
-
     }
 }
+
+

@@ -1,16 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_smoke">
 
+    <!-- Main Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="60dp"
+    android:padding="16dp">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <!-- Header -->
         <LinearLayout
@@ -104,7 +110,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srb_starSize="22dp"
-                app:srb_numberOfStars="5" app:srb_fillColor="@color/star_fill" app:srb_borderColor="@color/star_border"
+                app:srb_numberOfStars="5"
+                app:srb_fillColor="@color/star_fill"
+                app:srb_borderColor="@color/star_border"
                 app:srb_stepSize="1" />
 
             <TextView
@@ -214,11 +222,14 @@
         </LinearLayout>
 
     </LinearLayout>
-    <!-- Navbar Section -->
-    <include
-        layout="@layout/navbar"
-        android:id="@+id/navbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
 </ScrollView>
+
+    <!-- Sticky Navbar -->
+<include
+layout="@layout/navbar"
+android:id="@+id/navbar"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+android:layout_gravity="bottom" />
+
+    </FrameLayout>

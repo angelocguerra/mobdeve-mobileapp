@@ -96,7 +96,8 @@
             android:textColor="@color/french_blue"
             android:textSize="16sp"
             android:fontFamily="@font/inter_medium"
-            android:layout_marginTop="10dp" />
+            android:layout_marginTop="10dp"
+            />
 
     </LinearLayout>
 
