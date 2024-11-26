@@ -21,8 +21,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-public class LoginActivity extends AppCompatActivity {
 
+import com.google.firebase.firestore.DocumentSnapshot;
+
+public class LoginActivity extends AppCompatActivity {
+    private FirestoreManager db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +33,7 @@ public class LoginActivity extends AppCompatActivity {
         // Make "Register" clickable
         TextView tvNoAccount = findViewById(R.id.tvNoAccount);
         String text = "Don't have an account? Register";
+        db = FirestoreManager.getInstance();
 
         SpannableString spannableString = new SpannableString(text);
 
@@ -68,25 +72,25 @@ public class LoginActivity extends AppCompatActivity {
 
 
     // Method linked to the button via android:onClick
-    public void navigateToMainPage(View view) {
-        boolean isLoginSuccessful = validateLogin();
+    public void login(View view) {
+        String username = ((TextView) findViewById(R.id.etUsername)).getText().toString();
+        String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
 
-        if (isLoginSuccessful) {
-            // Navigate to MainPageActivity
-            Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
-            startActivity(intent);
-
-            // Optionally finish LoginActivity to prevent going back to it
-            finish();
-        } else {
-            // Show an error message
-            Toast.makeText(this, "Invalid login credentials", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private boolean validateLogin() {
-        // Placeholder for actual validation logic
-        return true; // For now, assume login is always successful
+        db.getUser(username, task -> {
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists() && document.getString("password").equals(password)) {
+                    // Navigate to MainPageActivity
+                    Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
+                    startActivity(intent);
+                    finish(); // Finish LoginActivity to prevent going back to it
+                } else {
+                    Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(this, "Login failed. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
 
