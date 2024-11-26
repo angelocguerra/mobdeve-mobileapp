@@ -1,33 +1,38 @@
+// SignUpActivity.java
 package com.example.mobdevemobileapp;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SignUpActivity extends AppCompatActivity {
+    private FirestoreManager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup_page);
 
-
+        db = FirestoreManager.getInstance();
         TextView tvAlreadyHaveAccount = findViewById(R.id.tvAlreadyHaveAccount);
 
         // Create a SpannableString for the text
@@ -56,14 +61,60 @@ public class SignUpActivity extends AppCompatActivity {
         tvAlreadyHaveAccount.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
     }
 
-
-
     public void signUp(View view) {
         // Validate sign-up logic here (e.g., Firebase Authentication)
+        //get user input
+        String fullName = ((TextView) findViewById(R.id.etFullName)).getText().toString();
+        String username = ((TextView) findViewById(R.id.etUsername)).getText().toString();
+        String email = ((TextView) findViewById(R.id.etEmail)).getText().toString();
+        String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
+        String confirmPassword = ((TextView) findViewById(R.id.etConfirmPassword)).getText().toString();
 
-        // On successful account creation, navigate to login
-        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-        startActivity(intent);
+        Date date_today = new  Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
+        String dateWithoutTime = formatter.format(date_today);
+        //remove time, only date
+
+
+
+
+        if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        AtomicBoolean userExists = new AtomicBoolean(false);
+
+        FirestoreManager.getInstance().checkIfUserExists("username", username, task -> {
+            if (task.isSuccessful() && !task.getResult().isEmpty()) {
+                userExists.set(true);
+                Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
+            } else {
+                FirestoreManager.getInstance().checkIfUserExists("email", email, emailTask -> {
+                    if (emailTask.isSuccessful() && !emailTask.getResult().isEmpty()) {
+                        userExists.set(true);
+                        Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show();
+                    } else {
+                        if (!userExists.get()) {
+                            // Add user to Firestore
+                            Map<String, Object> user = new HashMap<>();
+                            user.put("fullName", fullName);
+                            user.put("username", username);
+                            user.put("email", email);
+                            user.put("password", password);
+                            user.put("date_created", dateWithoutTime);
+                            //add empty array for user's reviews
+                            user.put("reviews", new HashMap<>());
+
+                            FirestoreManager.getInstance().addUser(username, user);
+
+                            // On successful account creation, navigate to login
+                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                        }
+                    }
+                });
+            }
+        });
     }
 }
-
