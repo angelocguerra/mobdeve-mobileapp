@@ -1,0 +1,8 @@
+package com.example.mobdevemobileapp;
+
+public enum AllowanceProvision {
+    LESS_THAN_TEN, TEN_TWENTY, TWENTY_THIRTY,
+    THIRTY_FORTY, FORTY_FIFTY, FIFTY_SIXTY,
+    SIXTY_SEVENTY, SEVENTY_EIGHTY, EIGHTY_NINETY,
+    NINETY_HUNDRED, MORE_THAN_HUNDRED
+}
