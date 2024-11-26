@@ -36,5 +36,9 @@ public class MainPageActivity extends AppCompatActivity {
 
         CompanyAdapter companyAdapter = new CompanyAdapter(companies, MainPageActivity.this);
         recyclerView.setAdapter(companyAdapter);
+
+        Navbar.setupNavbar(this);
+
     }
+
 }

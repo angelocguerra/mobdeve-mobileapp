@@ -2,6 +2,7 @@ package com.example.mobdevemobileapp;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 public class Navbar {
@@ -18,6 +19,8 @@ public class Navbar {
 
         activity.findViewById(R.id.nav_search).setOnClickListener(view -> {
             if (!(activity instanceof SearchActivity)) {
+                Log.d("MainPageActivity", "onCreate called");
+
                 Intent intent = new Intent(activity, SearchActivity.class);
                 activity.startActivity(intent);
                 activity.finish();
