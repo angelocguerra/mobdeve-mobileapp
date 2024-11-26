@@ -33,31 +33,28 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".LoginActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SignUpActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SearchActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CreateReviewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".EditProfile"
-            android:exported="false" />
-        <activity
-            android:name=".ChangePassword"
-            android:exported="false" />
-        <activity
-            android:name=".ChangeUsername"
-            android:exported="false" />
-
+        <activity android:name=".LoginActivity"
+            android:exported="false"/>
+        <activity android:name=".SignUpActivity"
+            android:exported="false"/>
+        <activity android:name=".ProfileActivity"
+            android:exported="false"/>
+        <activity android:name=".SearchActivity"
+            android:exported="false"/>
+        <activity android:name=".CreateReviewActivity"
+            android:exported="false"/>
+        <activity android:name=".EditProfile"
+            android:exported="false"/>
+        <activity android:name=".ChangePassword"
+            android:exported="false"/>
+        <activity android:name=".ChangeUsername"
+            android:exported="false"/>
+        <activity android:name=".ForgotPassword"
+            android:exported="false"/>
+        <activity android:name=".ResetPassword"
+            android:exported="false"/>
+        <activity android:name=".EnterCode"
+            android:exported="false"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

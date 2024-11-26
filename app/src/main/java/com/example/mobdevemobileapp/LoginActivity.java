@@ -61,6 +61,10 @@ public class LoginActivity extends AppCompatActivity {
         tvNoAccount.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
 
     }
+    public void goToForgotPassword(View view) {
+        Intent intent = new Intent(LoginActivity.this, ForgotPassword.class);
+        startActivity(intent);
+    }
 
 
     // Method linked to the button via android:onClick

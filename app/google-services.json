@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "570255430294",
+    "project_id": "mobdev-2d303",
+    "storage_bucket": "mobdev-2d303.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570255430294:android:30a6c7c275a371c678e8b7",
+        "android_client_info": {
+          "package_name": "com.example.mobdevemobileapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQDkcemIb2nNJlFHOvT-3TRcSJ78ObyvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:570255430294:android:c943fef7807a127c78e8b7",
+        "android_client_info": {
+          "package_name": "com.mobdev.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQDkcemIb2nNJlFHOvT-3TRcSJ78ObyvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
