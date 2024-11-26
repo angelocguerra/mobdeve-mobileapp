@@ -1,39 +1,42 @@
+// LoginActivity.java
 package com.example.mobdevemobileapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.StyleSpan;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.google.firebase.firestore.DocumentSnapshot;
 
 public class LoginActivity extends AppCompatActivity {
     private FirestoreManager db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_page);
+
+        db = FirestoreManager.getInstance();
+
+        // Check if user is already logged in
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        if (sharedPreferences.getBoolean("isLoggedIn", false)) {
+            navigateToMainPage();
+        }
+
         // Make "Register" clickable
         TextView tvNoAccount = findViewById(R.id.tvNoAccount);
         String text = "Don't have an account? Register";
-        db = FirestoreManager.getInstance();
 
         SpannableString spannableString = new SpannableString(text);
 
@@ -63,15 +66,9 @@ public class LoginActivity extends AppCompatActivity {
         // Apply the SpannableString to the TextView
         tvNoAccount.setText(spannableString);
         tvNoAccount.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
-
-    }
-    public void goToForgotPassword(View view) {
-        Intent intent = new Intent(LoginActivity.this, ForgotPassword.class);
-        startActivity(intent);
     }
 
-
-    // Method linked to the button via android:onClick
+    // LoginActivity.java
     public void login(View view) {
         String username = ((TextView) findViewById(R.id.etUsername)).getText().toString();
         String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
@@ -80,10 +77,15 @@ public class LoginActivity extends AppCompatActivity {
             if (task.isSuccessful()) {
                 DocumentSnapshot document = task.getResult();
                 if (document.exists() && document.getString("password").equals(password)) {
+                    // Save login state and profile data
+                    SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPreferences.edit();
+                    editor.putBoolean("isLoggedIn", true);
+                    editor.putString("username", username);
+                    editor.apply();
+
                     // Navigate to MainPageActivity
-                    Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
-                    startActivity(intent);
-                    finish(); // Finish LoginActivity to prevent going back to it
+                    navigateToMainPage();
                 } else {
                     Toast.makeText(this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                 }
@@ -92,5 +94,10 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
-}
 
+    private void navigateToMainPage() {
+        Intent intent = new Intent(LoginActivity.this, MainPageActivity.class);
+        startActivity(intent);
+        finish(); // Finish LoginActivity to prevent going back to it
+    }
+}

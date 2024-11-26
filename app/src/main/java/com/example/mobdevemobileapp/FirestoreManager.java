@@ -43,4 +43,8 @@ public class FirestoreManager {
     public void checkIfUserExists(String field, String value, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         db.collection("users").whereEqualTo(field, value).get().addOnCompleteListener(onCompleteListener);
     }
+    public void getUserProfile(String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
+        db.collection("users").document(userId).get().addOnCompleteListener(onCompleteListener);
+    }
+
 }

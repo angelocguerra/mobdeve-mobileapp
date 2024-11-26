@@ -16,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -65,6 +69,15 @@ public class SignUpActivity extends AppCompatActivity {
         String email = ((TextView) findViewById(R.id.etEmail)).getText().toString();
         String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
         String confirmPassword = ((TextView) findViewById(R.id.etConfirmPassword)).getText().toString();
+
+        Date date_today = new  Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("MMMM dd, yyyy");
+        String dateWithoutTime = formatter.format(date_today);
+        //remove time, only date
+
+
+
+
         if (!password.equals(confirmPassword)) {
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return;
@@ -88,6 +101,10 @@ public class SignUpActivity extends AppCompatActivity {
                             user.put("fullName", fullName);
                             user.put("username", username);
                             user.put("email", email);
+                            user.put("password", password);
+                            user.put("date_created", dateWithoutTime);
+                            //add empty array for user's reviews
+                            user.put("reviews", new HashMap<>());
 
                             FirestoreManager.getInstance().addUser(username, user);
 
