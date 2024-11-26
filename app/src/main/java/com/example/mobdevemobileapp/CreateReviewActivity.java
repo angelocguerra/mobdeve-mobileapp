@@ -1,19 +1,31 @@
 package com.example.mobdevemobileapp;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 public class CreateReviewActivity extends AppCompatActivity {
+    private FirestoreManager db;
+    private String currentUsername;
+    private SharedPreferences sharedPreferences;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_review);
+
+        db = FirestoreManager.getInstance();
+        sharedPreferences = getSharedPreferences("MyAppPrefs", MODE_PRIVATE);
+        currentUsername = sharedPreferences.getString("username", "");
+        user = new User(currentUsername);
 
         setupSpinners();
 
@@ -22,7 +34,16 @@ public class CreateReviewActivity extends AppCompatActivity {
     }
 
     public void postReview(View v) {
-        //do smth
+
+        Review review = null;
+        db.addReviewToUser(currentUsername, review, task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this, "Review added successfully", Toast.LENGTH_SHORT).show();
+                finish(); // Close the activity
+            } else {
+                Toast.makeText(this, "Failed to add review", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     public void discardReview(View v){
