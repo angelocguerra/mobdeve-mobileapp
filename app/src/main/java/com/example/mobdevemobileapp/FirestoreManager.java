@@ -64,4 +64,8 @@ public class FirestoreManager {
                 .addOnCompleteListener(onCompleteListener);
 
     }
+
+    public void fetchReviews(String username, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("users").document(username).collection("reviews").get().addOnCompleteListener(onCompleteListener);
+    }
 }
