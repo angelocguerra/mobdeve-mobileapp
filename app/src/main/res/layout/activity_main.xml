@@ -61,7 +61,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="35dp"
         android:fontFamily="@font/inter_semibold"
-        android:text="Sailing through coporate slavery"
+        android:text="Sailing through corporate slavery"
         android:textAlignment="center"
         android:textColor="@color/pale_peach"
         android:textSize="20sp"

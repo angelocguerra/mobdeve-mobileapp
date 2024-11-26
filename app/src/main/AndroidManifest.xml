@@ -46,6 +46,12 @@
             android:exported="false"/>
         <activity android:name=".ChangeUsername"
             android:exported="false"/>
+        <activity android:name=".ForgotPassword"
+            android:exported="false"/>
+        <activity android:name=".ResetPassword"
+            android:exported="false"/>
+        <activity android:name=".EnterCode"
+            android:exported="false"/>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
