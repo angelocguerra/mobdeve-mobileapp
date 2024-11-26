@@ -9,6 +9,7 @@ import android.text.SpannableString;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -84,11 +85,15 @@ public class SignUpActivity extends AppCompatActivity {
         FirestoreManager.getInstance().checkIfUserExists("username", username, task -> {
             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                 userExists.set(true);
+                EditText etUsername = findViewById(R.id.etUsername);
+                etUsername.setError("Username already exists")
                 Toast.makeText(this, "Username already exists", Toast.LENGTH_SHORT).show();
             } else {
                 FirestoreManager.getInstance().checkIfUserExists("email", email, emailTask -> {
                     if (emailTask.isSuccessful() && !emailTask.getResult().isEmpty()) {
                         userExists.set(true);
+                        EditText etEmail = findViewById(R.id.etEmail);
+                        etEmail.setError("Email already exists");
                         Toast.makeText(this, "Email already exists", Toast.LENGTH_SHORT).show();
                     } else {
                         if (!userExists.get()) {
