@@ -91,7 +91,8 @@
         app:backgroundTint="@android:color/transparent"
         app:cornerRadius="20dp"
         app:strokeColor="@color/pale_peach"
-        app:strokeWidth="2.5dp" />
+        app:strokeWidth="2.5dp"
+        android:onClick="goToSignUp" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/login_button"
@@ -109,25 +110,8 @@
         app:backgroundTint="@android:color/transparent"
         app:cornerRadius="20dp"
         app:strokeColor="#FFE3B3"
-        app:strokeWidth="2.5dp" />
+        app:strokeWidth="2.5dp"
+        android:onClick="goToLogin"/>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/test_button"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="15dp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp"
-        android:fontFamily="@font/inter_bold"
-        android:onClick="goToMainPage"
-        android:text="Go to Main Page"
-        android:textColor="#FFE3B3"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:backgroundTint="@android:color/transparent"
-        app:cornerRadius="20dp"
-        app:strokeColor="#FFE3B3"
-        app:strokeWidth="2.5dp" />
 
 </LinearLayout>

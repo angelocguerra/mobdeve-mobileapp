@@ -64,11 +64,11 @@
             android:gravity="center_vertical">
 
             <ImageView
-                android:layout_width="24dp"
+                android:layout_width="20dp"
                 android:layout_height="24dp"
-                app:srcCompat="@drawable/ic_search"
+                android:layout_marginEnd="8dp"
                 android:contentDescription="Search Icon"
-                android:layout_marginEnd="8dp" />
+                app:srcCompat="@drawable/ic_search" />
 
             <EditText
                 android:id="@+id/etCompanyOrIndustry"

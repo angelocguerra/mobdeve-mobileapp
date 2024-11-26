@@ -8,6 +8,7 @@ import android.text.SpannableStringBuilder;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -29,9 +30,14 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
     }
-
-    public void goToMainPage(View v) {
-        Intent intent = new Intent(this, MainPageActivity.class);
+    public void goToLogin(View view) {
+        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         startActivity(intent);
     }
+
+    public void goToSignUp(View view) {
+        Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+        startActivity(intent);
+    }
+
 }

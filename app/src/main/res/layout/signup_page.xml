@@ -109,7 +109,8 @@
             android:textSize="16sp"
             android:fontFamily="@font/inter_bold"
             android:backgroundTint="@color/french_blue"
-            android:layout_marginBottom="10dp" />
+            android:layout_marginBottom="10dp"
+            android:onClick="signUp"/>
 
     </LinearLayout>
 
@@ -119,10 +120,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Already have an account? Log In"
-        android:textColor="@color/grey"
         android:textSize="14sp"
         android:fontFamily="@font/inter_medium"
         android:gravity="center" />
+
 
 </LinearLayout>
