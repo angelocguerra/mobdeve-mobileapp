@@ -86,8 +86,19 @@ public class LoginActivity extends AppCompatActivity {
         progressDialog = builder.create();
         progressDialog.show();
 
-        String username = ((TextView) findViewById(R.id.etUsername)).getText().toString();
-        String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
+        String username = ((TextView) findViewById(R.id.etUsername)).getText().toString().trim();
+        String password = ((TextView) findViewById(R.id.etPassword)).getText().toString().trim();
+        if (username.trim().isEmpty() || password.trim().isEmpty()) {
+            if (username.trim().isEmpty()) {
+                ((TextView) findViewById(R.id.etUsername)).setError("Username is required");
+            }
+            if (password.trim().isEmpty()) {
+                ((TextView) findViewById(R.id.etPassword)).setError("Password is required");
+            }
+            Toast.makeText(this, "Username and Password fields cannot be empty", Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+            return;
+        }
 
         db.getUser(username, task -> {
             progressDialog.dismiss();
