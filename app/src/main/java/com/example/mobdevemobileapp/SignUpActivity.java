@@ -81,7 +81,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Validate sign-up logic here (e.g., Firebase Authentication)
         // Get user input
-        String fullName = ((TextView) findViewById(R.id.etFullName)).getText().toString();
+
         String username = ((TextView) findViewById(R.id.etUsername)).getText().toString();
         String email = ((TextView) findViewById(R.id.etEmail)).getText().toString();
         String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
@@ -121,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             // Add user to Firestore
                             Map<String, Object> user = new HashMap<>();
-                            user.put("fullName", fullName);
+
                             user.put("username", username);
                             user.put("email", email);
                             user.put("password", hashedPassword);
