@@ -38,14 +38,13 @@ public class ProfileActivity extends AppCompatActivity {
                     DocumentSnapshot document = task.getResult();
                     if (document.exists()) {
                         // Set profile data in views
-                        String fullName = document.getString("fullName");
                         String join_date = document.getString("date_created");
                         String formatted_join_dateString = "Joined on " + join_date;
 
                         TextView tvUsername = findViewById(R.id.tvUsername);
                         TextView tvJoinDate = findViewById(R.id.tvJoinDate);
 
-                        tvUsername.setText(fullName);
+                        tvUsername.setText(username);
                         tvJoinDate.setText(formatted_join_dateString);
                     } else {
                         Toast.makeText(this, "Profile data not found", Toast.LENGTH_SHORT).show();
@@ -60,8 +59,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Set up the navbar
         Navbar.setupNavbar(this);
 
-        // Set up the navbar
-        Navbar.setupNavbar(this);
+
         // Reference to the Profile Settings button
         Button btnProfileSettings = findViewById(R.id.btnProfileSettings);
 
@@ -80,11 +78,10 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         ArrayList<Review> reviews = fetchReviews(username);
-
         ArrayList<Company> companies = fetchCompanies(reviews);
 
-        ProfileReviewsAdapter profileReviewsAdapter = new ProfileReviewsAdapter(reviews, companies, this);
-        recyclerView.setAdapter(profileReviewsAdapter);
+        ProfileReviewsAdapter adapter = new ProfileReviewsAdapter(reviews, companies, this);
+        recyclerView.setAdapter(adapter);
     }
 
     public ArrayList<Review> fetchReviews(String username) {
@@ -92,14 +89,44 @@ public class ProfileActivity extends AppCompatActivity {
         db.fetchReviews(username, task -> {
             if(task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
-                    try {
-                        if (document.exists()) {
-                            Review review = document.toObject(Review.class);
-                            reviews.add(review);
-                        }
-                    } catch (Exception e) {
-                        // Handle the exception if needed, or simply ignore it
-                        Log.e("emptyReviewsList", "Reviews are empty", e);
+                    if(document.exists()) {
+                        String companyName = document.getString("companyName");
+                        String reviewTitle = document.getString("reviewTitle");
+                        String reviewText = document.getString("reviewText");
+                        String datePosted = document.getString("datePosted");
+
+                        int image = R.drawable.default_company_image; // replace with company image
+
+                        String uuid = document.getString("uuid");
+
+                        float workEnvironment = Float.parseFloat(String.valueOf(document.getDouble("workEnvironment")));
+                        float mentorship = Float.parseFloat(String.valueOf(document.getDouble("mentorship")));
+                        float workload = Float.parseFloat(String.valueOf(document.getDouble("workload")));
+
+                        float ratingScore = (workEnvironment + mentorship + workload) / 3;
+
+
+                        InternshipType internshipType = InternshipType.valueOf(document.getString("internshipType"));
+                        AllowanceProvision allowanceProvision = AllowanceProvision.valueOf(document.getString("allowanceProvision"));
+
+                        // Display all info to log
+                        Log.d("fetchReviews", "companyName: " + companyName);
+                        Log.d("fetchReviews", "reviewTitle: " + reviewTitle);
+                        Log.d("fetchReviews", "reviewText: " + reviewText);
+                        Log.d("fetchReviews", "datePosted: " + datePosted);
+                        Log.d("fetchReviews", "uuid: " + uuid);
+                        Log.d("fetchReviews", "workEnvironment: " + workEnvironment);
+                        Log.d("fetchReviews", "mentorship: " + mentorship);
+                        Log.d("fetchReviews", "workload: " + workload);
+                        Log.d("fetchReviews", "ratingScore: " + ratingScore);
+                        Log.d("fetchReviews", "internshipType: " + internshipType);
+                        Log.d("fetchReviews", "allowanceProvision: " + allowanceProvision);
+
+
+                        Review review = new Review(ratingScore, workEnvironment, mentorship, workload,
+                                companyName, internshipType, allowanceProvision, uuid, reviewTitle, new User(username), datePosted, reviewText);
+
+                        reviews.add(review);
                     }
                 }
             }
@@ -111,16 +138,22 @@ public class ProfileActivity extends AppCompatActivity {
         ArrayList<Company> companies = new ArrayList<>();
         for (Review review: reviews) {
             db.getCompanyDetailsGivenReview(review, task -> {
-                if (task.isSuccessful()) {
-                    try {
-                        DocumentSnapshot document = task.getResult();
-                        if (document.exists()) {
-                            Company company = document.toObject(Company.class);
-                            companies.add(company);
-                        }
-                    } catch (Exception e) {
-                        // Handle the exception if needed, or simply ignore it
-                        Log.e("fetchCompanies", "Error adding company", e);
+                if(task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        String companyName = document.getString("companyName");
+                        String companyIndustry = document.getString("companyIndustry");
+                        int image = R.drawable.default_company_image; // replace with company image
+                        String companyLocation = document.getString("companyLocation");
+                        float rating = Float.parseFloat(String.valueOf(document.getDouble("rating")));
+                        // Display all info to log
+                        Log.d("fetchCompanies", "companyName: " + companyName);
+                        Log.d("fetchCompanies", "companyIndustry: " + companyIndustry);
+                        Log.d("fetchCompanies", "image: " + image);
+                        Log.d("fetchCompanies", "companyLocation: " + companyLocation);
+                        Log.d("fetchCompanies", "rating: " + rating);
+                        Company company = new Company(companyIndustry, companyName, image, companyLocation, rating);
+                        companies.add(company);
                     }
                 }
             });

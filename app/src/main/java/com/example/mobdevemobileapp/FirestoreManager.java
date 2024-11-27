@@ -1,4 +1,3 @@
-// FirestoreManager.java
 package com.example.mobdevemobileapp;
 
 import android.util.Log;
@@ -170,39 +169,39 @@ public class FirestoreManager {
     }
 
     public void editReview(String reviewTitle, User user, Review review, OnCompleteListener<Void> onCompleteListener) {
-    db.collection("reviews").document(reviewTitle).get().addOnCompleteListener(task -> {
-        if (task.isSuccessful() && task.getResult().exists()) {
-            String reviewAuthor = task.getResult().getString("user");
-            if (reviewAuthor != null && reviewAuthor.equals(user.getUsername())) {
-                Map<String, Object> reviewMap = new HashMap<>();
-                reviewMap.put("workEnvironment", review.getWorkEnvironment());
-                reviewMap.put("mentorship", review.getMentorship());
-                reviewMap.put("workload", review.getWorkload());
-                reviewMap.put("internshipType", review.getInternshipType());
-                reviewMap.put("allowanceProvision", review.getAllowanceProvision());
-                reviewMap.put("reviewTitle", review.getReviewTitle());
-                reviewMap.put("user", review.getUser().getUsername());
-                reviewMap.put("datePosted", review.getDatePosted());
-                reviewMap.put("reviewText", review.getReviewText());
-                reviewMap.put("helpful", review.getHelpful());
+        db.collection("reviews").document(reviewTitle).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                String reviewAuthor = task.getResult().getString("user");
+                if (reviewAuthor != null && reviewAuthor.equals(user.getUsername())) {
+                    Map<String, Object> reviewMap = new HashMap<>();
+                    reviewMap.put("workEnvironment", review.getWorkEnvironment());
+                    reviewMap.put("mentorship", review.getMentorship());
+                    reviewMap.put("workload", review.getWorkload());
+                    reviewMap.put("internshipType", review.getInternshipType());
+                    reviewMap.put("allowanceProvision", review.getAllowanceProvision());
+                    reviewMap.put("reviewTitle", review.getReviewTitle());
+                    reviewMap.put("user", review.getUser().getUsername());
+                    reviewMap.put("datePosted", review.getDatePosted());
+                    reviewMap.put("reviewText", review.getReviewText());
+                    reviewMap.put("helpful", review.getHelpful());
 
-                // Add other review fields as needed
-                db.collection("reviews").document(reviewTitle).delete().addOnCompleteListener(deleteTask -> {
-                    if (deleteTask.isSuccessful()) {
-                        db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
-                                .addOnCompleteListener(onCompleteListener);
-                    } else {
-                        onCompleteListener.onComplete(Tasks.forException(deleteTask.getException()));
-                    }
-                });
+                    // Add other review fields as needed
+                    db.collection("reviews").document(reviewTitle).delete().addOnCompleteListener(deleteTask -> {
+                        if (deleteTask.isSuccessful()) {
+                            db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
+                                    .addOnCompleteListener(onCompleteListener);
+                        } else {
+                            onCompleteListener.onComplete(Tasks.forException(deleteTask.getException()));
+                        }
+                    });
+                } else {
+                    onCompleteListener.onComplete(Tasks.forException(new Exception("User is not the author of the review")));
+                }
             } else {
-                onCompleteListener.onComplete(Tasks.forException(new Exception("User is not the author of the review")));
+                onCompleteListener.onComplete(Tasks.forException(new Exception("Review does not exist")));
             }
-        } else {
-            onCompleteListener.onComplete(Tasks.forException(new Exception("Review does not exist")));
-        }
-    });
-}
+        });
+    }
 
 
     public User getUserFromDocument(DocumentSnapshot document) {
@@ -266,6 +265,12 @@ public class FirestoreManager {
             image = R.drawable.default_company_image; // Replace with your default drawable resource ID
         }
         return new Company(companyIndustry, companyName, image, companyLocation, rating);
+    }
+
+    public void deleteUser(String username, OnCompleteListener<Void> onCompleteListener) {
+        db.collection("users").document(username)
+                .delete()
+                .addOnCompleteListener(onCompleteListener);
     }
 
 

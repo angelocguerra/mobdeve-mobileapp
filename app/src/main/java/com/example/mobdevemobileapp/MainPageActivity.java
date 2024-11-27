@@ -45,8 +45,10 @@ public class MainPageActivity extends AppCompatActivity {
                         String companyLocation = document.getString("companyLocation");
                         float rating = Float.parseFloat(String.valueOf(document.getDouble("rating")));
                         int image;
-                        if (document.contains("companyImage") && document.get("companyImage") != null) {
-                            image = document.getLong("companyImage").intValue(); // Assuming it's stored as a long in Firestore
+                        if (document.contains("image") && document.get("image") != null) {
+                            String image_name = document.getString("image") ;// Assuming it's stored as a long in Firestore
+                            image = getResources().getIdentifier(image_name, "drawable", getPackageName());
+
                         } else {
                             image = R.drawable.default_company_image; // Replace with your default drawable resource ID
                         }

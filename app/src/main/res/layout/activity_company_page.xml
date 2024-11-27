@@ -80,22 +80,13 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvCompanyIndustry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_semibold"
-                    android:textColor="@color/french_blue"
-                    android:textSize="14sp"
-                    android:text="Sample Industry"/>
-
-                <TextView
-                    android:id="@+id/tvCompanyName"
+                    android:id="@+id/tvCompanyTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@color/french_blue"
                     android:textSize="20sp"
-                    android:text="Sample Name"/>
+                    android:text="Company Name"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -117,7 +108,7 @@
                         android:fontFamily="@font/inter"
                         android:textColor="@color/grey"
                         android:textSize="12sp"
-                        android:text="Sample Location"/>
+                        android:text="Location"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -214,7 +205,6 @@
             android:layout_marginStart="25dp"
             android:layout_marginEnd="25dp"
             android:layout_marginBottom="10dp" />
-
 
     </LinearLayout>
 </ScrollView>
