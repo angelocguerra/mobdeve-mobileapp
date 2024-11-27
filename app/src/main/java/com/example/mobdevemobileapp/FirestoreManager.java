@@ -267,6 +267,12 @@ public class FirestoreManager {
         return new Company(companyIndustry, companyName, image, companyLocation, rating);
     }
 
+    public void deleteUser(String username, OnCompleteListener<Void> onCompleteListener) {
+        db.collection("users").document(username)
+                .delete()
+                .addOnCompleteListener(onCompleteListener);
+    }
+
 
 
 }
