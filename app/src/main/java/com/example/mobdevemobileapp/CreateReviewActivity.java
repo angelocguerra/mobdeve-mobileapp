@@ -144,9 +144,21 @@ public class CreateReviewActivity extends AppCompatActivity {
         });
     }
 
-    public void discardReview(View v){
-        // do smth
+    public void discardReview(View v) {
+        // Show a confirmation dialog to the user
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("Discard Review")
+                .setMessage("Are you sure you want to discard this review? Your changes will not be saved.")
+                .setPositiveButton("Yes", (dialog, which) -> {
+                    // Navigate back to the previous activity
+                    Intent intent = new Intent(CreateReviewActivity.this, MainPageActivity.class);
+                    startActivity(intent);
+                    finish(); // Close the current activity
+                })
+                .setNegativeButton("No", null) // Dismiss the dialog
+                .show();
     }
+
 
     public void setupSpinners() {
         Spinner spnInternshipType = findViewById(R.id.spnInternshipType);
