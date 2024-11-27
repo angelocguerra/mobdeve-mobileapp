@@ -18,12 +18,10 @@ import java.util.ArrayList;
 
 public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAdapter.ViewHolder> {
     ArrayList<Review> reviews;
-    ArrayList<Company> companies;
     ProfileActivity activity;
 
-    public ProfileReviewsAdapter(ArrayList<Review> reviews, ArrayList<Company> companies, ProfileActivity activity) {
+    public ProfileReviewsAdapter(ArrayList<Review> reviews, ProfileActivity activity) {
         this.reviews = reviews;
-        this.companies = companies;
         this.activity = activity;
     }
 
@@ -31,53 +29,56 @@ public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAd
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.item_user_review, parent, false);
+        View view = layoutInflater.inflate(R.layout.item_review, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ProfileReviewsAdapter.ViewHolder holder, int position) {
         final Review review = reviews.get(position);
-        final Company company = companies.get(position);
 
-        holder.tvUserReviewRating.setText(String.valueOf(review.getRatingScore()));
-        holder.tvUserReviewIndustry.setText(String.valueOf(company.getCompanyIndustry()));
-        holder.tvUserReviewCompanyName.setText(String.valueOf(company.getCompanyName()));
-        holder.tvUserReviewTitle.setText(String.valueOf(review.getReviewTitle()));
-        holder.tvUserReviewAuthor.setText(String.valueOf(review.getUser().getUsername()));
-        holder.tvUserReviewDate.setText(String.valueOf(review.getDatePosted()));
-        holder.tvReviewContent.setText(String.valueOf(review.getReviewText()));
-        holder.ivReviewCompanyLogo.setImageResource(company.getCompanyImage());
-        holder.srbUserReviewRating.setRating(review.getRatingScore());
+        // Display to log all values
+        Log.d("showReview", "Rating: " + review.getRatingScore());
+        Log.d("showReview", "Title: " + review.getReviewTitle());
+        Log.d("showReview", "Author: " + review.getUser().getUsername());
+        Log.d("showReview", "Content: " + review.getReviewText());
+        Log.d("showReview", "Helpful: " + review.getHelpful());
+
+        holder.tvReviewRating.setText(String.valueOf(review.getRatingScore()));
+        holder.tvReviewTitle.setText(review.getReviewTitle());
+        holder.tvReviewAuthor.setText(review.getUser().getUsername());
+//        holder.tvReviewDate.setText(review.getDatePosted());
+        holder.tvReviewContent.setText(review.getReviewText());
+        holder.srbReviewRating.setRating(review.getRatingScore());
 
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(activity, ReviewPageActivity.class);
-                intent.putExtra("companyName", company.getCompanyName());
-                intent.putExtra("companyLocation", company.getCompanyLocation());
-                intent.putExtra("companyImage", company.getCompanyImage());
-                intent.putExtra("companyIndustry", company.getCompanyIndustry());
-
-                intent.putExtra("workEnvironment", review.getWorkEnvironment());
-                intent.putExtra("mentorship", review.getMentorship());
-                intent.putExtra("workload", review.getWorkload());
-                intent.putExtra("internshipType", review.convertInternshipType(review.getInternshipType()));
-//                Log.d("showInternship", "Internship Type: " + review.convertInternshipType(review.getInternshipType()));
-                intent.putExtra("allowanceProvision", review.convertAllowanceProvision(review.getAllowanceProvision()));
-//                Log.d("showAllowance", "Allowance Provision: " + review.convertAllowanceProvision(review.getAllowanceProvision()));
-
-                intent.putExtra("reviewTitle", review.getReviewTitle());
-                intent.putExtra("user", review.getUser().getUsername());
-                intent.putExtra("datePosted", review.getDatePosted());
-                intent.putExtra("rating", review.getRatingScore());
-                intent.putExtra("reviewText", review.getReviewText());
-                intent.putExtra("helpful", review.getHelpful());
-
-                activity.startActivity(intent);
-            }
-        });
+//        holder.itemView.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(activity, ReviewPageActivity.class);
+//                intent.putExtra("companyName", company.getCompanyName());
+//                intent.putExtra("companyLocation", company.getCompanyLocation());
+//                intent.putExtra("companyImage", company.getCompanyImage());
+//                intent.putExtra("companyIndustry", company.getCompanyIndustry());
+//
+//                intent.putExtra("workEnvironment", review.getWorkEnvironment());
+//                intent.putExtra("mentorship", review.getMentorship());
+//                intent.putExtra("workload", review.getWorkload());
+//                intent.putExtra("internshipType", review.convertInternshipType(review.getInternshipType()));
+////                Log.d("showInternship", "Internship Type: " + review.convertInternshipType(review.getInternshipType()));
+//                intent.putExtra("allowanceProvision", review.convertAllowanceProvision(review.getAllowanceProvision()));
+////                Log.d("showAllowance", "Allowance Provision: " + review.convertAllowanceProvision(review.getAllowanceProvision()));
+//
+//                intent.putExtra("reviewTitle", review.getReviewTitle());
+//                intent.putExtra("user", review.getUser().getUsername());
+//                intent.putExtra("datePosted", review.getDatePosted());
+//                intent.putExtra("rating", review.getRatingScore());
+//                intent.putExtra("reviewText", review.getReviewText());
+//                intent.putExtra("helpful", review.getHelpful());
+//
+//                activity.startActivity(intent);
+//            }
+//        });
 
         holder.btnHelpful.setOnClickListener(new View.OnClickListener() {
 
@@ -111,24 +112,20 @@ public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAd
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvUserReviewRating, tvUserReviewIndustry, tvUserReviewCompanyName;
-        TextView tvUserReviewTitle, tvUserReviewAuthor, tvUserReviewDate, tvReviewContent;
-        ImageView ivReviewCompanyLogo;
-        SimpleRatingBar srbUserReviewRating;
+        TextView tvReviewRating;
+        TextView tvReviewTitle, tvReviewAuthor, tvReviewDate, tvReviewContent;
+        SimpleRatingBar srbReviewRating;
         MaterialButton btnHelpful;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvUserReviewRating = itemView.findViewById(R.id.tvUserReviewRating);
-            tvUserReviewIndustry = itemView.findViewById(R.id.tvUserReviewIndustry);
-            tvUserReviewCompanyName = itemView.findViewById(R.id.tvUserReviewCompanyName);
-            tvUserReviewTitle = itemView.findViewById(R.id.tvUserReviewTitle);
-            tvUserReviewAuthor = itemView.findViewById(R.id.tvUserReviewAuthor);
-            tvUserReviewDate = itemView.findViewById(R.id.tvUserReviewDate);
+            tvReviewRating = itemView.findViewById(R.id.tvReviewRating);
+            tvReviewTitle = itemView.findViewById(R.id.tvReviewTitle);
+            tvReviewAuthor = itemView.findViewById(R.id.tvReviewAuthor);
+            tvReviewDate = itemView.findViewById(R.id.tvUserReviewDate);
             tvReviewContent = itemView.findViewById(R.id.tvReviewContent);
-            ivReviewCompanyLogo = itemView.findViewById(R.id.ivReviewCompanyLogo);
-            srbUserReviewRating = itemView.findViewById(R.id.srbUserReviewRating);
+            srbReviewRating = itemView.findViewById(R.id.srbReviewRating);
             btnHelpful = itemView.findViewById(R.id.btnHelpful);
         }
     }

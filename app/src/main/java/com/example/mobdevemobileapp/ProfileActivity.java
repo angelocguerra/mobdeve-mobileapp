@@ -77,88 +77,58 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Review> reviews = fetchReviews(username);
-        ArrayList<Company> companies = fetchCompanies(reviews);
-
-        ProfileReviewsAdapter adapter = new ProfileReviewsAdapter(reviews, companies, this);
-        recyclerView.setAdapter(adapter);
+        fetchReviews(username, reviews -> {
+            ProfileReviewsAdapter profileReviewsAdapter = new ProfileReviewsAdapter(reviews, this);
+            recyclerView.setAdapter(profileReviewsAdapter);
+        });
     }
 
-    public ArrayList<Review> fetchReviews(String username) {
-        ArrayList<Review> reviews = new ArrayList<>();
+    public void fetchReviews(String username, OnReviewsFetchedListener listener) {
         db.fetchReviews(username, task -> {
-            if(task.isSuccessful()) {
+            if(task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                ArrayList<Review> reviews = new ArrayList<>();
                 for (DocumentSnapshot document : task.getResult()) {
-                    if(document.exists()) {
-                        String companyName = document.getString("companyName");
-                        String reviewTitle = document.getString("reviewTitle");
-                        String reviewText = document.getString("reviewText");
-                        String datePosted = document.getString("datePosted");
+                    try {
+                        if (document.exists()) {
+                            String companyName = document.getString("companyName");
+                            String reviewTitle = document.getString("reviewTitle");
+                            String reviewText = document.getString("reviewText");
+                            String datePosted = document.getString("datePosted");
 
-                        int image = R.drawable.default_company_image; // replace with company image
+                            //Display all to log
+                            Log.d("fetchReviews", "Company Name: " + companyName);
+                            Log.d("fetchReviews", "Review Title: " + reviewTitle);
+                            Log.d("fetchReviews", "Review Text: " + reviewText);
+                            Log.d("fetchReviews", "Date Posted: " + datePosted);
 
-                        String uuid = document.getString("uuid");
+                            String uuid = document.getString("uuid");
 
-                        float workEnvironment = Float.parseFloat(String.valueOf(document.getDouble("workEnvironment")));
-                        float mentorship = Float.parseFloat(String.valueOf(document.getDouble("mentorship")));
-                        float workload = Float.parseFloat(String.valueOf(document.getDouble("workload")));
+                            float workEnvironment = Float.parseFloat(String.valueOf(document.getDouble("workEnvironment")));
+                            float mentorship = Float.parseFloat(String.valueOf(document.getDouble("mentorship")));
+                            float workload = Float.parseFloat(String.valueOf(document.getDouble("workload")));
 
-                        float ratingScore = (workEnvironment + mentorship + workload) / 3;
+                            float ratingScore = (workEnvironment + mentorship + workload) / 3;
 
+                            InternshipType internshipType = InternshipType.valueOf(document.getString("internshipType"));
+                            AllowanceProvision allowanceProvision = AllowanceProvision.valueOf(document.getString("allowanceProvision"));
 
-                        InternshipType internshipType = InternshipType.valueOf(document.getString("internshipType"));
-                        AllowanceProvision allowanceProvision = AllowanceProvision.valueOf(document.getString("allowanceProvision"));
+                            Review review = new Review(ratingScore, workEnvironment, mentorship, workload,
+                                    companyName, internshipType, allowanceProvision, uuid, reviewTitle, new User(username), datePosted, reviewText);
 
-                        // Display all info to log
-                        Log.d("fetchReviews", "companyName: " + companyName);
-                        Log.d("fetchReviews", "reviewTitle: " + reviewTitle);
-                        Log.d("fetchReviews", "reviewText: " + reviewText);
-                        Log.d("fetchReviews", "datePosted: " + datePosted);
-                        Log.d("fetchReviews", "uuid: " + uuid);
-                        Log.d("fetchReviews", "workEnvironment: " + workEnvironment);
-                        Log.d("fetchReviews", "mentorship: " + mentorship);
-                        Log.d("fetchReviews", "workload: " + workload);
-                        Log.d("fetchReviews", "ratingScore: " + ratingScore);
-                        Log.d("fetchReviews", "internshipType: " + internshipType);
-                        Log.d("fetchReviews", "allowanceProvision: " + allowanceProvision);
-
-
-                        Review review = new Review(ratingScore, workEnvironment, mentorship, workload,
-                                companyName, internshipType, allowanceProvision, uuid, reviewTitle, new User(username), datePosted, reviewText);
-
-                        reviews.add(review);
+                            reviews.add(review);
+                        }
+                    } catch (Exception e) {
+                        Log.e("emptyReviewsList", "Reviews are empty", e);
                     }
                 }
+                listener.onReviewsFetched(reviews);
+            } else {
+                listener.onReviewsFetched(new ArrayList<>());
             }
         });
-        return reviews;
     }
 
-    public ArrayList<Company> fetchCompanies(ArrayList<Review> reviews) {
-        ArrayList<Company> companies = new ArrayList<>();
-        for (Review review: reviews) {
-            db.getCompanyDetailsGivenReview(review, task -> {
-                if(task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        String companyName = document.getString("companyName");
-                        String companyIndustry = document.getString("companyIndustry");
-                        int image = R.drawable.default_company_image; // replace with company image
-                        String companyLocation = document.getString("companyLocation");
-                        float rating = Float.parseFloat(String.valueOf(document.getDouble("rating")));
-                        // Display all info to log
-                        Log.d("fetchCompanies", "companyName: " + companyName);
-                        Log.d("fetchCompanies", "companyIndustry: " + companyIndustry);
-                        Log.d("fetchCompanies", "image: " + image);
-                        Log.d("fetchCompanies", "companyLocation: " + companyLocation);
-                        Log.d("fetchCompanies", "rating: " + rating);
-                        Company company = new Company(companyIndustry, companyName, image, companyLocation, rating);
-                        companies.add(company);
-                    }
-                }
-            });
-        }
-        return companies;
+    public interface OnReviewsFetchedListener {
+        void onReviewsFetched(ArrayList<Review> reviews);
     }
-
 }
