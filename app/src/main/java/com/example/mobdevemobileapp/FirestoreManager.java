@@ -211,5 +211,24 @@ public class FirestoreManager {
                 .addOnCompleteListener(onCompleteListener);
     }
 
+    public void getCompanyDetailsGivenReview(Review review, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
+        db.collection("companies").document(review.getCompanyName()).get().addOnCompleteListener(onCompleteListener);
+    }
+    public void getCompanyDetailsGivenReview(String UUID, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
+        //get the company name from the review which has the UUID
+        db.collection("reviews").document(UUID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                String companyName = task.getResult().getString("companyName");
+                db.collection("companies").document(companyName).get().addOnCompleteListener(onCompleteListener);
+            } else {
+                onCompleteListener.onComplete(Tasks.forException(new Exception("Review does not exist")));
+            }
+        });
+    }
+
+    public void retrieveAllReviewsGivenCompany(String companyName, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("reviews").whereEqualTo("companyName", companyName).get().addOnCompleteListener(onCompleteListener);
+    }
+
 
 }
