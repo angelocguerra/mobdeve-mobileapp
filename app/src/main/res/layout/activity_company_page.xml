@@ -20,22 +20,14 @@
             android:gravity="center">
 
             <TextView
-                android:id="@+id/tvHeader"
+                android:id="@+id/tvIndustry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_medium"
-                android:text="Intern"
+                android:text="Industry"
                 android:textSize="24sp"
                 android:textColor="@color/french_blue" />
 
-            <TextView
-                android:id="@+id/tvHeader2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_black"
-                android:text="SHIP"
-                android:textSize="24sp"
-                android:textColor="@color/french_blue" />
         </LinearLayout>
 
         <!-- Company Info -->
@@ -62,22 +54,13 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvCompanyIndustry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_semibold"
-                    android:textColor="@color/french_blue"
-                    android:textSize="14sp"
-                    android:text="Sample Industry"/>
-
-                <TextView
-                    android:id="@+id/tvCompanyName"
+                    android:id="@+id/tvCompanyTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
                     android:textColor="@color/french_blue"
                     android:textSize="20sp"
-                    android:text="Sample Name"/>
+                    android:text="Company Name"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -99,11 +82,48 @@
                         android:fontFamily="@font/inter"
                         android:textColor="@color/grey"
                         android:textSize="12sp"
-                        android:text="Sample Location"/>
+                        android:text="Location"/>
                 </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvCompanyRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/french_blue"
+                    android:textSize="14sp"
+                    android:text="Numerical Rating" />
             </LinearLayout>
         </LinearLayout>
 
+        <!-- Rating Bar -->
+        <com.iarcuschin.simpleratingbar.SimpleRatingBar
+            android:id="@+id/srbCompanyRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            app:srb_starSize="18dp"
+            app:srb_numberOfStars="5"
+            app:srb_rating="4.35"
+            app:srb_stepSize="0.5"
+            app:srb_starsSeparation="4dp"
+            app:srb_starBorderWidth="2.0"
+            app:srb_starCornerRadius="4.0"
+            app:srb_borderColor="@color/french_blue"
+            app:srb_fillColor="@color/chardonnay"
+            app:srb_isIndicator="true" />
+
+        <TextView
+            android:id="@+id/tvCompanyReviewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/inter_bold"
+            android:textColor="@color/french_blue"
+            android:textSize="16sp"
+            android:text="Reviews" />
+
+        <!-- Reviews Section -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
@@ -113,8 +133,5 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
             />
-
-
-
     </LinearLayout>
 </ScrollView>
