@@ -1,49 +1,100 @@
 package com.example.mobdevemobileapp;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EditProfile extends AppCompatActivity {
+
+    private FirestoreManager db;
+    private SharedPreferences sharedPreferences;
+    private String currentUsername;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile_page);
+
+        // Initialize FirestoreManager and SharedPreferences
+        db = FirestoreManager.getInstance();
+        sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        currentUsername = sharedPreferences.getString("username", "");
+
         // Set up the navbar
         Navbar.setupNavbar(this);
 
         Button btnChangeUsername = findViewById(R.id.btnChangeUsername);
         Button btnChangePassword = findViewById(R.id.btnChangePassword);
         Button btnLogout = findViewById(R.id.btnLogout);
-
+        Button btnDeleteAccount = findViewById(R.id.btnDeleteAccount);
 
         // Set OnClickListener for navigation
-        btnChangeUsername.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EditProfile.this, ChangeUsername.class);
-                startActivity(intent);
-            }
-        });
-        btnChangePassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EditProfile.this, ChangePassword.class);
-                startActivity(intent);
-            }
+        btnChangeUsername.setOnClickListener(view -> {
+            Intent intent = new Intent(EditProfile.this, ChangeUsername.class);
+            startActivity(intent);
         });
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(EditProfile.this, MainActivity.class);
-                startActivity(intent);
-            }
+        btnChangePassword.setOnClickListener(view -> {
+            Intent intent = new Intent(EditProfile.this, ChangePassword.class);
+            startActivity(intent);
+        });
+
+        btnLogout.setOnClickListener(view -> {
+            logoutUser();
+        });
+
+        btnDeleteAccount.setOnClickListener(view -> {
+            showDeleteConfirmationDialog();
         });
     }
 
+    private void logoutUser() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("isLoggedIn", false);
+        editor.remove("username");
+        editor.apply();
+
+        Intent intent = new Intent(EditProfile.this, MainActivity.class);
+        startActivity(intent);
+        finish(); // Finish the current activity
+    }
+
+    private void showDeleteConfirmationDialog() {
+        // AlertDialog
+        new AlertDialog.Builder(this)
+                .setTitle("Delete Account")
+                .setMessage("Are you sure you want to delete your account? This action cannot be undone.")
+                .setPositiveButton("Delete", (dialog, which) -> {
+                    // Proceed with account deletion
+                    deleteUserAccount();
+                })
+                .setNegativeButton("Cancel", (dialog, which) -> {
+                    // Dismiss the dialog
+                    dialog.dismiss();
+                })
+                .show();
+    }
+
+    private void deleteUserAccount() {
+        if (currentUsername.isEmpty()) {
+            Toast.makeText(this, "Unable to delete account.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        db.deleteUser(currentUsername, task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(this, "Account deleted successfully.", Toast.LENGTH_SHORT).show();
+                logoutUser(); // Log out the user after deletion
+            } else {
+                Toast.makeText(this, "Failed to delete account. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }
