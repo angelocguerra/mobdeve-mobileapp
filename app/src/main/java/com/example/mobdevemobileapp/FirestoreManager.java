@@ -94,12 +94,8 @@ public class FirestoreManager {
     }
 
 
-
-    public void addReviewToUser(String username, Review review, OnCompleteListener<Void> onCompleteListener) {
-
-        //add test to reviews which is a field in the user document
+    public void addReview(Review review, OnCompleteListener<Void> onCompleteListener) {
         Map<String, Object> reviewMap = new HashMap<>();
-        reviewMap.put("companyName", review.getCompanyName());
         reviewMap.put("workEnvironment", review.getWorkEnvironment());
         reviewMap.put("mentorship", review.getMentorship());
         reviewMap.put("workload", review.getWorkload());
@@ -113,14 +109,32 @@ public class FirestoreManager {
 
         // Add other review fields as needed
 
-        db.collection("users").document(username).collection("reviews")
-                .document(review.getReviewTitle()).set(reviewMap)
+        db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
+                .addOnCompleteListener(onCompleteListener);
+    }
+    public void addReviewToUser(String username, Review review, OnCompleteListener<Void> onCompleteListener) {
+
+        //add test to reviews which is a field in the user document
+        Map<String, Object> reviewMap = new HashMap<>();
+        reviewMap.put("workEnvironment", review.getWorkEnvironment());
+        reviewMap.put("mentorship", review.getMentorship());
+        reviewMap.put("workload", review.getWorkload());
+        reviewMap.put("internshipType", review.getInternshipType());
+        reviewMap.put("allowanceProvision", review.getAllowanceProvision());
+        reviewMap.put("reviewTitle", review.getReviewTitle());
+        reviewMap.put("user", review.getUser().getUsername());
+        reviewMap.put("datePosted", review.getDatePosted());
+        reviewMap.put("reviewText", review.getReviewText());
+        reviewMap.put("helpful", review.getHelpful());
+
+        // Add other review fields as needed
+        db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
                 .addOnCompleteListener(onCompleteListener);
 
     }
 
     public void fetchReviews(String username, OnCompleteListener<QuerySnapshot> onCompleteListener) {
-        db.collection("users").document(username).collection("reviews").get().addOnCompleteListener(onCompleteListener);
+        db.collection("reviews").whereEqualTo("user", username).get().addOnCompleteListener(onCompleteListener);
     }
 
     public User getUserFromDocument(DocumentSnapshot document) {
@@ -131,13 +145,7 @@ public class FirestoreManager {
         return new User(username, email, password, profileCreated);
     }
 
-    public void getCompanies(OnCompleteListener<QuerySnapshot> onCompleteListener) {
-        db.collection("companies").get().addOnCompleteListener(onCompleteListener);
-    }
 
-    public void getCompanyNames(String name, OnCompleteListener<QuerySnapshot> onCompleteListener) {
-        db.collection("companies").whereEqualTo("companyName", name).get().addOnCompleteListener(onCompleteListener);
-    }
     public void getCompanyNamesFilter(String name, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         db.collection("companies")
                 .whereGreaterThanOrEqualTo("companyName", name)
@@ -146,7 +154,5 @@ public class FirestoreManager {
                 .addOnCompleteListener(onCompleteListener);
     }
 
-    public void getCompanyDetails(String name, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
-        db.collection("companies").document(name).get().addOnCompleteListener(onCompleteListener);
-    }
+
 }
