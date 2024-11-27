@@ -63,6 +63,8 @@ public class CompanyPageActivity extends AppCompatActivity {
             ReviewAdapter reviewAdapter = new ReviewAdapter(reviews, currentCompany, this);
             recyclerView.setAdapter(reviewAdapter);
         });
+
+        Navbar.setupNavbar(this);
     }
 
     public Company populatePage() {
