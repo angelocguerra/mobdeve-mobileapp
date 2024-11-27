@@ -18,7 +18,7 @@
             android:layout_width="120dp"
             android:layout_height="120dp"
             android:scaleType="centerCrop"
-            app:srcCompat="@drawable/boat" />
+            app:srcCompat="@drawable/icon" />
     </androidx.cardview.widget.CardView>
 
 

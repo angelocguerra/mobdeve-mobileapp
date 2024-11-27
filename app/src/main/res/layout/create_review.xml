@@ -65,12 +65,11 @@
             android:background="@drawable/rounded_grey_background"
             android:layout_marginBottom="16dp">
 
-            <ImageView
-                android:id="@+id/ivCompanyLogo"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_marginEnd="10dp"
-                android:contentDescription="Company Logo" />
+            <AutoCompleteTextView
+                android:id="@+id/actvCompanyName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Search for a company" />
 
             <TextView
                 android:id="@+id/tvCompanyName"
@@ -78,7 +77,8 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/inter_bold"
                 android:textColor="@color/french_blue"
-                android:textSize="18sp" />
+                android:textSize="18sp"
+                android:visibility="gone" />
         </LinearLayout>
 
         <!-- Ratings -->

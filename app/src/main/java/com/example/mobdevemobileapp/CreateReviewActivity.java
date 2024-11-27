@@ -2,9 +2,12 @@ package com.example.mobdevemobileapp;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -46,14 +49,52 @@ public class CreateReviewActivity extends AppCompatActivity {
         });
 
         setupSpinners();
+        setupCompanySearch();
 
         // Set up the navbar
         Navbar.setupNavbar(this);
     }
+    private void setupCompanySearch() {
+        AutoCompleteTextView actvCompanyName = findViewById(R.id.actvCompanyName);
+
+        actvCompanyName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // No action needed before text changes
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.length() > 0) {
+                    db.getCompanyNamesFilter(s.toString(), task -> {
+                        if (task.isSuccessful()) {
+                            ArrayList<String> companyNames = new ArrayList<>();
+                            for (DocumentSnapshot document : task.getResult()) {
+                                companyNames.add(document.getString("companyName"));
+                            }
+                            ArrayAdapter<String> adapter = new ArrayAdapter<>(CreateReviewActivity.this, android.R.layout.simple_dropdown_item_1line, companyNames);
+                            actvCompanyName.setAdapter(adapter);
+                            adapter.notifyDataSetChanged();
+                        } else {
+                            Log.d("FirestoreManager", "Error getting companies: ", task.getException());
+                        }
+                    });
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // No action needed after text changes
+            }
+        });
+    }
+
 
     public Review getReviewDetails(View v){
         Review review = null;
 
+        //GET company name
+        AutoCompleteTextView actvCompanyName = findViewById(R.id.actvCompanyName);
         SimpleRatingBar ratingBar = findViewById(R.id.srbWorkEnvironment);
         SimpleRatingBar ratingBar2 = findViewById(R.id.srbMentorship);
         SimpleRatingBar ratingBar3 = findViewById(R.id.srbWorkload);
@@ -62,6 +103,7 @@ public class CreateReviewActivity extends AppCompatActivity {
         EditText etHeadline = findViewById(R.id.etReviewHeadline);
         EditText etContent = findViewById(R.id.etReviewContent);
         //get the values from the views
+        String companyName = actvCompanyName.getText().toString();
         float workEnvironmentRating = ratingBar.getRating();
         float mentorshipRating = ratingBar2.getRating();
         float workloadRating = ratingBar3.getRating();
@@ -79,6 +121,7 @@ public class CreateReviewActivity extends AppCompatActivity {
 
         //create a new review object
         review = new Review(avgRating, workEnvironmentRating, mentorshipRating, workloadRating, internshipType, allowanceProvision, headline, user, datePosted, content);
+        review.setCompanyName(companyName);
         return review;
 
     }
@@ -86,6 +129,7 @@ public class CreateReviewActivity extends AppCompatActivity {
     public void postReview(View v) {
 
         Review review = getReviewDetails(v);
+
         db.addReviewToUser(currentUsername, review, task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Review added successfully", Toast.LENGTH_SHORT).show();

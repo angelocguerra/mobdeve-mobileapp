@@ -43,7 +43,7 @@
                 android:layout_gravity="center"
                 app:srb_borderColor="@color/french_blue"
                 app:srb_fillColor="@color/chardonnay"
-                app:srb_isIndicator="false"
+                app:srb_isIndicator="true"
                 app:srb_numberOfStars="5"
                 app:srb_rating="4.35"
                 app:srb_starBorderWidth="1.5"
