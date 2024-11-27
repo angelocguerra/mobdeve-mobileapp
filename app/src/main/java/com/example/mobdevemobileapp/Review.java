@@ -12,7 +12,7 @@ public class Review {
     AllowanceProvision allowanceProvision;
 
 
-
+    String uuid;
 
     String companyName;
 
@@ -25,12 +25,13 @@ public class Review {
     public Review(float ratingScore, float workEnvironment, float mentorship, float workload,
                   InternshipType internshipType, AllowanceProvision allowanceProvision,
                   String reviewTitle, User user, String datePosted, String reviewText) {
-        this.companyName = companyName;
+        this.companyName = "";
         this.ratingScore = ratingScore;
         this.workEnvironment = workEnvironment;
         this.workload = workload;
         this.internshipType = internshipType;
         this.allowanceProvision = allowanceProvision;
+        this.uuid = "";
         this.reviewTitle = reviewTitle;
         this.user = user;
         this.mentorship = mentorship;
@@ -38,6 +39,25 @@ public class Review {
         this.reviewText = reviewText;
         this.helpful = 0;
     }
+
+    public Review(float ratingScore, float workEnvironment, float mentorship, float workload, String companyName,
+                  InternshipType internshipType, AllowanceProvision allowanceProvision, String uuid,
+                  String reviewTitle, User user, String datePosted, String reviewText) {
+        this.companyName = companyName;
+        this.ratingScore = ratingScore;
+        this.workEnvironment = workEnvironment;
+        this.workload = workload;
+        this.internshipType = internshipType;
+        this.allowanceProvision = allowanceProvision;
+        this.reviewTitle = reviewTitle;
+        this.uuid = uuid;
+        this.user = user;
+        this.mentorship = mentorship;
+        this.datePosted = datePosted;
+        this.reviewText = reviewText;
+        this.helpful = 0;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
@@ -210,4 +230,8 @@ public class Review {
     public void setHelpful(int helpful) {
         this.helpful = helpful;
     }
+
+    public String getUuid() {return uuid;}
+
+    public void setUuid(String uuid) {this.uuid = uuid;}
 }
