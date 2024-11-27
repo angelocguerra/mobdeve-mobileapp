@@ -1,5 +1,6 @@
 package com.example.mobdevemobileapp;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
@@ -133,7 +134,9 @@ public class CreateReviewActivity extends AppCompatActivity {
         db.addReviewToUser(currentUsername, review, task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Review added successfully", Toast.LENGTH_SHORT).show();
-                finish(); // Close the activity
+                Intent intent = new Intent(CreateReviewActivity.this, ProfileActivity.class);
+                startActivity(intent);
+                finish();
             } else {
                 Toast.makeText(this, "Failed to add review", Toast.LENGTH_SHORT).show();
             }
