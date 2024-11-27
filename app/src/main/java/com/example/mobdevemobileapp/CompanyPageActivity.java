@@ -5,11 +5,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.RatingBar;
+import android.widget.Toast;
 
-import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,10 +14,14 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.gms.tasks.Task;
+import com.google.android.gms.tasks.TaskCompletionSource;
+import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CompanyPageActivity extends AppCompatActivity {
 
@@ -33,7 +34,6 @@ public class CompanyPageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_company_page);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
@@ -57,19 +57,15 @@ public class CompanyPageActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Review> reviews = fetchReviews(currentCompany);
-
-        currentCompany.setCompanyReviews(reviews);
-
-        tvCompanyReviewCount.setText(String.valueOf(reviews.size()));
-
-        ReviewAdapter reviewAdapter = new ReviewAdapter(reviews, currentCompany, this);
-        recyclerView.setAdapter(reviewAdapter);
+        fetchReviews(currentCompany, reviews -> {
+            currentCompany.setCompanyReviews(reviews);
+            tvCompanyReviewCount.setText(String.valueOf(reviews.size()));
+            ReviewAdapter reviewAdapter = new ReviewAdapter(reviews, currentCompany, this);
+            recyclerView.setAdapter(reviewAdapter);
+        });
     }
 
     public Company populatePage() {
-
-
         Intent intent = getIntent();
 
         String industry = intent.getStringExtra("companyIndustry");
@@ -96,30 +92,53 @@ public class CompanyPageActivity extends AppCompatActivity {
         ivCompanyLogo.setImageResource(companyLogo);
         Log.d("addLogo", "Logo added");
 
-        // Set Simple Rating Bar
         srbCompanyRating.setRating(companyRating);
         Log.d("addRatingBar", "Rating Bar added");
 
         return new Company(industry, companyTitle, companyLogo, companyLocation, companyRating);
     }
 
-    public ArrayList<Review> fetchReviews(Company company) {
-        ArrayList<Review> reviews = new ArrayList<>();
+    public void fetchReviews(Company company, OnReviewsFetchedListener listener) {
         db.retrieveAllReviewsGivenCompany(company.getCompanyName(), task -> {
             if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
+                ArrayList<Review> reviews = new ArrayList<>();
                 for (DocumentSnapshot document : task.getResult()) {
                     try {
                         if (document.exists()) {
-                            Review review = document.toObject(Review.class);
+                            String companyName = document.getString("companyName");
+                            String reviewTitle = document.getString("reviewTitle");
+                            String reviewText = document.getString("reviewText");
+                            String datePosted = document.getString("datePosted");
+                            String username = document.getString("username");
+
+                            String uuid = document.getString("uuid");
+
+                            float workEnvironment = Float.parseFloat(String.valueOf(document.getDouble("workEnvironment")));
+                            float mentorship = Float.parseFloat(String.valueOf(document.getDouble("mentorship")));
+                            float workload = Float.parseFloat(String.valueOf(document.getDouble("workload")));
+
+                            float ratingScore = (workEnvironment + mentorship + workload) / 3;
+
+                            InternshipType internshipType = InternshipType.valueOf(document.getString("internshipType"));
+                            AllowanceProvision allowanceProvision = AllowanceProvision.valueOf(document.getString("allowanceProvision"));
+
+                            Review review = new Review(ratingScore, workEnvironment, mentorship, workload,
+                                    companyName, internshipType, allowanceProvision, uuid, reviewTitle, new User(username), datePosted, reviewText);
+
                             reviews.add(review);
                         }
                     } catch (Exception e) {
-                        // Handle the exception if needed, or simply ignore itm
                         Log.e("emptyReviewsList", "Reviews are empty", e);
                     }
                 }
+                listener.onReviewsFetched(reviews);
+            } else {
+                listener.onReviewsFetched(new ArrayList<>());
             }
         });
-        return reviews;
+    }
+
+    public interface OnReviewsFetchedListener {
+        void onReviewsFetched(ArrayList<Review> reviews);
     }
 }
