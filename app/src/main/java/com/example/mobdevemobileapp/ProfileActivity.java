@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
     private FirestoreManager db;
@@ -70,5 +75,57 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        RecyclerView recyclerView = findViewById(R.id.rvUserReviews);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        ArrayList<Review> reviews = fetchReviews(username);
+
+        ArrayList<Company> companies = fetchCompanies(reviews);
+
+        ProfileReviewsAdapter profileReviewsAdapter = new ProfileReviewsAdapter(reviews, companies, this);
+        recyclerView.setAdapter(profileReviewsAdapter);
     }
+
+    public ArrayList<Review> fetchReviews(String username) {
+        ArrayList<Review> reviews = new ArrayList<>();
+        db.fetchReviews(username, task -> {
+            if(task.isSuccessful()) {
+                for (DocumentSnapshot document : task.getResult()) {
+                    try {
+                        if (document.exists()) {
+                            Review review = document.toObject(Review.class);
+                            reviews.add(review);
+                        }
+                    } catch (Exception e) {
+                        // Handle the exception if needed, or simply ignore it
+                        Log.e("emptyReviewsList", "Reviews are empty", e);
+                    }
+                }
+            }
+        });
+        return reviews;
+    }
+
+    public ArrayList<Company> fetchCompanies(ArrayList<Review> reviews) {
+        ArrayList<Company> companies = new ArrayList<>();
+        for (Review review: reviews) {
+            db.getCompanyDetailsGivenReview(review, task -> {
+                if (task.isSuccessful()) {
+                    try {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Company company = document.toObject(Company.class);
+                            companies.add(company);
+                        }
+                    } catch (Exception e) {
+                        // Handle the exception if needed, or simply ignore it
+                        Log.e("fetchCompanies", "Error adding company", e);
+                    }
+                }
+            });
+        }
+        return companies;
+    }
+
 }

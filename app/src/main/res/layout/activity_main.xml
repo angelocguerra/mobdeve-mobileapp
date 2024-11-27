@@ -70,10 +70,11 @@
     <ImageView
         android:id="@+id/image_view"
         android:layout_width="wrap_content"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_gravity="center"
         android:layout_marginTop="35dp"
-        app:srcCompat="@drawable/boat" />
+        app:srcCompat="@drawable/ship"
+        app:tint="@color/pale_peach" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/register_button"

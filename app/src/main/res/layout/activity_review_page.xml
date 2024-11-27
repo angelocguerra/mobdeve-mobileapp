@@ -51,7 +51,7 @@
                 android:layout_height="80dp"
                 android:layout_marginEnd="16dp"
                 android:scaleType="centerCrop"
-                android:src="@drawable/boat"
+                android:src="@drawable/icon"
                 android:contentDescription="Company Logo" />
 
             <LinearLayout

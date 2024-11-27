@@ -1,6 +1,7 @@
 // SignUpActivity.java
 package com.example.mobdevemobileapp;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,6 +18,10 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import android.app.AlertDialog;
+import android.view.LayoutInflater;
+import android.widget.ProgressBar;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -27,6 +33,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 public class SignUpActivity extends AppCompatActivity {
     private FirestoreManager db;
+    private AlertDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +70,18 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     public void signUp(View view) {
+        // Show the loading screen
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = this.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.progress_dialog, null);
+        builder.setView(dialogView);
+        builder.setCancelable(false);
+        progressDialog = builder.create();
+        progressDialog.show();
+
         // Validate sign-up logic here (e.g., Firebase Authentication)
         // Get user input
-        String fullName = ((TextView) findViewById(R.id.etFullName)).getText().toString();
+
         String username = ((TextView) findViewById(R.id.etUsername)).getText().toString();
         String email = ((TextView) findViewById(R.id.etEmail)).getText().toString();
         String password = ((TextView) findViewById(R.id.etPassword)).getText().toString();
@@ -85,6 +101,7 @@ public class SignUpActivity extends AppCompatActivity {
         FirestoreManager.getInstance().checkIfUserExists("username", username, task -> {
             if (task.isSuccessful() && !task.getResult().isEmpty()) {
                 userExists.set(true);
+                progressDialog.dismiss();
 
                 EditText etUsername = findViewById(R.id.etUsername);
                 etUsername.setError("Username already exists");
@@ -104,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                             // Add user to Firestore
                             Map<String, Object> user = new HashMap<>();
-                            user.put("fullName", fullName);
+
                             user.put("username", username);
                             user.put("email", email);
                             user.put("password", hashedPassword);
@@ -112,11 +129,12 @@ public class SignUpActivity extends AppCompatActivity {
                             // Add empty array for user's reviews
                             user.put("reviews", new HashMap<>());
 
-                            FirestoreManager.getInstance().addUser(username, user);
-
-                            // On successful account creation, navigate to login
-                            Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
-                            startActivity(intent);
+                            db.addUser(username, user, task1 -> {
+                                progressDialog.dismiss();
+                                Toast.makeText(this, "Sign up successful", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                startActivity(intent);
+                            });
                         }
                     }
                 });

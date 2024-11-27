@@ -3,6 +3,8 @@
     <style name="Base.Theme.MobdeveMobileApp" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="android:statusBarColor">@color/white_smoke</item>
     </style>
 
     <style name="Theme.MobdeveMobileApp" parent="Base.Theme.MobdeveMobileApp" />

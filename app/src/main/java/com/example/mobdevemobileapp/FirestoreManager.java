@@ -12,6 +12,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class FirestoreManager {
     private static FirestoreManager instance;
@@ -32,11 +33,10 @@ public class FirestoreManager {
         return db;
     }
 
-    public void addUser(String userId, Map<String, Object> user) {
+    public void addUser(String userId, Map<String, Object> user, OnCompleteListener<Void> onCompleteListener) {
         db.collection("users").document(userId)
                 .set(user)
-                .addOnSuccessListener(aVoid -> Log.d("FirestoreManager", "DocumentSnapshot successfully written!"))
-                .addOnFailureListener(e -> Log.w("FirestoreManager", "Error writing document", e));
+                .addOnCompleteListener(onCompleteListener);
     }
 
     public void getUser(String userName, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
@@ -50,6 +50,7 @@ public class FirestoreManager {
     public void getUserProfile(String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         db.collection("users").document(userId).get().addOnCompleteListener(onCompleteListener);
     }
+
     public void updateUsername(String currentUsername, String newUsername, OnCompleteListener<Void> listener) {
         getUser(currentUsername, task -> {
             if (task.isSuccessful() && task.getResult().exists()) {
@@ -95,6 +96,30 @@ public class FirestoreManager {
     }
 
 
+    public void addReview(Review review, OnCompleteListener<Void> onCompleteListener) {
+        Map<String, Object> reviewMap = new HashMap<>();
+        reviewMap.put("workEnvironment", review.getWorkEnvironment());
+        reviewMap.put("mentorship", review.getMentorship());
+        reviewMap.put("workload", review.getWorkload());
+        reviewMap.put("internshipType", review.getInternshipType());
+        reviewMap.put("allowanceProvision", review.getAllowanceProvision());
+        reviewMap.put("reviewTitle", review.getReviewTitle());
+        reviewMap.put("user", review.getUser().getUsername());
+        reviewMap.put("datePosted", review.getDatePosted());
+        reviewMap.put("reviewText", review.getReviewText());
+        reviewMap.put("helpful", review.getHelpful());
+        reviewMap.put("companyName", review.getCompanyName());
+        String uuid;
+        do {
+            uuid = UUID.randomUUID().toString();
+        } while (db.collection("reviews").document(uuid).get().isSuccessful());
+        reviewMap.put("uuid", uuid);
+        Log.d("FirestoreManager", "Adding review with UUID: " + uuid);
+        // Add other review fields as needed
+
+        db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
+                .addOnCompleteListener(onCompleteListener);
+    }
 
     public void addReviewToUser(String username, Review review, OnCompleteListener<Void> onCompleteListener) {
 
@@ -110,18 +135,75 @@ public class FirestoreManager {
         reviewMap.put("datePosted", review.getDatePosted());
         reviewMap.put("reviewText", review.getReviewText());
         reviewMap.put("helpful", review.getHelpful());
+        reviewMap.put("companyName", review.getCompanyName());
+        String uuid;
+        do {
+            uuid = UUID.randomUUID().toString();
+        } while (db.collection("reviews").document(uuid).get().isSuccessful());
+        reviewMap.put("uuid", uuid);
+        Log.d("FirestoreManager", "Adding review with UUID: " + uuid);
 
         // Add other review fields as needed
-
-        db.collection("users").document(username).collection("reviews")
-                .document(review.getReviewTitle()).set(reviewMap)
+        db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
                 .addOnCompleteListener(onCompleteListener);
 
     }
 
     public void fetchReviews(String username, OnCompleteListener<QuerySnapshot> onCompleteListener) {
-        db.collection("users").document(username).collection("reviews").get().addOnCompleteListener(onCompleteListener);
+        db.collection("reviews").whereEqualTo("user", username).get().addOnCompleteListener(onCompleteListener);
     }
+
+    public void deleteReview(String reviewTitle, String requestingUser, OnCompleteListener<Void> onCompleteListener) {
+        db.collection("reviews").document(reviewTitle).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                String reviewAuthor = task.getResult().getString("user");
+                if (reviewAuthor != null && reviewAuthor.equals(requestingUser)) {
+                    db.collection("reviews").document(reviewTitle).delete().addOnCompleteListener(onCompleteListener);
+                } else {
+                    onCompleteListener.onComplete(Tasks.forException(new Exception("User is not the author of the review")));
+                }
+            } else {
+                onCompleteListener.onComplete(Tasks.forException(new Exception("Review does not exist")));
+            }
+        });
+
+    }
+
+    public void editReview(String reviewTitle, User user, Review review, OnCompleteListener<Void> onCompleteListener) {
+    db.collection("reviews").document(reviewTitle).get().addOnCompleteListener(task -> {
+        if (task.isSuccessful() && task.getResult().exists()) {
+            String reviewAuthor = task.getResult().getString("user");
+            if (reviewAuthor != null && reviewAuthor.equals(user.getUsername())) {
+                Map<String, Object> reviewMap = new HashMap<>();
+                reviewMap.put("workEnvironment", review.getWorkEnvironment());
+                reviewMap.put("mentorship", review.getMentorship());
+                reviewMap.put("workload", review.getWorkload());
+                reviewMap.put("internshipType", review.getInternshipType());
+                reviewMap.put("allowanceProvision", review.getAllowanceProvision());
+                reviewMap.put("reviewTitle", review.getReviewTitle());
+                reviewMap.put("user", review.getUser().getUsername());
+                reviewMap.put("datePosted", review.getDatePosted());
+                reviewMap.put("reviewText", review.getReviewText());
+                reviewMap.put("helpful", review.getHelpful());
+
+                // Add other review fields as needed
+                db.collection("reviews").document(reviewTitle).delete().addOnCompleteListener(deleteTask -> {
+                    if (deleteTask.isSuccessful()) {
+                        db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
+                                .addOnCompleteListener(onCompleteListener);
+                    } else {
+                        onCompleteListener.onComplete(Tasks.forException(deleteTask.getException()));
+                    }
+                });
+            } else {
+                onCompleteListener.onComplete(Tasks.forException(new Exception("User is not the author of the review")));
+            }
+        } else {
+            onCompleteListener.onComplete(Tasks.forException(new Exception("Review does not exist")));
+        }
+    });
+}
+
 
     public User getUserFromDocument(DocumentSnapshot document) {
         String username = document.getString("username");
@@ -130,9 +212,6 @@ public class FirestoreManager {
         String profileCreated = document.getString("profileCreated");
         return new User(username, email, password, profileCreated);
     }
-<<<<<<< Updated upstream
-=======
-
 
     public void getCompanyNamesFilter(String name, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         db.collection("companies")
@@ -166,7 +245,6 @@ public class FirestoreManager {
         db.collection("companies")
                 .get()
                 .addOnCompleteListener(onCompleteListener);
-
     }
 
     public void deleteUser(String username, OnCompleteListener<Void> onCompleteListener) {
@@ -178,5 +256,28 @@ public class FirestoreManager {
 
 
 
->>>>>>> Stashed changes
+    }
+
+    public void getCompanies(OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("companies")
+                .get()
+                .addOnCompleteListener(onCompleteListener);
+    }
+
+    public Company getCompanyFromDocument(DocumentSnapshot document) {
+        String companyName = document.getString("companyName");
+        String companyIndustry = document.getString("companyIndustry");
+        String companyLocation = document.getString("companyLocation");
+        float rating = Float.parseFloat(String.valueOf(document.getDouble("rating")));
+        int image;
+        if (document.contains("companyImage") && document.get("companyImage") != null) {
+            image = document.getLong("companyImage").intValue(); // Assuming it's stored as a long in Firestore
+        } else {
+            image = R.drawable.default_company_image; // Replace with your default drawable resource ID
+        }
+        return new Company(companyIndustry, companyName, image, companyLocation, rating);
+    }
+
+
+
 }

@@ -1,5 +1,6 @@
 package com.example.mobdevemobileapp;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +12,13 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
-
 public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHolder> {
-
     Company[] companies;
-    MainPageActivity activity;
+    Context context; // Use Context instead of MainPageActivity
 
-    public CompanyAdapter(Company[] companies, MainPageActivity activity) {
+    public CompanyAdapter(Company[] companies, Context context) {
         this.companies = companies;
-        this.activity = activity;
+        this.context = context;
     }
 
     @NonNull
@@ -44,7 +43,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, CompanyPageActivity.class);
+                Intent intent = new Intent(context, CompanyPageActivity.class);
                 intent.putExtra("companyIndustry", company.getCompanyIndustry());
                 intent.putExtra("companyName", company.getCompanyName());
                 intent.putExtra("companyLocation", company.getCompanyLocation());
@@ -53,7 +52,7 @@ public class CompanyAdapter extends RecyclerView.Adapter<CompanyAdapter.ViewHold
                 intent.putExtra("reviewsCount", company.getCompanyReviews().size());
                 intent.putExtra("companyReviews", company.getCompanyReviews());
 
-                activity.startActivity(intent);
+                context.startActivity(intent); // Use context here
             }
         });
     }
