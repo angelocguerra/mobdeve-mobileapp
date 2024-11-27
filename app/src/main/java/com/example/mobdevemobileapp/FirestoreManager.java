@@ -12,6 +12,7 @@ import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class FirestoreManager {
     private static FirestoreManager instance;
@@ -107,7 +108,13 @@ public class FirestoreManager {
         reviewMap.put("datePosted", review.getDatePosted());
         reviewMap.put("reviewText", review.getReviewText());
         reviewMap.put("helpful", review.getHelpful());
-
+        reviewMap.put("companyName", review.getCompanyName());
+        String uuid;
+        do {
+            uuid = UUID.randomUUID().toString();
+        } while (db.collection("reviews").document(uuid).get().isSuccessful());
+        reviewMap.put("uuid", uuid);
+        Log.d("FirestoreManager", "Adding review with UUID: " + uuid);
         // Add other review fields as needed
 
         db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
@@ -128,6 +135,13 @@ public class FirestoreManager {
         reviewMap.put("datePosted", review.getDatePosted());
         reviewMap.put("reviewText", review.getReviewText());
         reviewMap.put("helpful", review.getHelpful());
+        reviewMap.put("companyName", review.getCompanyName());
+        String uuid;
+        do {
+            uuid = UUID.randomUUID().toString();
+        } while (db.collection("reviews").document(uuid).get().isSuccessful());
+        reviewMap.put("uuid", uuid);
+        Log.d("FirestoreManager", "Adding review with UUID: " + uuid);
 
         // Add other review fields as needed
         db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
