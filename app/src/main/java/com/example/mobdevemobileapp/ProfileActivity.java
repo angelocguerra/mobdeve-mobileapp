@@ -60,8 +60,7 @@ public class ProfileActivity extends AppCompatActivity {
         // Set up the navbar
         Navbar.setupNavbar(this);
 
-        // Set up the navbar
-        Navbar.setupNavbar(this);
+
         // Reference to the Profile Settings button
         Button btnProfileSettings = findViewById(R.id.btnProfileSettings);
 
