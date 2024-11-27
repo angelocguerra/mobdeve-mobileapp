@@ -14,6 +14,7 @@ import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -70,9 +71,9 @@ public class LoginActivity extends AppCompatActivity {
         // Apply the SpannableString to the TextView
         tvNoAccount.setText(spannableString);
         tvNoAccount.setMovementMethod(android.text.method.LinkMovementMethod.getInstance());
+
     }
 
-    // LoginActivity.java
     // LoginActivity.java
     public void login(View view) {
         // Show the loading screen
@@ -122,4 +123,10 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish(); // Finish LoginActivity to prevent going back to it
     }
+
+    public void goToForgotPassword(View view) {
+        Intent intent = new Intent(LoginActivity.this, ForgotPassword.class);
+        startActivity(intent);
+    }
+
 }
