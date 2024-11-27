@@ -43,8 +43,8 @@ public class CompanyPageActivity extends AppCompatActivity {
 
         db = FirestoreManager.getInstance();
 
-        tvIndustry = findViewById(R.id.tvIndustry);
-        tvCompanyTitle = findViewById(R.id.tvCompanyTitle);
+        tvIndustry = findViewById(R.id.tvCompanyIndustry);
+        tvCompanyTitle = findViewById(R.id.tvCompanyName);
         tvCompanyLocation = findViewById(R.id.tvCompanyLocation);
         tvCompanyRating = findViewById(R.id.tvCompanyRating);
         tvCompanyReviewCount = findViewById(R.id.tvCompanyReviewCount);
