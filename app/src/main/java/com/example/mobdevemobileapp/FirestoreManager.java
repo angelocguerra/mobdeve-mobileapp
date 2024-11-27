@@ -213,7 +213,6 @@ public class FirestoreManager {
         return new User(username, email, password, profileCreated);
     }
 
-
     public void getCompanyNamesFilter(String name, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         db.collection("companies")
                 .whereGreaterThanOrEqualTo("companyName", name)
@@ -246,6 +245,17 @@ public class FirestoreManager {
         db.collection("companies")
                 .get()
                 .addOnCompleteListener(onCompleteListener);
+    }
+
+    public void deleteUser(String username, OnCompleteListener<Void> onCompleteListener) {
+        db.collection("users").document(username)
+                .delete()
+                .addOnCompleteListener(onCompleteListener);
+    }
+
+
+
+
     }
 
     public void getCompanies(OnCompleteListener<QuerySnapshot> onCompleteListener) {
