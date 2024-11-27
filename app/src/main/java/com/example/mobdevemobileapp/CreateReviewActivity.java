@@ -72,6 +72,7 @@ public class CreateReviewActivity extends AppCompatActivity {
                             ArrayList<String> companyNames = new ArrayList<>();
                             for (DocumentSnapshot document : task.getResult()) {
                                 companyNames.add(document.getString("companyName"));
+                                Log.d("FirestoreManager", document.getString("companyName"));
                             }
                             ArrayAdapter<String> adapter = new ArrayAdapter<>(CreateReviewActivity.this, android.R.layout.simple_dropdown_item_1line, companyNames);
                             actvCompanyName.setAdapter(adapter);

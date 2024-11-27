@@ -86,7 +86,7 @@ public class CompanyPageActivity extends AppCompatActivity {
 
         int reviewsCount = intent.getIntExtra("reviewsCount", 0);
         tvCompanyReviewCount.setText(String.valueOf(reviewsCount));
-        Log.d("addCount",  "Count added");
+        Log.d("addCount", "Count added");
 
         float companyRating = intent.getFloatExtra("companyRating", 0);
         tvCompanyRating.setText(String.valueOf(companyRating));
@@ -106,7 +106,7 @@ public class CompanyPageActivity extends AppCompatActivity {
     public ArrayList<Review> fetchReviews(Company company) {
         ArrayList<Review> reviews = new ArrayList<>();
         db.retrieveAllReviewsGivenCompany(company.getCompanyName(), task -> {
-            if(task.isSuccessful()) {
+            if (task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
                 for (DocumentSnapshot document : task.getResult()) {
                     try {
                         if (document.exists()) {
@@ -114,7 +114,7 @@ public class CompanyPageActivity extends AppCompatActivity {
                             reviews.add(review);
                         }
                     } catch (Exception e) {
-                        // Handle the exception if needed, or simply ignore it
+                        // Handle the exception if needed, or simply ignore itm
                         Log.e("emptyReviewsList", "Reviews are empty", e);
                     }
                 }

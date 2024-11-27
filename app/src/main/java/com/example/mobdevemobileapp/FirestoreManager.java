@@ -237,6 +237,26 @@ public class FirestoreManager {
                 .addOnCompleteListener(onCompleteListener);
     }
 
+    public void getCompanies(OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("companies")
+                .get()
+                .addOnCompleteListener(onCompleteListener);
+    }
+
+    public Company getCompanyFromDocument(DocumentSnapshot document) {
+        String companyName = document.getString("companyName");
+        String companyIndustry = document.getString("companyIndustry");
+        String companyLocation = document.getString("companyLocation");
+        float rating = Float.parseFloat(String.valueOf(document.getDouble("rating")));
+        int image;
+        if (document.contains("companyImage") && document.get("companyImage") != null) {
+            image = document.getLong("companyImage").intValue(); // Assuming it's stored as a long in Firestore
+        } else {
+            image = R.drawable.default_company_image; // Replace with your default drawable resource ID
+        }
+        return new Company(companyIndustry, companyName, image, companyLocation, rating);
+    }
+
 
 
 }
