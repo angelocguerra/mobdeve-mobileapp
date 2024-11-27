@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -91,8 +92,15 @@ public class ProfileActivity extends AppCompatActivity {
         db.fetchReviews(username, task -> {
             if(task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
-                    Review review = document.toObject(Review.class);
-                    reviews.add(review);
+                    try {
+                        if (document.exists()) {
+                            Review review = document.toObject(Review.class);
+                            reviews.add(review);
+                        }
+                    } catch (Exception e) {
+                        // Handle the exception if needed, or simply ignore it
+                        Log.e("emptyReviewsList", "Reviews are empty", e);
+                    }
                 }
             }
         });
@@ -103,10 +111,17 @@ public class ProfileActivity extends AppCompatActivity {
         ArrayList<Company> companies = new ArrayList<>();
         for (Review review: reviews) {
             db.getCompanyDetailsGivenReview(review, task -> {
-                if(task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    Company company = document.toObject(Company.class);
-                    companies.add(company);
+                if (task.isSuccessful()) {
+                    try {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Company company = document.toObject(Company.class);
+                            companies.add(company);
+                        }
+                    } catch (Exception e) {
+                        // Handle the exception if needed, or simply ignore it
+                        Log.e("fetchCompanies", "Error adding company", e);
+                    }
                 }
             });
         }

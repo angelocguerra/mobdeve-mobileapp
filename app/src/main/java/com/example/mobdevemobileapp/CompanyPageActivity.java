@@ -108,8 +108,15 @@ public class CompanyPageActivity extends AppCompatActivity {
         db.retrieveAllReviewsGivenCompany(company.getCompanyName(), task -> {
             if(task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
-                    Review review = document.toObject(Review.class);
-                    reviews.add(review);
+                    try {
+                        if (document.exists()) {
+                            Review review = document.toObject(Review.class);
+                            reviews.add(review);
+                        }
+                    } catch (Exception e) {
+                        // Handle the exception if needed, or simply ignore it
+                        Log.e("emptyReviewsList", "Reviews are empty", e);
+                    }
                 }
             }
         });
