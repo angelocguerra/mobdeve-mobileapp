@@ -78,23 +78,39 @@ public class ProfileActivity extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Review> reviews = new ArrayList<Review>() {
-            {
-                add(new Review(3.0f, 1.0f, 2.0f, 3.0f, InternshipType.F2F, AllowanceProvision.THIRTY_FORTY, "Review Title 1", new User("User 1"), "Date 1", "asdf"));
-                add(new Review(4.0f, 1.0f, 2.0f, 3.0f, InternshipType.ONLINE, AllowanceProvision.TEN_TWENTY, "Review Title 2", new User("User 2"), "Date 2", "fdsa"));
-                add(new Review(5.0f, 1.0f, 2.0f, 3.0f, InternshipType.HYBRID, AllowanceProvision.TWENTY_THIRTY, "Review Title 3", new User("User 3"), "Date 3", "1234"));
-                add(new Review(2.0f, 1.0f, 2.0f, 3.0f, InternshipType.F2F, AllowanceProvision.LESS_THAN_TEN, "Review Title 4", new User("User 4"), "Date 4", "4321"));
-            }
-        };
+        ArrayList<Review> reviews = fetchReviews(username);
 
-        Company[] companies = new Company[]{
-                new Company("Restaurants & Food Service","Los Pollos Hermanos", R.drawable.los_pollos_hermanos, "Albuquerque", 4.5f),
-                new Company("Retail & Wholesale", "Dunder Mifflin Inc.", R.drawable.dunder_mifflin, "Scranton", 3.0f),
-                new Company("Security & Protective", "Ghostbusters Inc.", R.drawable.ghostbusters, "New York City", 4.0f),
-                new Company("Restaurants & Food Service", "Central Perk", R.drawable.central_perk, "New York City", 4.5f),
-        };
+        ArrayList<Company> companies = fetchCompanies(reviews);
 
         ProfileReviewsAdapter profileReviewsAdapter = new ProfileReviewsAdapter(reviews, companies, this);
         recyclerView.setAdapter(profileReviewsAdapter);
     }
+
+    public ArrayList<Review> fetchReviews(String username) {
+        ArrayList<Review> reviews = new ArrayList<>();
+        db.fetchReviews(username, task -> {
+            if(task.isSuccessful()) {
+                for (DocumentSnapshot document : task.getResult()) {
+                    Review review = document.toObject(Review.class);
+                    reviews.add(review);
+                }
+            }
+        });
+        return reviews;
+    }
+
+    public ArrayList<Company> fetchCompanies(ArrayList<Review> reviews) {
+        ArrayList<Company> companies = new ArrayList<>();
+        for (Review review: reviews) {
+            db.getCompanyDetailsGivenReview(review, task -> {
+                if(task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    Company company = document.toObject(Company.class);
+                    companies.add(company);
+                }
+            });
+        }
+        return companies;
+    }
+
 }

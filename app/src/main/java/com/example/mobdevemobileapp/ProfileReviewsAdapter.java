@@ -18,10 +18,10 @@ import java.util.ArrayList;
 
 public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAdapter.ViewHolder> {
     ArrayList<Review> reviews;
-    Company[] companies;
+    ArrayList<Company> companies;
     ProfileActivity activity;
 
-    public ProfileReviewsAdapter(ArrayList<Review> reviews, Company[] companies, ProfileActivity activity) {
+    public ProfileReviewsAdapter(ArrayList<Review> reviews, ArrayList<Company> companies, ProfileActivity activity) {
         this.reviews = reviews;
         this.companies = companies;
         this.activity = activity;
@@ -38,7 +38,7 @@ public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAd
     @Override
     public void onBindViewHolder(@NonNull ProfileReviewsAdapter.ViewHolder holder, int position) {
         final Review review = reviews.get(position);
-        final Company company = companies[position];
+        final Company company = companies.get(position);
 
         holder.tvUserReviewRating.setText(String.valueOf(review.getRatingScore()));
         holder.tvUserReviewIndustry.setText(String.valueOf(company.getCompanyIndustry()));
