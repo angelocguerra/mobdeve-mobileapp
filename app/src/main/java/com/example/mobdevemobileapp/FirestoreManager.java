@@ -231,4 +231,12 @@ public class FirestoreManager {
     }
 
 
+    public void getCompanies(String name, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("companies")
+                .get()
+                .addOnCompleteListener(onCompleteListener);
+    }
+
+
+
 }

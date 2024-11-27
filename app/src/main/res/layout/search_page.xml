@@ -7,120 +7,90 @@
     android:background="@color/white_smoke">
 
     <!-- Main Content -->
-    <ScrollView
-        android:id="@+id/contentScrollView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="16dp"
-        android:layout_gravity="top">
+        android:orientation="vertical"
+        android:padding="16dp">
 
+        <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingHorizontal="16dp">
+            android:gravity="center"
+            android:paddingBottom="16dp">
 
-            <!-- Header -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:paddingTop="16dp"
-                android:paddingBottom="8dp">
-
-                <TextView
-                    android:id="@+id/tvHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="Intern"
-                    android:textSize="24sp"
-                    android:textColor="@color/french_blue" />
-
-                <TextView
-                    android:id="@+id/tvHeader2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_black"
-                    android:text="SHIP"
-                    android:textSize="24sp"
-                    android:textColor="@color/french_blue" />
-            </LinearLayout>
-
-            <!-- Search Reviews Title -->
             <TextView
-                android:id="@+id/tvSearchTitle"
+                android:id="@+id/tvHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
-                android:text="Search Reviews"
-                android:textSize="20sp"
-                android:textColor="@color/french_blue"
-                android:layout_marginBottom="16dp" />
+                android:fontFamily="@font/inter_medium"
+                android:text="Intern"
+                android:textSize="24sp"
+                android:textColor="@color/french_blue" />
 
-            <!-- Search Fields -->
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/tvHeader2"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <!-- Company or Industry Field -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/light_grey"
-                    android:padding="10dp"
-                    android:layout_marginBottom="16dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="24dp"
-                        android:layout_marginEnd="8dp"
-                        android:contentDescription="Search Icon"
-                        app:srcCompat="@drawable/ic_search" />
-
-                    <EditText
-                        android:id="@+id/etCompanyOrIndustry"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Company or Industry"
-                        android:background="@android:color/transparent"
-                        android:textColorHint="@color/grey"
-                        android:fontFamily="@font/inter"
-                        android:textSize="16sp" />
-                </LinearLayout>
-
-                <!-- Location Field -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:background="@color/light_grey"
-                    android:padding="10dp"
-                    android:gravity="center_vertical">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        app:srcCompat="@drawable/ic_location"
-                        android:contentDescription="Location Icon"
-                        android:layout_marginEnd="8dp" />
-
-                    <EditText
-                        android:id="@+id/etLocation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Location"
-                        android:background="@android:color/transparent"
-                        android:textColorHint="@color/grey"
-                        android:fontFamily="@font/inter"
-                        android:textSize="16sp" />
-                </LinearLayout>
-            </LinearLayout>
+                android:fontFamily="@font/inter_black"
+                android:text="SHIP"
+                android:textSize="24sp"
+                android:textColor="@color/french_blue" />
         </LinearLayout>
-    </ScrollView>
+
+        <!-- Search Reviews Title -->
+        <TextView
+            android:id="@+id/tvSearchTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/inter_bold"
+            android:text="Search Companies"
+            android:textSize="20sp"
+            android:textColor="@color/french_blue"
+            android:layout_marginBottom="16dp" />
+
+        <!-- Search Fields -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/etSearchField"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:hint="Search company"
+                android:background="@color/light_grey"
+                android:textColorHint="@color/grey"
+                android:fontFamily="@font/inter"
+                android:textSize="16sp"
+                android:padding="10dp"
+                android:inputType="text" />
+
+            <Button
+                android:id="@+id/btnSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Search"
+                android:backgroundTint="@color/french_blue"
+                android:textColor="@color/white"
+                android:paddingHorizontal="16dp"
+                android:paddingVertical="8dp"
+                android:layout_marginStart="8dp" />
+        </LinearLayout>
+
+        <!-- RecyclerView for Search Results -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvSearchResults"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginTop="16dp"
+            android:background="@color/white_smoke" />
+    </LinearLayout>
 
     <!-- Sticky Navbar -->
     <include
@@ -129,5 +99,4 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom" />
-
 </FrameLayout>
