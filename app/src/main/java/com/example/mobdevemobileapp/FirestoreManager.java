@@ -33,10 +33,10 @@ public class FirestoreManager {
     }
 
     public void addUser(String userId, Map<String, Object> user, OnCompleteListener<Void> onCompleteListener) {
-    db.collection("users").document(userId)
-            .set(user)
-            .addOnCompleteListener(onCompleteListener);
-}
+        db.collection("users").document(userId)
+                .set(user)
+                .addOnCompleteListener(onCompleteListener);
+    }
 
     public void getUser(String userName, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         db.collection("users").document(userName).get().addOnCompleteListener(onCompleteListener);
@@ -49,6 +49,7 @@ public class FirestoreManager {
     public void getUserProfile(String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         db.collection("users").document(userId).get().addOnCompleteListener(onCompleteListener);
     }
+
     public void updateUsername(String currentUsername, String newUsername, OnCompleteListener<Void> listener) {
         getUser(currentUsername, task -> {
             if (task.isSuccessful() && task.getResult().exists()) {
@@ -112,6 +113,7 @@ public class FirestoreManager {
         db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
                 .addOnCompleteListener(onCompleteListener);
     }
+
     public void addReviewToUser(String username, Review review, OnCompleteListener<Void> onCompleteListener) {
 
         //add test to reviews which is a field in the user document
@@ -136,6 +138,47 @@ public class FirestoreManager {
     public void fetchReviews(String username, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         db.collection("reviews").whereEqualTo("user", username).get().addOnCompleteListener(onCompleteListener);
     }
+
+    public void deleteReview(String reviewTitle, String requestingUser, OnCompleteListener<Void> onCompleteListener) {
+        db.collection("reviews").document(reviewTitle).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful() && task.getResult().exists()) {
+                String reviewAuthor = task.getResult().getString("user");
+                if (reviewAuthor != null && reviewAuthor.equals(requestingUser)) {
+                    db.collection("reviews").document(reviewTitle).delete().addOnCompleteListener(onCompleteListener);
+                } else {
+                    onCompleteListener.onComplete(Tasks.forException(new Exception("User is not the author of the review")));
+                }
+            } else {
+                onCompleteListener.onComplete(Tasks.forException(new Exception("Review does not exist")));
+            }
+        });
+
+    }
+
+    public void editReview(String reviewTitle, Review review, OnCompleteListener<Void> onCompleteListener) {
+        Map<String, Object> reviewMap = new HashMap<>();
+        reviewMap.put("workEnvironment", review.getWorkEnvironment());
+        reviewMap.put("mentorship", review.getMentorship());
+        reviewMap.put("workload", review.getWorkload());
+        reviewMap.put("internshipType", review.getInternshipType());
+        reviewMap.put("allowanceProvision", review.getAllowanceProvision());
+        reviewMap.put("reviewTitle", review.getReviewTitle());
+        reviewMap.put("user", review.getUser().getUsername());
+        reviewMap.put("datePosted", review.getDatePosted());
+        reviewMap.put("reviewText", review.getReviewText());
+        reviewMap.put("helpful", review.getHelpful());
+
+        // Add other review fields as needed
+        db.collection("reviews").document(reviewTitle).delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                db.collection("reviews").document(review.getReviewTitle()).set(reviewMap)
+                        .addOnCompleteListener(onCompleteListener);
+            } else {
+                onCompleteListener.onComplete(Tasks.forException(task.getException()));
+            }
+        });
+    }
+
 
     public User getUserFromDocument(DocumentSnapshot document) {
         String username = document.getString("username");
