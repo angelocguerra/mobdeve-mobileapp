@@ -273,6 +273,12 @@ public class FirestoreManager {
                 .addOnCompleteListener(onCompleteListener);
     }
 
+    public void updateReview(Review review, OnCompleteListener<Void> onCompleteListener) {
+        db.collection("reviews")
+                .document(review.getReviewTitle()) // Use review title as the unique ID
+                .set(review) // This will overwrite the existing review
+                .addOnCompleteListener(onCompleteListener);
+    }
 
 
 }

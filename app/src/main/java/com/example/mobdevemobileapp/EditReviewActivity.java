@@ -10,10 +10,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -108,12 +110,58 @@ public class EditReviewActivity extends AppCompatActivity {
     }
 
     public void saveChanges(View v) {
-        // TODO: save changes to database and display back to ReviewPageActivity
+        String updatedHeadline = etReviewHeadline.getText().toString();
+        String updatedContent = etReviewContent.getText().toString();
+        float updatedWorkEnvironment = srbWorkEnvironment.getRating();
+        float updatedMentorship = srbMentorship.getRating();
+        float updatedWorkload = srbWorkload.getRating();
+        InternshipType updatedInternshipType = stringToInternshipType(spnInternshipType.getSelectedItem().toString());
+        AllowanceProvision updatedAllowanceProvision = stringToAllowanceProvision(spnAllowanceProvision.getSelectedItem().toString());
+        String companyName = tvCompanyName.getText().toString();
+
+        float updatedAverageRating = (updatedWorkEnvironment + updatedMentorship + updatedWorkload) / 3;
+
+        // Retrieve user from intent
+        Intent intent = getIntent();
+        String username = intent.getStringExtra("username");
+
+        Review updatedReview = new Review(
+                updatedAverageRating,
+                updatedWorkEnvironment,
+                updatedMentorship,
+                updatedWorkload,
+                updatedInternshipType,
+                updatedAllowanceProvision,
+                updatedHeadline,
+                new User(username), // Use the username to create a User object
+                intent.getStringExtra("reviewDate"), // Keep the original review date
+                updatedContent
+        );
+        updatedReview.setCompanyName(companyName);
+
+        // Update Firestore with the updated review
+        FirestoreManager.getInstance().updateReview(updatedReview, task -> {
+            if (task.isSuccessful()) {
+                Toast.makeText(EditReviewActivity.this, "Review updated successfully", Toast.LENGTH_SHORT).show();
+                Intent intent2 = new Intent(EditReviewActivity.this, MainPageActivity.class);
+                intent2.putExtra("companyName", companyName);
+                startActivity(intent2);
+                finish();
+            } else {
+                Toast.makeText(EditReviewActivity.this, "Failed to save changes. Please try again.", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
+
     public void discardChanges(View v) {
-        // TODO: discard changes and return to ReviewPageActivity
+        String companyName = tvCompanyName.getText().toString();
+        Intent intent = new Intent(EditReviewActivity.this, MainPageActivity.class);
+        intent.putExtra("companyName", companyName);
+        startActivity(intent);
+        finish();
     }
+
 
     public InternshipType stringToInternshipType(String string) {
         InternshipType output = null;
