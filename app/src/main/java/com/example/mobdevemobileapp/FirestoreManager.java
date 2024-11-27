@@ -99,6 +99,7 @@ public class FirestoreManager {
 
         //add test to reviews which is a field in the user document
         Map<String, Object> reviewMap = new HashMap<>();
+        reviewMap.put("companyName", review.getCompanyName());
         reviewMap.put("workEnvironment", review.getWorkEnvironment());
         reviewMap.put("mentorship", review.getMentorship());
         reviewMap.put("workload", review.getWorkload());
@@ -128,5 +129,24 @@ public class FirestoreManager {
         String password = document.getString("password");
         String profileCreated = document.getString("profileCreated");
         return new User(username, email, password, profileCreated);
+    }
+
+    public void getCompanies(OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("companies").get().addOnCompleteListener(onCompleteListener);
+    }
+
+    public void getCompanyNames(String name, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("companies").whereEqualTo("companyName", name).get().addOnCompleteListener(onCompleteListener);
+    }
+    public void getCompanyNamesFilter(String name, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        db.collection("companies")
+                .whereGreaterThanOrEqualTo("companyName", name)
+                .whereLessThanOrEqualTo("companyName", name + '\uf8ff')
+                .get()
+                .addOnCompleteListener(onCompleteListener);
+    }
+
+    public void getCompanyDetails(String name, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
+        db.collection("companies").document(name).get().addOnCompleteListener(onCompleteListener);
     }
 }
