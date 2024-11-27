@@ -9,33 +9,51 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        android:orientation="vertical">
 
         <!-- Header -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvHeader"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_medium"
-                android:text="Intern"
-                android:textSize="24sp"
-                android:textColor="@color/french_blue" />
+                android:layout_gravity="center|top"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="18dp"
+                android:paddingBottom="15dp">
 
-            <TextView
-                android:id="@+id/tvHeader2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_black"
-                android:text="SHIP"
-                android:textSize="24sp"
-                android:textColor="@color/french_blue" />
+                <TextView
+                    android:id="@+id/tvHeader"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/inter_medium"
+                    android:gravity="center"
+                    android:text="Intern"
+                    android:textColor="@color/french_blue"
+                    android:textSize="24sp" />
+
+                <TextView
+                    android:id="@+id/tvHeader2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/inter_black"
+                    android:gravity="center"
+                    android:text="SHIP"
+                    android:textColor="@color/french_blue"
+                    android:textSize="24sp" />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/ivHeaderLine"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                app:srcCompat="@drawable/underline" />
         </LinearLayout>
 
         <!-- Company Info -->
@@ -43,14 +61,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp">
 
             <ImageView
                 android:id="@+id/ivCompanyLogo"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="90dp"
+                android:layout_height="match_parent"
                 android:layout_marginEnd="16dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/icon"
@@ -58,7 +76,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <TextView
@@ -101,19 +119,101 @@
                         android:textSize="12sp"
                         android:text="Sample Location"/>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:id="@+id/llCompanyRating"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:layout_marginTop="4dp"
+                        android:gravity="center|start"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvCompanyRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter_semibold"
+                            android:text="4.35"
+                            android:textColor="@color/french_blue"
+                            android:textSize="12sp">
+
+                        </TextView>
+
+                        <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                            android:id="@+id/srbCompanyRating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:srb_starSize="18dp"
+                            app:srb_numberOfStars="5"
+                            app:srb_rating="4.35"
+                            app:srb_stepSize="0.01"
+                            app:srb_starsSeparation="1dp"
+                            app:srb_starBorderWidth="3"
+                            app:srb_starCornerRadius="4"
+                            app:srb_borderColor="@color/french_blue"
+                            app:srb_fillColor="@color/chardonnay"
+                            android:layout_marginStart="5dp"
+                            app:srb_isIndicator="true"
+                            />
+
+                        <TextView
+                            android:id="@+id/tvCompanyReviewDivider"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/inter"
+                            android:text="|"
+                            android:textColor="@color/french_blue"
+                            android:textSize="12sp">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/tvCompanyReviewCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="3dp"
+                            android:fontFamily="@font/inter"
+                            android:text="100"
+                            android:textColor="@color/french_blue"
+                            android:textSize="12sp">
+
+                        </TextView>
+
+                        <TextView
+                            android:id="@+id/tvCompanyReview"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/inter"
+                            android:text=" reviews"
+                            android:textColor="@color/french_blue"
+                            android:textSize="12sp">
+
+                        </TextView>
+
+                    </LinearLayout>
+
+                </LinearLayout>
             </LinearLayout>
+
+
+
         </LinearLayout>
 
+        <!-- RecyclerViews -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            />
-
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp" />
 
 
     </LinearLayout>
