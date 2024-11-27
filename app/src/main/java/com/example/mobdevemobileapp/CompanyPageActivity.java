@@ -44,7 +44,7 @@ public class CompanyPageActivity extends AppCompatActivity {
         db = FirestoreManager.getInstance();
 
         tvIndustry = findViewById(R.id.tvCompanyIndustry);
-        tvCompanyTitle = findViewById(R.id.tvCompanyName);
+        tvCompanyTitle = findViewById(R.id.tvCompanyTitle);
         tvCompanyLocation = findViewById(R.id.tvCompanyLocation);
         tvCompanyRating = findViewById(R.id.tvCompanyRating);
         tvCompanyReviewCount = findViewById(R.id.tvCompanyReviewCount);
@@ -118,6 +118,7 @@ public class CompanyPageActivity extends AppCompatActivity {
                             float workload = Float.parseFloat(String.valueOf(document.getDouble("workload")));
 
                             float ratingScore = (workEnvironment + mentorship + workload) / 3;
+                            ratingScore = (float) (Math.round(ratingScore * 100.0) / 100.0);
 
                             InternshipType internshipType = InternshipType.valueOf(document.getString("internshipType"));
                             AllowanceProvision allowanceProvision = AllowanceProvision.valueOf(document.getString("allowanceProvision"));
