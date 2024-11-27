@@ -111,13 +111,13 @@
                     android:textSize="11sp" />
 
                 <LinearLayout
-                    android:id="@+id/llUserReviewRestaurant"
+                    android:id="@+id/llUserReviewCompanyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvUserReviewRestaurant"
+                        android:id="@+id/tvUserReviewCompanyName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/inter"
@@ -127,7 +127,7 @@
                         android:textSize="11sp" />
 
                     <ImageView
-                        android:id="@+id/ivUserReviewRestaurant"
+                        android:id="@+id/ivUserReviewCompanyName"
                         android:layout_width="match_parent"
                         android:layout_height="0.6dp"
                         android:src="@drawable/underline"
@@ -197,7 +197,7 @@
                     android:layout_marginEnd="3dp"/>
 
                 <TextView
-                    android:id="@+id/UserReviewDate"
+                    android:id="@+id/tvUserReviewDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
@@ -206,7 +206,7 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tvRewiewContent"
+                android:id="@+id/tvReviewContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="I had a great experience interning at Los Pollos Hermanos. The work environment was fast-paced, and at times it felt overwhelming, especially..."
