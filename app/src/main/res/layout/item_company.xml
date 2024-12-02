@@ -2,37 +2,50 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvItemCompany"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/cvItemCompany"
     android:layout_marginBottom="10dp"
     app:strokeColor="@color/moonstone_blue"
     app:strokeWidth="0.5dp"
-    app:cardCornerRadius="5dp">
+    app:cardCornerRadius="5dp"
+    >
 
-    <LinearLayout
-        android:id="@+id/llCompanyCard"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCompanyCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/llCompanyCardLeft"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCompanyCardLeft"
             android:layout_width="0dp"
+            app:layout_constraintHorizontal_weight="0.7"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center|start"
+            android:gravity="start|top"
             android:orientation="vertical"
-            android:paddingTop="22dp"
-            android:paddingBottom="22dp"
             android:paddingStart="20dp"
-            android:paddingEnd="20dp">
+            android:paddingTop="22dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="22dp"
+            app:layout_constraintEnd_toStartOf="@id/ivCompanyLogo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_default="spread">
 
-            <LinearLayout
-                android:id="@+id/llIndustry"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clIndustry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constrainedWidth="true"
+                app:layout_constraintBottom_toTopOf="@+id/tvCompanyTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tvIndustry"
@@ -42,49 +55,70 @@
                     android:gravity="center|start"
                     android:text="Restaurants"
                     android:textColor="@color/french_blue"
-                    android:textSize="11sp" />
+                    android:textSize="11sp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/ivUnderline"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="0.6dp"
-                    android:src="@drawable/underline">
+                    android:src="@drawable/underline"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvIndustry" />
 
-                </ImageView>
-
-            </LinearLayout>
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvCompanyTitle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
                 android:fontFamily="@font/inter_bold"
                 android:gravity="center|start"
                 android:text="Los Pollos Hermanos"
                 android:textColor="@color/french_blue"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:layout_constraintBottom_toTopOf="@+id/clCompanyLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clIndustry" />
 
-            <LinearLayout
-                android:id="@+id/llCompanyLocation"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clCompanyLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
                 android:layout_marginTop="4dp"
+
                 android:gravity="center|start"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toTopOf="@+id/clCompanyRating"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCompanyTitle">
 
                 <ImageView
                     android:id="@+id/ivCompanyLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|start"
+                    android:layout_marginBottom="3dp"
+                    app:layout_constrainedWidth="true"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tvCompanyLocation"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/location" />
 
                 <TextView
                     android:id="@+id/tvCompanyLocation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|start"
                     android:layout_marginStart="4dp"
@@ -92,26 +126,37 @@
                     android:gravity="center|start"
                     android:text="Albuquerque"
                     android:textColor="@color/french_blue"
-                    android:textSize="12sp" />
-            </LinearLayout>
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/ivCompanyLocation"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/llCompanyRating"
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clCompanyRating"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center|start"
                 android:layout_marginTop="4dp"
                 android:gravity="center|start"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clCompanyLocation">
 
                 <TextView
                     android:id="@+id/tvCompanyRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semibold"
-                    android:text="4.35"
+                    android:text="5.35"
                     android:textColor="@color/french_blue"
-                    android:textSize="12sp">
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </TextView>
 
@@ -119,18 +164,20 @@
                     android:id="@+id/srbCompanyRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srb_starSize="18dp"
-                    app:srb_numberOfStars="5"
-                    app:srb_rating="4.35"
-                    app:srb_stepSize="0.01"
-                    app:srb_starsSeparation="1dp"
-                    app:srb_starBorderWidth="3"
-                    app:srb_starCornerRadius="4"
+                    android:layout_marginStart="5dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvCompanyRating"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:srb_borderColor="@color/french_blue"
                     app:srb_fillColor="@color/chardonnay"
-                    android:layout_marginStart="5dp"
                     app:srb_isIndicator="true"
-                    />
+                    app:srb_numberOfStars="5"
+                    app:srb_rating="4.35"
+                    app:srb_starBorderWidth="3"
+                    app:srb_starCornerRadius="4"
+                    app:srb_starSize="18dp"
+                    app:srb_starsSeparation="1dp"
+                    app:srb_stepSize="0.01" />
 
                 <TextView
                     android:id="@+id/tvCompanyReviewDivider"
@@ -140,7 +187,10 @@
                     android:fontFamily="@font/inter"
                     android:text="|"
                     android:textColor="@color/french_blue"
-                    android:textSize="12sp">
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/srbCompanyRating"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </TextView>
 
@@ -152,7 +202,10 @@
                     android:fontFamily="@font/inter"
                     android:text="100"
                     android:textColor="@color/french_blue"
-                    android:textSize="12sp">
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvCompanyReviewDivider"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </TextView>
 
@@ -163,19 +216,28 @@
                     android:fontFamily="@font/inter"
                     android:text=" reviews"
                     android:textColor="@color/french_blue"
-                    android:textSize="12sp">
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvCompanyReviewCount"
+                    app:layout_constraintTop_toTopOf="parent">
 
                 </TextView>
 
-            </LinearLayout>
-        </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
             android:id="@+id/ivCompanyLogo"
-            android:layout_width="108dp"
-            android:layout_height="match_parent"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:scaleType="centerCrop"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.3"
+            app:layout_constraintStart_toEndOf="@+id/clCompanyCardLeft"
             app:srcCompat="@drawable/los_pollos_hermanos" />
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </com.google.android.material.card.MaterialCardView>
