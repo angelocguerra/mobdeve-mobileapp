@@ -29,18 +29,30 @@
     </FrameLayout>
 
     <!-- Navbar -->
+    <ImageView
+        android:id="@+id/ivNavbarLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/container"
+        app:srcCompat="@drawable/underline" />
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:background="@color/white_smoke"
-        app:itemIconTint="@color/white_smoke"
-        app:itemTextColor="@color/white_smoke"
-        app:menu="@menu/navbar_menu"
-        app:labelVisibilityMode="labeled"
+        app:itemBackground="@color/white_smoke"
+        app:itemActiveIndicatorStyle="@color/white_smoke"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/navbar_color_selector"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivNavbarLine"
+        app:menu="@menu/navbar_menu" />
 
 
 
