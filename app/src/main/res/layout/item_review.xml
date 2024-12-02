@@ -2,7 +2,8 @@
 <androidx.cardview.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/cvItemReview"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cvItemUserReview"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
@@ -10,139 +11,195 @@
     app:strokeColor="@color/moonstone_blue"
     app:strokeWidth="0.5dp">
 
-    <LinearLayout
-        android:id="@+id/llReviewCard"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clUserReviewCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
         android:padding="15dp">
 
-        <LinearLayout
-            android:id="@+id/llReviewRating"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUserReviewLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/clUserReviewRight"
+            app:layout_constraintHorizontal_weight="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-            <TextView
-                android:id="@+id/tvReviewRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_bold"
-                android:gravity="center"
-                android:text="4.35"
-                android:textColor="@color/french_blue"
-                android:textSize="18sp" />
-
-            <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                android:id="@+id/srbReviewRating"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clUserReviewRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                app:srb_borderColor="@color/french_blue"
-                app:srb_fillColor="@color/chardonnay"
-                app:srb_isIndicator="true"
-                app:srb_numberOfStars="5"
-                app:srb_rating="4.35"
-                app:srb_starBorderWidth="1.5"
-                app:srb_starCornerRadius="2"
-                app:srb_starSize="10dp"
-                app:srb_starsSeparation="1dp"
-                app:srb_stepSize="0.01" />
-        </LinearLayout>
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-        <LinearLayout
-            android:id="@+id/llReviewContent"
+                <TextView
+                    android:id="@+id/tvUserReviewRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center"
+                    android:text="4.35"
+                    android:textColor="@color/french_blue"
+                    android:textSize="18sp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                    android:id="@+id/srbUserReviewRating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvUserReviewRating"
+                    app:srb_borderColor="@color/french_blue"
+                    app:srb_fillColor="@color/chardonnay"
+                    app:srb_isIndicator="true"
+                    app:srb_numberOfStars="5"
+                    app:srb_rating="4.35"
+                    app:srb_starBorderWidth="1.5"
+                    app:srb_starCornerRadius="2"
+                    app:srb_starSize="10dp"
+                    app:srb_starsSeparation="1dp"
+                    app:srb_stepSize="0.01" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clUserReviewRight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
             android:layout_marginStart="10dp"
-            android:layout_weight="1"
             android:gravity="center|start"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.75"
+            app:layout_constraintStart_toEndOf="@+id/clUserReviewLeft"
+            app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvReviewTitle"
+                android:id="@+id/tvUserReviewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:fontFamily="@font/inter_bold"
                 android:text="Fast-paced but Rewarding Work Environment"
                 android:textColor="@color/french_blue"
                 android:textSize="18sp"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/clUserReviewAuthorDate"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <LinearLayout
-                android:id="@+id/llReviewAuthorDate"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clUserReviewAuthorDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:orientation="horizontal"
-                android:layout_marginTop="5dp">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvUserReviewTitle">
 
                 <TextView
-                    android:id="@+id/tvReviewPostedBy"
+                    android:id="@+id/tvUserReviewPostedby"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
                     android:text="Posted by"
-                    android:layout_marginEnd="3dp"/>
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/clUserReviewAuthor"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                <LinearLayout
-                    android:id="@+id/llReviewAuthor"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clUserReviewAuthor"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_marginStart="3dp"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvUserReviewPostedby"
+                    app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/tvReviewAuthor"
+                        android:id="@+id/tvUserReviewAuthor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10sp"
                         android:text="Skywalker22"
-                        />
+                        android:textSize="10sp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/ivReviewAuthor"
-                        android:layout_width="match_parent"
+                        android:id="@+id/ivUserReviewAuthor"
+                        android:layout_width="0dp"
                         android:layout_height="0.6dp"
                         android:src="@drawable/underline"
-                        app:tint="@color/dark_jungle_green">
-
-                    </ImageView>
-
-                </LinearLayout>
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tvUserReviewAuthor"
+                        app:tint="@color/dark_jungle_green" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tvReviewAuthorDateDivider"
+                    android:id="@+id/tvUserReviewAuthorDateDivider"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:text="•"
                     android:layout_marginStart="3dp"
-                    android:layout_marginEnd="3dp"/>
+                    android:text="•"
+                    android:textSize="10sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/clUserReviewAuthor"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvReviewDate"
+                    android:id="@+id/tvUserReviewDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="3dp"
+                    android:text="Oct 15"
                     android:textSize="10sp"
-                    android:text="Oct 15" />
-
-            </LinearLayout>
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/tvUserReviewAuthorDateDivider"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
                 android:id="@+id/tvReviewContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
                 android:text="I had a great experience interning at Los Pollos Hermanos. The work environment was fast-paced, and at times it felt overwhelming, especially..."
                 android:textSize="12sp"
-                android:layout_marginTop="5dp"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clUserReviewAuthorDate" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnHelpful"
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
+                android:layout_marginTop="5dp"
                 android:backgroundTint="@color/light_grey"
                 android:fontFamily="@font/inter_bold"
                 android:gravity="center|start"
@@ -153,15 +210,13 @@
                 android:text="Helpful?"
                 android:textColor="@color/dark_jungle_green"
                 android:textSize="14sp"
-                android:layout_marginTop="5dp"
                 app:cornerRadius="500dp"
-                app:toggleCheckedStateOnClick="true"
-                android:checkable="true"
                 app:icon="@drawable/helpful"
                 app:iconGravity="start"
                 app:iconPadding="7dp"
-                app:iconTint="@color/dark_jungle_green" />
-        </LinearLayout>
-    </LinearLayout>
-
+                app:iconTint="@color/dark_jungle_green"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvReviewContent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
