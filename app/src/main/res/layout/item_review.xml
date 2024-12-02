@@ -12,7 +12,7 @@
     app:strokeWidth="0.5dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clUserReviewCard"
+        android:id="@+id/clReviewCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -20,7 +20,7 @@
         android:padding="15dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clUserReviewLeft"
+            android:id="@+id/clReviewLeft"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -33,7 +33,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clUserReviewRating"
+                android:id="@+id/clReviewRating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -45,7 +45,7 @@
                 app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
-                    android:id="@+id/tvUserReviewRating"
+                    android:id="@+id/tvReviewRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_bold"
@@ -58,13 +58,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                    android:id="@+id/srbUserReviewRating"
+                    android:id="@+id/srbReviewRating"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tvUserReviewRating"
+                    app:layout_constraintTop_toBottomOf="@+id/tvReviewRating"
                     app:srb_borderColor="@color/french_blue"
                     app:srb_fillColor="@color/chardonnay"
                     app:srb_isIndicator="true"
@@ -80,7 +80,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/clUserReviewRight"
+            android:id="@+id/clReviewRight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center|start"
@@ -90,11 +90,11 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_weight="0.75"
-            app:layout_constraintStart_toEndOf="@+id/clUserReviewLeft"
+            app:layout_constraintStart_toEndOf="@+id/clReviewLeft"
             app:layout_constraintTop_toTopOf="parent">
 
             <TextView
-                android:id="@+id/tvUserReviewTitle"
+                android:id="@+id/tvReviewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -109,16 +109,16 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/clUserReviewAuthorDate"
+                android:id="@+id/clReviewAuthorDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tvUserReviewTitle">
+                app:layout_constraintTop_toBottomOf="@+id/tvReviewTitle">
 
                 <TextView
-                    android:id="@+id/tvUserReviewPostedby"
+                    android:id="@+id/tvReviewPostedby"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Posted by"
@@ -135,11 +135,11 @@
                     android:layout_marginStart="3dp"
                     android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tvUserReviewPostedby"
+                    app:layout_constraintStart_toEndOf="@+id/tvReviewPostedby"
                     app:layout_constraintTop_toTopOf="parent">
 
                     <TextView
-                        android:id="@+id/tvUserReviewAuthor"
+                        android:id="@+id/tvReviewAuthor"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Skywalker22"
@@ -150,19 +150,19 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <ImageView
-                        android:id="@+id/ivUserReviewAuthor"
+                        android:id="@+id/ivReviewAuthor"
                         android:layout_width="0dp"
                         android:layout_height="0.6dp"
                         android:src="@drawable/underline"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tvUserReviewAuthor"
+                        app:layout_constraintTop_toBottomOf="@+id/tvReviewAuthor"
                         app:tint="@color/dark_jungle_green" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <TextView
-                    android:id="@+id/tvUserReviewAuthorDateDivider"
+                    android:id="@+id/tvReviewAuthorDateDivider"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
@@ -173,14 +173,14 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvUserReviewDate"
+                    android:id="@+id/tvReviewDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="3dp"
                     android:text="Oct 15"
                     android:textSize="10sp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/tvUserReviewAuthorDateDivider"
+                    app:layout_constraintStart_toEndOf="@+id/tvReviewAuthorDateDivider"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -193,7 +193,7 @@
                 android:textSize="12sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/clUserReviewAuthorDate" />
+                app:layout_constraintTop_toBottomOf="@+id/clReviewAuthorDate" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnHelpful"
