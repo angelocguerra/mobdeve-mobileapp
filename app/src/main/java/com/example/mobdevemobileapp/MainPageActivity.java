@@ -4,81 +4,72 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
+
 
 import java.util.ArrayList;
 
 public class MainPageActivity extends AppCompatActivity {
 
-    FirestoreManager db = FirestoreManager.getInstance();
+    BottomNavigationView bottomNavigationView;
+
+    HomeFragment homeFragment = new HomeFragment();
+    SearchFragment searchFragment = new SearchFragment();
+    CreateFragment createFragment = new CreateFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
-        RecyclerView recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        ArrayList<Company> companiesArrayList = new ArrayList<>();
-        db.getCompanies(task -> {
-            if (task.isSuccessful()) {
-                if (task.getResult().isEmpty()) {
-                    Log.d("MainPageActivity", "No companies found");
-                    // Handle empty result case if needed
-                } else {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        String companyName = document.getString("companyName");
-                        String companyIndustry = document.getString("companyIndustry");
-                        String companyLocation = document.getString("companyLocation");
-                        float rating = Float.parseFloat(String.valueOf(document.getDouble("rating")));
-                        int image;
-                        if (document.contains("image") && document.get("image") != null) {
-                            String image_name = document.getString("image") ;// Assuming it's stored as a long in Firestore
-                            image = getResources().getIdentifier(image_name, "drawable", getPackageName());
+        // Navbar
+        bottomNavigationView = findViewById(R.id.navbar);
 
-                        } else {
-                            image = R.drawable.default_company_image; // Replace with your default drawable resource ID
-                        }
-                        Log.d("MainPageActivity", "Company Name: " + companyName);
-                        Company newCompany = new Company(companyIndustry, companyName, image, companyLocation, rating);
-                        companiesArrayList.add(newCompany);
-                    }
-                    CompanyAdapter companyAdapter = new CompanyAdapter(companiesArrayList.toArray(new Company[0]), MainPageActivity.this);
-                    recyclerView.setAdapter(companyAdapter);
+        // Replace Home Fragment with the default fragment
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.home) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.search) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.create) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, createFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.profile) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
+                    return true;
                 }
-            } else {
-                // Log error
-            }
+                return false;
+        }
         });
-//        Company[] companies = new Company[]{
-//                new Company("Restaurants & Food Service","Los Pollos Hermanos", R.drawable.los_pollos_hermanos, "Albuquerque", 4.5f),
-//                new Company("Retail & Wholesale", "Dunder Mifflin Inc.", R.drawable.dunder_mifflin, "Scranton", 3.0f),
-//                new Company("Security & Protective", "Ghostbusters Inc.", R.drawable.ghostbusters, "New York City", 4.0f),
-//                new Company("Restaurants & Food Service", "Central Perk", R.drawable.central_perk, "New York City", 4.5f),
-//                new Company("Restaurants & Food Service","Los Pollos Hermanos", R.drawable.los_pollos_hermanos, "Albuquerque", 4.5f),
-//                new Company("Retail & Wholesale", "Dunder Mifflin Inc.", R.drawable.dunder_mifflin, "Scranton", 3.0f),
-//                new Company("Security & Protective", "Ghostbusters Inc.", R.drawable.ghostbusters, "New York City", 4.0f),
-//                new Company("Restaurants & Food Service", "Central Perk", R.drawable.central_perk, "New York City", 4.5f)
-//        };
-//
-//        CompanyAdapter companyAdapter = new CompanyAdapter(companies, MainPageActivity.this);
-//        recyclerView.setAdapter(companyAdapter);
 
-        Navbar.setupNavbar(this);
 
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
     }
 
 }
