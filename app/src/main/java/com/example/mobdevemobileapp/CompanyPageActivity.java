@@ -3,11 +3,14 @@ package com.example.mobdevemobileapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -17,24 +20,60 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class CompanyPageActivity extends AppCompatActivity {
 
     FirestoreManager db;
 
-    TextView tvIndustry, tvCompanyTitle, tvCompanyLocation, tvCompanyRating, tvCompanyReviewCount;
+    TextView tvIndustry, tvCompanyTitle, tvCompanyLocation;
     ImageView ivCompanyLogo;
-    SimpleRatingBar srbCompanyRating;
+    BottomNavigationView bottomNavigationView;
+
+    HomeFragment homeFragment = new HomeFragment();
+    SearchFragment searchFragment = new SearchFragment();
+    CreateFragment createFragment = new CreateFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_page);
+
+        // Navbar
+        bottomNavigationView = findViewById(R.id.navbar);
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.home) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.search) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.create) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, createFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.profile) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -46,10 +85,7 @@ public class CompanyPageActivity extends AppCompatActivity {
         tvIndustry = findViewById(R.id.tvCompanyIndustry);
         tvCompanyTitle = findViewById(R.id.tvCompanyTitle);
         tvCompanyLocation = findViewById(R.id.tvCompanyLocation);
-        tvCompanyRating = findViewById(R.id.tvCompanyRating);
-        tvCompanyReviewCount = findViewById(R.id.tvCompanyReviewCount);
         ivCompanyLogo = findViewById(R.id.ivCompanyLogo);
-        srbCompanyRating = findViewById(R.id.srbCompanyRating);
 
         Company currentCompany = this.populatePage();
 
@@ -59,12 +95,9 @@ public class CompanyPageActivity extends AppCompatActivity {
 
         fetchReviews(currentCompany, reviews -> {
             currentCompany.setCompanyReviews(reviews);
-            tvCompanyReviewCount.setText(String.valueOf(reviews.size()));
             ReviewAdapter reviewAdapter = new ReviewAdapter(reviews, currentCompany, this);
             recyclerView.setAdapter(reviewAdapter);
         });
-
-        Navbar.setupNavbar(this);
     }
 
     public Company populatePage() {
@@ -82,22 +115,11 @@ public class CompanyPageActivity extends AppCompatActivity {
         tvCompanyLocation.setText(companyLocation);
         Log.d("addLocation", "Location added");
 
-        int reviewsCount = intent.getIntExtra("reviewsCount", 0);
-        tvCompanyReviewCount.setText(String.valueOf(reviewsCount));
-        Log.d("addCount", "Count added");
-
-        float companyRating = intent.getFloatExtra("companyRating", 0);
-        tvCompanyRating.setText(String.valueOf(companyRating));
-        Log.d("addRating", "Numerical Rating added");
-
         int companyLogo = intent.getIntExtra("companyImage", 0);
         ivCompanyLogo.setImageResource(companyLogo);
         Log.d("addLogo", "Logo added");
 
-        srbCompanyRating.setRating(companyRating);
-        Log.d("addRatingBar", "Rating Bar added");
-
-        return new Company(industry, companyTitle, companyLogo, companyLocation, companyRating);
+        return new Company(industry, companyTitle, companyLogo, companyLocation);
     }
 
     public void fetchReviews(Company company, OnReviewsFetchedListener listener) {

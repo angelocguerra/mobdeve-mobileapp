@@ -112,7 +112,7 @@
                     app:layout_constraintEnd_toStartOf="@+id/tvCompanyLocation"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/location" />
+                    app:srcCompat="@drawable/ic_location" />
 
                 <TextView
                     android:id="@+id/tvCompanyLocation"

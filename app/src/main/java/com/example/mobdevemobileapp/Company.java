@@ -20,6 +20,14 @@ public class Company {
         this.companyReviews = new ArrayList<>();
     }
 
+    public Company(String companyIndustry, String companyName, Integer companyImage, String companyLocation) {
+        this.companyIndustry = companyIndustry;
+        this.companyName = companyName;
+        this.companyLocation = companyLocation;
+        this.companyImage = companyImage;
+        this.companyReviews = new ArrayList<>();
+    }
+
     // Getters
     public String getCompanyIndustry() {return companyIndustry;}
     public String getCompanyName() {return companyName;}

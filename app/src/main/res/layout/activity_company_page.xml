@@ -1,227 +1,188 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke">
 
-    <LinearLayout
+    <!-- Toolbar -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/clCompanyInfoLeft"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Header -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <!-- Company Info -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clCompanyInfoLeft"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center|top"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingTop="18dp"
-                android:paddingBottom="15dp">
-
-                <TextView
-                    android:id="@+id/tvHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/inter_medium"
-                    android:gravity="center"
-                    android:text="Intern"
-                    android:textColor="@color/french_blue"
-                    android:textSize="24sp" />
-
-                <TextView
-                    android:id="@+id/tvHeader2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:fontFamily="@font/inter_black"
-                    android:gravity="center"
-                    android:text="SHIP"
-                    android:textColor="@color/french_blue"
-                    android:textSize="24sp" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/ivHeaderLine"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                app:srcCompat="@drawable/underline" />
-        </LinearLayout>
-
-        <!-- Company Info -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvCompanyLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:clickable="false"
+            android:focusable="false"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/clCompanyInfo"
+            app:layout_constraintHorizontal_weight="0.25"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
                 android:id="@+id/ivCompanyLogo"
-                android:layout_width="90dp"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginEnd="16dp"
-                android:scaleType="centerCrop"
+                android:scaleType="fitXY"
                 android:src="@drawable/icon"
-                android:contentDescription="Company Logo" />
+                />
+        </androidx.cardview.widget.CardView>
 
-            <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/clCompanyInfo"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:gravity="center|start"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="0.7"
+            app:layout_constraintStart_toEndOf="@+id/cvCompanyLogo"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clIndustry"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintBottom_toTopOf="@+id/tvCompanyTitle"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
                 <TextView
                     android:id="@+id/tvCompanyIndustry"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/inter_semibold"
+                    android:gravity="center|start"
+                    android:text="Sample Industry"
                     android:textColor="@color/french_blue"
-                    android:textSize="14sp"
-                    android:text="Sample Industry"/>
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivUnderline"
+                    android:layout_width="0dp"
+                    android:layout_height="0.6dp"
+                    android:src="@drawable/underline"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tvCompanyIndustry" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/tvCompanyTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/inter_bold"
+                android:text="Los Pollos Hermanos"
+                android:textColor="@color/french_blue"
+                android:textSize="22sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/clIndustry" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/clLocation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvCompanyTitle">
+
+                <ImageView
+                    android:id="@+id/ivLocationIcon"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:contentDescription="Location Icon"
+                    android:src="@drawable/ic_location"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
-                    android:id="@+id/tvCompanyTitle"
+                    android:id="@+id/tvCompanyLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
+                    android:layout_marginStart="5dp"
+                    android:fontFamily="@font/inter_semibold"
+                    android:text="Location"
                     android:textColor="@color/french_blue"
-                    android:textSize="20sp"
-                    android:text="Company Name"/>
+                    android:textSize="12sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/ivLocationIcon"
+                    app:layout_constraintTop_toTopOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+    <!-- RecyclerViews -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toTopOf="@+id/ivNavbarLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clCompanyInfoLeft" />
 
-                    <ImageView
-                        android:id="@+id/ivLocationIcon"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_location"
-                        android:contentDescription="Location Icon" />
+    <!-- Navbar -->
+    <ImageView
+        android:id="@+id/ivNavbarLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
+        app:srcCompat="@drawable/underline" />
 
-                    <TextView
-                        android:id="@+id/tvCompanyLocation"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:fontFamily="@font/inter"
-                        android:textColor="@color/grey"
-                        android:textSize="12sp"
-                        android:text="Location"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <LinearLayout
-                        android:id="@+id/llCompanyRating"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center|start"
-                        android:layout_marginTop="4dp"
-                        android:gravity="center|start"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvCompanyRating"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter_semibold"
-                            android:text="4.35"
-                            android:textColor="@color/french_blue"
-                            android:textSize="12sp">
-
-                        </TextView>
-
-                        <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                            android:id="@+id/srbCompanyRating"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            app:srb_starSize="18dp"
-                            app:srb_numberOfStars="5"
-                            app:srb_rating="4.35"
-                            app:srb_stepSize="0.01"
-                            app:srb_starsSeparation="1dp"
-                            app:srb_starBorderWidth="3"
-                            app:srb_starCornerRadius="4"
-                            app:srb_borderColor="@color/french_blue"
-                            app:srb_fillColor="@color/chardonnay"
-                            android:layout_marginStart="5dp"
-                            app:srb_isIndicator="true"
-                            />
-
-                        <TextView
-                            android:id="@+id/tvCompanyReviewDivider"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:fontFamily="@font/inter"
-                            android:text="|"
-                            android:textColor="@color/french_blue"
-                            android:textSize="12sp">
-
-                        </TextView>
-
-                        <TextView
-                            android:id="@+id/tvCompanyReviewCount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="3dp"
-                            android:fontFamily="@font/inter"
-                            android:text="100"
-                            android:textColor="@color/french_blue"
-                            android:textSize="12sp">
-
-                        </TextView>
-
-                        <TextView
-                            android:id="@+id/tvCompanyReview"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/inter"
-                            android:text=" reviews"
-                            android:textColor="@color/french_blue"
-                            android:textSize="12sp">
-
-                        </TextView>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-            </LinearLayout>
-
-
-
-        </LinearLayout>
-
-        <!-- RecyclerViews -->
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="50dp" />
-
-    </LinearLayout>
-
-    <!-- Navbar Section -->
-    <include
-        layout="@layout/navbar"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
-</RelativeLayout>
+        android:layout_height="60dp"
+        android:background="@color/white_smoke"
+        app:itemBackground="@color/white_smoke"
+        app:itemActiveIndicatorStyle="@color/white_smoke"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/navbar_color_selector"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivNavbarLine"
+        app:menu="@menu/navbar_menu" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
