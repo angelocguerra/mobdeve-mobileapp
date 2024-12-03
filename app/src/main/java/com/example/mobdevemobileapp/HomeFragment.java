@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment {
                             image = getResources().getIdentifier(image_name, "drawable", getActivity().getPackageName());
 
                         } else {
-                            image = R.drawable.default_company_image; // Replace with your default drawable resource ID
+                            image = R.drawable.icon; // Replace with your default drawable resource ID
                         }
                         Log.d("HomeFragment", "Company Name: " + companyName);
                         Company newCompany = new Company(companyIndustry, companyName, image, companyLocation, rating);
@@ -59,6 +59,7 @@ public class HomeFragment extends Fragment {
                 }
             } else {
                 // Log error
+                Log.e("HomeFragment", "Error getting documents: ", task.getException());
             }
         });
 
