@@ -104,7 +104,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/clUserReviewAuthorDate"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -191,7 +190,6 @@
                 android:layout_marginTop="5dp"
                 android:text="I had a great experience interning at Los Pollos Hermanos. The work environment was fast-paced, and at times it felt overwhelming, especially..."
                 android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/clReviewAuthorDate" />
 

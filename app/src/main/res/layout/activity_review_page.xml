@@ -1,311 +1,310 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_smoke">
 
-    <LinearLayout
+    <!-- Toolbar -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        app:layout_constraintBottom_toTopOf="@+id/svReviewPage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Header -->
+    <ScrollView
+        android:id="@+id/svReviewPage"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvHeader"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_medium"
-                android:text="Intern"
-                android:textSize="24sp"
-                android:textColor="@color/french_blue" />
-
-            <TextView
-                android:id="@+id/tvHeader2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_black"
-                android:text="SHIP"
-                android:textSize="24sp"
-                android:textColor="@color/french_blue" />
-        </LinearLayout>
-
-        <!-- Company Info -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp">
-
-            <ImageView
-                android:id="@+id/ivCompanyLogo"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginEnd="16dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icon"
-                android:contentDescription="Company Logo" />
-
+            <!-- Company Info -->
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:id="@+id/tvCompanyIndustry"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_semibold"
-                    android:textColor="@color/french_blue"
-                    android:textSize="14sp"
-                    android:text="Sample Industry"/>
-
-                <TextView
-                    android:id="@+id/tvCompanyName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_bold"
-                    android:textColor="@color/french_blue"
-                    android:textSize="20sp"
-                    android:text="Sample Name"/>
+                <ImageView
+                    android:id="@+id/ivCompanyLogo"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginEnd="16dp"
+                    android:contentDescription="Company Logo"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/ivLocationIcon"
-                        android:layout_width="16dp"
-                        android:layout_height="16dp"
-                        android:src="@drawable/ic_location"
-                        android:contentDescription="Location Icon" />
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvCompanyLocation"
+                        android:id="@+id/tvCompanyIndustry"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="4dp"
-                        android:fontFamily="@font/inter"
-                        android:textColor="@color/grey"
-                        android:textSize="12sp"
-                        android:text="Sample Location"/>
+                        android:fontFamily="@font/inter_semibold"
+                        android:text="Sample Industry"
+                        android:textColor="@color/french_blue"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvCompanyName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/inter_bold"
+                        android:text="Sample Name"
+                        android:textColor="@color/french_blue"
+                        android:textSize="20sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/ivLocationIcon"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:contentDescription="Location Icon"
+                            android:src="@drawable/ic_location" />
+
+                        <TextView
+                            android:id="@+id/tvCompanyLocation"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:fontFamily="@font/inter"
+                            android:text="Sample Location"
+                            android:textColor="@color/grey"
+                            android:textSize="12sp" />
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <!-- Ratings -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginTop="16dp">
+            <!-- Ratings -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvWorkEnvironmentLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Work Environment"
+                    android:textColor="@color/french_blue"
+                    android:textSize="14sp" />
+
+                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                    android:id="@+id/srbWorkEnvironment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srb_isIndicator="true"
+                    app:srb_numberOfStars="5"
+                    app:srb_starSize="20dp"
+                    app:srb_stepSize="0.01" />
+
+                <TextView
+                    android:id="@+id/tvMentorshipLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Mentorship"
+                    android:textColor="@color/french_blue"
+                    android:textSize="14sp" />
+
+                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                    android:id="@+id/srbMentorship"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srb_isIndicator="true"
+                    app:srb_numberOfStars="5"
+                    app:srb_starSize="20dp"
+                    app:srb_stepSize="1" />
+
+                <TextView
+                    android:id="@+id/tvWorkloadLabel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/inter_medium"
+                    android:text="Workload"
+                    android:textColor="@color/french_blue"
+                    android:textSize="14sp" />
+
+                <com.iarcuschin.simpleratingbar.SimpleRatingBar
+                    android:id="@+id/srbWorkload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:srb_isIndicator="true"
+                    app:srb_numberOfStars="5"
+                    app:srb_starSize="20dp"
+                    app:srb_stepSize="1" />
+            </LinearLayout>
 
             <TextView
-                android:id="@+id/tvWorkEnvironmentLabel"
+                android:id="@+id/tvInternshipTypeLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Work Environment"
+                android:text="Internship Type"
                 android:textColor="@color/french_blue"
                 android:textSize="14sp" />
 
-            <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                android:id="@+id/srbWorkEnvironment"
+            <TextView
+                android:id="@+id/tvInternshipType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:srb_starSize="20dp"
-                app:srb_numberOfStars="5"
-                app:srb_stepSize="0.01"
-                app:srb_isIndicator="true" />
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:text="Sample Internship Type" />
 
             <TextView
-                android:id="@+id/tvMentorshipLabel"
+                android:id="@+id/tvAllowanceProvisionLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:fontFamily="@font/inter_medium"
-                android:text="Mentorship"
+                android:text="Allowance Provision"
                 android:textColor="@color/french_blue"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp" />
-
-            <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                android:id="@+id/srbMentorship"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srb_starSize="20dp"
-                app:srb_numberOfStars="5"
-                app:srb_stepSize="1"
-                app:srb_isIndicator="true" />
+                android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/tvWorkloadLabel"
+                android:id="@+id/tvAllowanceProvision"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter_medium"
-                android:text="Workload"
-                android:textColor="@color/french_blue"
-                android:textSize="14sp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginBottom="8dp"
+                android:padding="8dp"
+                android:text="Sample Allowance Provision" />
 
-            <com.iarcuschin.simpleratingbar.SimpleRatingBar
-                android:id="@+id/srbWorkload"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srb_starSize="20dp"
-                app:srb_numberOfStars="5"
-                app:srb_stepSize="1"
-                app:srb_isIndicator="true" />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/tvInternshipTypeLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_medium"
-            android:text="Internship Type"
-            android:textColor="@color/french_blue"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/tvInternshipType"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Sample Internship Type"
-            android:padding="8dp" />
-
-        <TextView
-            android:id="@+id/tvAllowanceProvisionLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/inter_medium"
-            android:text="Allowance Provision"
-            android:textColor="@color/french_blue"
-            android:textSize="14sp"
-            android:layout_marginTop="8dp" />
-
-        <TextView
-            android:id="@+id/tvAllowanceProvision"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Sample Allowance Provision"
-            android:padding="8dp" />
-
-        <!-- Review Content -->
-        <TextView
-            android:id="@+id/tvReviewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:fontFamily="@font/inter_bold"
-            android:textColor="@color/french_blue"
-            android:textSize="18sp"
-            android:text="Sample Title"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal" >
-
+            <!-- Review Content -->
             <TextView
-                android:id="@+id/tvReviewAuthor"
+                android:id="@+id/tvReviewTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:textColor="@color/grey"
-                android:text="Sample Author" />
-
-            <TextView
-                android:id="@+id/tvDivider"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:textColor="@color/grey"
-                android:text="   |   " />
-
-            <TextView
-                android:id="@+id/tvReviewDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/inter"
-                android:textColor="@color/grey"
-                android:text="Sample Date" />
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/tvReviewContent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/inter"
-            android:textColor="@color/grey"
-            android:textSize="14sp"
-            android:text="Sample Content"/>
-
-        <!-- Buttons -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="16dp"
-            android:gravity="center_horizontal">
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnHelpful"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:backgroundTint="@color/light_grey"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/inter_bold"
-                android:gravity="center|start"
-                android:text="Helpful?"
-                android:textColor="@color/dark_jungle_green"
-                android:textSize="14sp"
-                android:onClick="toggleHelpful"
-                android:layout_marginRight="8dp"
-                app:cornerRadius="500dp"
-                app:toggleCheckedStateOnClick="true"
-                android:checkable="true"
-                app:icon="@drawable/helpful"
-                app:iconGravity="start"
-                app:iconPadding="7dp"
-                app:iconTint="@color/dark_jungle_green" />
+                android:text="Sample Title"
+                android:textColor="@color/french_blue"
+                android:textSize="18sp" />
 
-            <Button
-                android:id="@+id/btnEdit"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/french_blue"
-                android:text="Edit"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:onClick="editReview"
-                android:fontFamily="@font/inter_medium"
-                android:layout_marginEnd="8dp" />
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/btnDelete"
+                <TextView
+                    android:id="@+id/tvReviewAuthor"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:text="Sample Author"
+                    android:textColor="@color/grey" />
+
+                <TextView
+                    android:id="@+id/tvDivider"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:text="   |   "
+                    android:textColor="@color/grey" />
+
+                <TextView
+                    android:id="@+id/tvReviewDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:text="Sample Date"
+                    android:textColor="@color/grey" />
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvReviewContent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:text="Delete"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                android:onClick="deleteReview"
-                android:fontFamily="@font/inter_medium" />
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/inter"
+                android:text="Sample Content"
+                android:textColor="@color/grey"
+                android:textSize="14sp" />
+
+            <!-- Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnHelpful"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="8dp"
+                    android:backgroundTint="@color/light_grey"
+                    android:checkable="true"
+                    android:fontFamily="@font/inter_bold"
+                    android:gravity="center|start"
+                    android:onClick="toggleHelpful"
+                    android:text="Helpful?"
+                    android:textColor="@color/dark_jungle_green"
+                    android:textSize="14sp"
+                    app:cornerRadius="500dp"
+                    app:icon="@drawable/helpful"
+                    app:iconGravity="start"
+                    app:iconPadding="7dp"
+                    app:iconTint="@color/dark_jungle_green"
+                    app:toggleCheckedStateOnClick="true" />
+
+                <Button
+                    android:id="@+id/btnEdit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:backgroundTint="@color/french_blue"
+                    android:fontFamily="@font/inter_medium"
+                    android:onClick="editReview"
+                    android:text="Edit"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/red"
+                    android:fontFamily="@font/inter_medium"
+                    android:onClick="deleteReview"
+                    android:text="Delete"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
         </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
