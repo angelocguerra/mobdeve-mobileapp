@@ -23,9 +23,6 @@ public class ChangeUsername extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_username_page);
 
-        // Set up the navbar
-        Navbar.setupNavbar(this);
-
         // Initialize FirestoreManager and SharedPreferences
         db = FirestoreManager.getInstance();
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
@@ -68,7 +65,7 @@ public class ChangeUsername extends AppCompatActivity {
 
                 // Notify the user and navigate back to the ProfileActivity
                 Toast.makeText(this, "Username updated successfully!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ChangeUsername.this, ProfileActivity.class);
+                Intent intent = new Intent(ChangeUsername.this, ProfileFragment.class);
                 startActivity(intent);
                 finish();
             } else {

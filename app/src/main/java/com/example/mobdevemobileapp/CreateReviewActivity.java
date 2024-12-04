@@ -51,9 +51,6 @@ public class CreateReviewActivity extends AppCompatActivity {
 
         setupSpinners();
         setupCompanySearch();
-
-        // Set up the navbar
-        Navbar.setupNavbar(this);
     }
     private void setupCompanySearch() {
         AutoCompleteTextView actvCompanyName = findViewById(R.id.actvCompanyName);
@@ -135,7 +132,7 @@ public class CreateReviewActivity extends AppCompatActivity {
         db.addReviewToUser(currentUsername, review, task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(this, "Review added successfully", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(CreateReviewActivity.this, ProfileActivity.class);
+                Intent intent = new Intent(CreateReviewActivity.this, ProfileFragment.class);
                 startActivity(intent);
                 finish();
             } else {

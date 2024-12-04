@@ -11,8 +11,6 @@ public class EnterCode extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.enter_code);
-        // Set up the navbar
-        Navbar.setupNavbar(this);
         Button btnEnterCode = findViewById(R.id.btnEnterCode);
 
         btnEnterCode.setOnClickListener(new View.OnClickListener() {

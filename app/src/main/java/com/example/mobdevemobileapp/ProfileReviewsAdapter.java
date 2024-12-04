@@ -18,11 +18,11 @@ import java.util.ArrayList;
 
 public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAdapter.ViewHolder> {
     ArrayList<Review> reviews;
-    ProfileActivity activity;
+    ProfileFragment fragment;
 
-    public ProfileReviewsAdapter(ArrayList<Review> reviews, ProfileActivity activity) {
+    public ProfileReviewsAdapter(ArrayList<Review> reviews, ProfileFragment fragment) {
         this.reviews = reviews;
-        this.activity = activity;
+        this.fragment = fragment;
     }
 
     @NonNull
@@ -87,17 +87,17 @@ public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAd
 
                 if (holder.btnHelpful.isChecked()) {
                     Log.d("showChecked", "Button.isChecked = " + holder.btnHelpful.isChecked());
-                    holder.btnHelpful.setBackgroundColor(activity.getResources().getColor(R.color.french_blue));
-                    holder.btnHelpful.setTextColor(activity.getResources().getColor(R.color.pale_peach));
-                    holder.btnHelpful.setIcon(activity.getResources().getDrawable(R.drawable.helpful_toggled));
+                    holder.btnHelpful.setBackgroundColor(fragment.getResources().getColor(R.color.french_blue));
+                    holder.btnHelpful.setTextColor(fragment.getResources().getColor(R.color.pale_peach));
+                    holder.btnHelpful.setIcon(fragment.getResources().getDrawable(R.drawable.helpful_toggled));
                     Log.d("showChecked", "Button.isChecked = " + holder.btnHelpful.isChecked());
                     review.setHelpful(review.getHelpful() + 1);
                 }
                 else {
                     Log.d("showChecked", "Button.isChecked = " + holder.btnHelpful.isChecked());
-                    holder.btnHelpful.setBackgroundColor(activity.getResources().getColor(R.color.light_grey));
-                    holder.btnHelpful.setTextColor(activity.getResources().getColor(R.color.dark_jungle_green));
-                    holder.btnHelpful.setIcon(activity.getResources().getDrawable(R.drawable.helpful));
+                    holder.btnHelpful.setBackgroundColor(fragment.getResources().getColor(R.color.light_grey));
+                    holder.btnHelpful.setTextColor(fragment.getResources().getColor(R.color.dark_jungle_green));
+                    holder.btnHelpful.setIcon(fragment.getResources().getDrawable(R.drawable.helpful));
                     Log.d("showChecked","Button.isChecked = " + holder.btnHelpful.isChecked());
                     review.setHelpful(review.getHelpful() - 1);
                 }

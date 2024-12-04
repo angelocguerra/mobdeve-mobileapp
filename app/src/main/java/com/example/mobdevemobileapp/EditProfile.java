@@ -5,30 +5,67 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class EditProfile extends AppCompatActivity {
 
     private FirestoreManager db;
     private SharedPreferences sharedPreferences;
     private String currentUsername;
+    BottomNavigationView bottomNavigationView;
+
+    HomeFragment homeFragment = new HomeFragment();
+    SearchFragment searchFragment = new SearchFragment();
+    CreateFragment createFragment = new CreateFragment();
+    ProfileFragment profileFragment = new ProfileFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile_page);
 
+        // Navbar
+        bottomNavigationView = findViewById(R.id.navbar);
+        bottomNavigationView.setSelectedItemId(R.id.profile);
+
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                if (item.getItemId() == R.id.home) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.search) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.create) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, createFragment).commit();
+                    return true;
+                } else if (item.getItemId() == R.id.profile) {
+                    getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        // Toolbar
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         // Initialize FirestoreManager and SharedPreferences
         db = FirestoreManager.getInstance();
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
         currentUsername = sharedPreferences.getString("username", "");
-
-        // Set up the navbar
-        Navbar.setupNavbar(this);
 
         Button btnChangeUsername = findViewById(R.id.btnChangeUsername);
         Button btnChangePassword = findViewById(R.id.btnChangePassword);

@@ -21,9 +21,6 @@ public class ChangePassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.change_password_page);
 
-        // Set up the navbar
-        Navbar.setupNavbar(this);
-
         // Initialize FirestoreManager and SharedPreferences
         db = FirestoreManager.getInstance();
         sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
@@ -99,7 +96,7 @@ public class ChangePassword extends AppCompatActivity {
     }
 
     private void navigateToProfile() {
-        Intent intent = new Intent(ChangePassword.this, ProfileActivity.class);
+        Intent intent = new Intent(ChangePassword.this, ProfileFragment.class);
         startActivity(intent);
         finish(); // Finish ChangePasswordActivity
     }

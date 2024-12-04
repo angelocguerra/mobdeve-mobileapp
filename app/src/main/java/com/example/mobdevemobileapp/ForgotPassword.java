@@ -24,9 +24,6 @@ public class ForgotPassword extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.forgot_password_page);
 
-        // Set up the navbar
-        Navbar.setupNavbar(this);
-
         Button btnResetPassword = findViewById(R.id.btnResetPassword);
 
         btnResetPassword.setOnClickListener(new View.OnClickListener() {

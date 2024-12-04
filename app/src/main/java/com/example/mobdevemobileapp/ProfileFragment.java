@@ -85,7 +85,7 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
-    public void fetchReviews(String username, ProfileActivity.OnReviewsFetchedListener listener) {
+    public void fetchReviews(String username, ProfileFragment.OnReviewsFetchedListener listener) {
         db.fetchReviews(username, task -> {
             if(task.isSuccessful() && task.getResult() != null && !task.getResult().isEmpty()) {
                 ArrayList<Review> reviews = new ArrayList<>();

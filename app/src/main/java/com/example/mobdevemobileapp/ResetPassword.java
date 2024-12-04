@@ -11,8 +11,6 @@ public class ResetPassword extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.reset_password_page);
-        // Set up the navbar
-        Navbar.setupNavbar(this);
         Button btnResetPassword = findViewById(R.id.btnSubmitResetPassword);
 
 

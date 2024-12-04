@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -7,122 +7,130 @@
     android:orientation="vertical"
     android:background="@color/white_smoke">
 
-    <!-- Main Content -->
-    <LinearLayout
+    <!-- Toolbar -->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvProfileSettings"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Profile Settings Title -->
+    <TextView
+        android:id="@+id/tvProfileSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        android:fontFamily="@font/inter_bold"
+        android:text="Profile Settings"
+        android:textColor="@color/french_blue"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <!-- Buttons -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clButtons"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical">
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/navbar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvProfileSettings">
 
-        <!-- Header -->
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:padding="15dp">
-
-                <TextView
-                    android:id="@+id/tvHeader"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_medium"
-                    android:text="Intern"
-                    android:textSize="24sp"
-                    android:textColor="@color/french_blue" />
-
-                <TextView
-                    android:id="@+id/tvHeader2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/inter_black"
-                    android:text="SHIP"
-                    android:textSize="24sp"
-                    android:textColor="@color/french_blue" />
-            </LinearLayout>
-
-            <ImageView
-                android:id="@+id/ivHeaderLine"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                app:srcCompat="@drawable/underline"
-                android:layout_gravity="bottom" />
-        </FrameLayout>
-
-        <!-- Profile Settings Title -->
-        <TextView
-            android:id="@+id/tvProfileSettings"
+        <Button
+            android:id="@+id/btnChangeUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
-            android:fontFamily="@font/inter_bold"
-            android:text="Profile Settings"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/light_grey"
+            android:fontFamily="@font/inter_semibold"
+            android:text="Change Username"
             android:textColor="@color/french_blue"
-            android:textSize="20sp" />
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Buttons -->
-        <LinearLayout
+        <Button
+            android:id="@+id/btnChangePassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginHorizontal="20dp"
-            android:layout_marginBottom="20dp"
-            android:gravity="center">
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/light_grey"
+            android:fontFamily="@font/inter_semibold"
+            android:text="Change Password"
+            android:textColor="@color/french_blue"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnChangeUsername" />
 
-            <Button
-                android:id="@+id/btnChangeUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_grey"
-                android:text="Change Username"
-                android:textColor="@color/french_blue"
-                android:textSize="16sp"
-                android:layout_marginBottom="10dp"
-                android:fontFamily="@font/inter_medium" />
+        <Button
+            android:id="@+id/btnLogout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:backgroundTint="@color/french_blue"
+            android:fontFamily="@font/inter_bold"
+            android:text="Log Out"
+            android:textColor="@color/pale_peach"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnChangePassword" />
 
-            <Button
-                android:id="@+id/btnChangePassword"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/light_grey"
-                android:text="Change Password"
-                android:textColor="@color/french_blue"
-                android:textSize="16sp"
-                android:fontFamily="@font/inter_medium" />
+        <Button
+            android:id="@+id/btnDeleteAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#FFF25A65"
+            android:fontFamily="@font/inter_bold"
+            android:text="Delete Account"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnLogout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/french_blue"
-                android:text="Log Out"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:fontFamily="@font/inter_bold"
-                android:layout_marginTop="20dp" />
+    <!-- Navbar -->
+    <ImageView
+        android:id="@+id/ivNavbarLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/clButtons"
+        app:srcCompat="@drawable/underline" />
 
-            <Button
-                android:id="@+id/btnDeleteAccount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/red"
-                android:text="Delete Account"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:fontFamily="@font/inter_bold"
-                android:layout_marginTop="20dp" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <!-- Navbar Section -->
-    <include
-        layout="@layout/navbar"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="60dp"
+        android:background="@color/white_smoke"
+        app:itemBackground="@color/white_smoke"
+        app:itemActiveIndicatorStyle="@color/white_smoke"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@drawable/navbar_color_selector"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ivNavbarLine"
+        app:menu="@menu/navbar_menu" />
+</androidx.constraintlayout.widget.ConstraintLayout>
 
-</LinearLayout>
