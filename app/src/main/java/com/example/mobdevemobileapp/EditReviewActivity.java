@@ -1,6 +1,8 @@
 package com.example.mobdevemobileapp;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.os.Bundle;
@@ -34,6 +36,7 @@ public class EditReviewActivity extends AppCompatActivity {
 
     Spinner spnInternshipType;
     Spinner spnAllowanceProvision;
+    String loggedInUser;
 
 
     @Override
@@ -53,6 +56,9 @@ public class EditReviewActivity extends AppCompatActivity {
         etReviewContent = findViewById(R.id.etReviewContent);
         spnInternshipType = findViewById(R.id.spnInternshipType);
         spnAllowanceProvision = findViewById(R.id.spnAllowanceProvision);
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        loggedInUser = sharedPreferences.getString("username", "");
+
 
         populatePage();
     }
@@ -133,7 +139,7 @@ public class EditReviewActivity extends AppCompatActivity {
                 updatedInternshipType,
                 updatedAllowanceProvision,
                 updatedHeadline,
-                new User(username), // Use the username to create a User object
+                username, // Use the username to create a User object
                 intent.getStringExtra("reviewDate"), // Keep the original review date
                 updatedContent
         );

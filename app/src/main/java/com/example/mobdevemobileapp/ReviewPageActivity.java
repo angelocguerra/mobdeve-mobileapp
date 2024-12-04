@@ -1,10 +1,13 @@
 package com.example.mobdevemobileapp;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -29,10 +32,15 @@ public class ReviewPageActivity extends AppCompatActivity {
     SimpleRatingBar srbWorkEnvironment, srbMentorship, srbWorkload;
 
     TextView tvInternshipType, tvAllowanceProvision;
-    
+
     MaterialButton btnHelpful;
 
     Company currentCompany;
+    String currentlyLoggedInUser;
+
+    Button btnEdit, btnDelete;
+    private Button btnEdit1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +55,24 @@ public class ReviewPageActivity extends AppCompatActivity {
 
         this.populatePage();
         Log.d("finishPopulate", "Populate page done");
-        
+        SharedPreferences sharedPreferences = getSharedPreferences("MyAppPrefs", Context.MODE_PRIVATE);
+        currentlyLoggedInUser = sharedPreferences.getString("username", "");
+
+
         btnHelpful = findViewById(R.id.btnHelpful);
+
+        //check if current review selected is equal to the user currently logged in
+        Log.d("checkUser", "Currently logged in user: " + currentlyLoggedInUser);
+        Log.d("checkUser", "Review author: " + tvReviewAuthor.getText().toString());
+        if (!(currentlyLoggedInUser.equals(tvReviewAuthor.getText().toString()))) {
+            Log.d("checkUser", "User is the author of the review");
+            btnEdit.setEnabled(false);
+            btnDelete.setEnabled(false);
+            btnEdit.setVisibility(View.GONE);
+            btnDelete.setVisibility(View.GONE);
+
+        }
+
     }
 
     public void populatePage() {
@@ -68,6 +92,8 @@ public class ReviewPageActivity extends AppCompatActivity {
 
         tvInternshipType = findViewById(R.id.tvInternshipType);
         tvAllowanceProvision = findViewById(R.id.tvAllowanceProvision);
+        btnDelete = findViewById(R.id.btnDelete);
+        btnEdit = findViewById(R.id.btnEdit);
 
         Intent intent = getIntent();
 
@@ -112,9 +138,9 @@ public class ReviewPageActivity extends AppCompatActivity {
         tvReviewTitle.setText(reviewTitle);
         Log.d("addTitle", "title added");
 
-        String reviewAuthor = intent.getStringExtra("user");
+        String reviewAuthor = intent.getStringExtra("username");
         tvReviewAuthor.setText(reviewAuthor);
-        Log.d("addAuthor", "Author added");
+        Log.d("addAuthor", "Author added" + reviewAuthor);
 
         String reviewDate = intent.getStringExtra("datePosted");
         tvReviewDate.setText(reviewDate);
@@ -148,7 +174,7 @@ public class ReviewPageActivity extends AppCompatActivity {
     public void deleteReview(View v) {
         // TODO: delete review
     }
-    
+
     public void toggleHelpful(View v) {
         if (btnHelpful.isChecked()) {
             Log.d("showChecked", "Button.isChecked = " + btnHelpful.isChecked());
@@ -157,13 +183,12 @@ public class ReviewPageActivity extends AppCompatActivity {
             btnHelpful.setIcon(getResources().getDrawable(R.drawable.helpful_toggled));
             Log.d("showChecked", "Button.isChecked = " + btnHelpful.isChecked());
             //review.setHelpful(review.getHelpful() + 1);
-        }
-        else {
+        } else {
             Log.d("showChecked", "Button.isChecked = " + btnHelpful.isChecked());
             btnHelpful.setBackgroundColor(getResources().getColor(R.color.light_grey));
             btnHelpful.setTextColor(getResources().getColor(R.color.dark_jungle_green));
             btnHelpful.setIcon(getResources().getDrawable(R.drawable.helpful));
-            Log.d("showChecked","Button.isChecked = " + btnHelpful.isChecked());
+            Log.d("showChecked", "Button.isChecked = " + btnHelpful.isChecked());
             //review.setHelpful(review.getHelpful() - 1);
         }
     }

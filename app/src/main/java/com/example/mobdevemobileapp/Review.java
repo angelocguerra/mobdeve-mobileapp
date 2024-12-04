@@ -17,7 +17,13 @@ public class Review {
     String companyName;
 
     String reviewTitle;
-    User user;
+    User user = null;
+
+    public String getUsername() {
+        return username;
+    }
+
+    String username;
     String datePosted;
     String reviewText;
     int helpful;
@@ -52,6 +58,40 @@ public class Review {
         this.reviewTitle = reviewTitle;
         this.uuid = uuid;
         this.user = user;
+        this.mentorship = mentorship;
+        this.datePosted = datePosted;
+        this.reviewText = reviewText;
+        this.helpful = 0;
+    }
+    public Review(float ratingScore, float workEnvironment, float mentorship, float workload,
+                  InternshipType internshipType, AllowanceProvision allowanceProvision,
+                  String reviewTitle, String user, String datePosted, String reviewText) {
+        this.companyName = "";
+        this.ratingScore = ratingScore;
+        this.workEnvironment = workEnvironment;
+        this.workload = workload;
+        this.internshipType = internshipType;
+        this.allowanceProvision = allowanceProvision;
+        this.uuid = "";
+        this.reviewTitle = reviewTitle;
+        this.username = user;
+        this.mentorship = mentorship;
+        this.datePosted = datePosted;
+        this.reviewText = reviewText;
+        this.helpful = 0;
+    }
+    public Review(float ratingScore, float workEnvironment, float mentorship, float workload, String companyName,
+                  InternshipType internshipType, AllowanceProvision allowanceProvision, String uuid,
+                  String reviewTitle, String user, String datePosted, String reviewText) {
+        this.companyName = companyName;
+        this.ratingScore = ratingScore;
+        this.workEnvironment = workEnvironment;
+        this.workload = workload;
+        this.internshipType = internshipType;
+        this.allowanceProvision = allowanceProvision;
+        this.reviewTitle = reviewTitle;
+        this.uuid = uuid;
+        this.username = user;
         this.mentorship = mentorship;
         this.datePosted = datePosted;
         this.reviewText = reviewText;

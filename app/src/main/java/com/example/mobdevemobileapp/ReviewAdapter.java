@@ -43,7 +43,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 
         holder.tvReviewRating.setText(String.valueOf(review.getRatingScore()));
         holder.tvReviewTitle.setText(review.getReviewTitle());
-        holder.tvReviewAuthor.setText(review.getUser().getUsername());
+        holder.tvReviewAuthor.setText(review.getUser() != null ? review.getUser().getUsername() : review.getUsername());
         holder.tvReviewDate.setText(review.getDatePosted());
         holder.tvReviewContent.setText(review.getReviewText());
         holder.srbReviewRating.setRating(review.getRatingScore());
@@ -64,9 +64,16 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ViewHolder
 //                Log.d("showInternship", "Internship Type: " + review.convertInternshipType(review.getInternshipType()));
                 intent.putExtra("allowanceProvision", review.convertAllowanceProvision(review.getAllowanceProvision()));
 //                Log.d("showAllowance", "Allowance Provision: " + review.convertAllowanceProvision(review.getAllowanceProvision()));
+                User user = review.getUser();
+                if (user != null) {
+                    intent.putExtra("username", user.getUsername());
+                }
+                else {
+                    intent.putExtra("username", review.getUsername());
+                }
 
                 intent.putExtra("reviewTitle", review.getReviewTitle());
-                intent.putExtra("user", review.getUser().getUsername());
+
                 intent.putExtra("datePosted", review.getDatePosted());
                 intent.putExtra("rating", review.getRatingScore());
                 intent.putExtra("reviewText", review.getReviewText());

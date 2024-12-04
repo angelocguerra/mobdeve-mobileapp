@@ -104,7 +104,7 @@ public class FirestoreManager {
         reviewMap.put("internshipType", review.getInternshipType());
         reviewMap.put("allowanceProvision", review.getAllowanceProvision());
         reviewMap.put("reviewTitle", review.getReviewTitle());
-        reviewMap.put("user", review.getUser().getUsername());
+        reviewMap.put("user", review.getUser() != null ? review.getUser().getUsername() : review.getUsername());
         reviewMap.put("datePosted", review.getDatePosted());
         reviewMap.put("reviewText", review.getReviewText());
         reviewMap.put("helpful", review.getHelpful());

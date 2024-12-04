@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
@@ -109,7 +110,8 @@ public class CompanyPageActivity extends AppCompatActivity {
                             String reviewTitle = document.getString("reviewTitle");
                             String reviewText = document.getString("reviewText");
                             String datePosted = document.getString("datePosted");
-                            String username = document.getString("username");
+                            String username = document.getString("user");
+                            Log.d("fetchReviews", "Username: " + username);
 
                             String uuid = document.getString("uuid");
 
@@ -124,7 +126,8 @@ public class CompanyPageActivity extends AppCompatActivity {
                             AllowanceProvision allowanceProvision = AllowanceProvision.valueOf(document.getString("allowanceProvision"));
 
                             Review review = new Review(ratingScore, workEnvironment, mentorship, workload,
-                                    companyName, internshipType, allowanceProvision, uuid, reviewTitle, new User(username), datePosted, reviewText);
+                                    companyName, internshipType, allowanceProvision, uuid, reviewTitle, username, datePosted, reviewText);
+                            Log.d("added review of user", "Review added: " + review.getUsername());
 
                             reviews.add(review);
                         }
