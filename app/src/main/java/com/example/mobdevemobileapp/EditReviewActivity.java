@@ -140,7 +140,7 @@ public class EditReviewActivity extends AppCompatActivity {
         updatedReview.setCompanyName(companyName);
 
         // Update Firestore with the updated review
-        FirestoreManager.getInstance().updateReview(updatedReview, task -> {
+        FirestoreManager.getInstance().updateReview(updatedReview, intent.getStringExtra("reviewTitle"), task -> {
             if (task.isSuccessful()) {
                 Toast.makeText(EditReviewActivity.this, "Review updated successfully", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(EditReviewActivity.this, MainPageActivity.class);

@@ -127,7 +127,7 @@ public class FirestoreManager {
         Map<String, Object> reviewMap = new HashMap<>();
 
 
-        
+
         reviewMap.put("internshipType", review.getInternshipType());
         reviewMap.put("allowanceProvision", review.getAllowanceProvision());
         reviewMap.put("reviewTitle", review.getReviewTitle());
@@ -277,11 +277,16 @@ public class FirestoreManager {
                 .addOnCompleteListener(onCompleteListener);
     }
 
-    public void updateReview(Review review, OnCompleteListener<Void> onCompleteListener) {
-        db.collection("reviews")
-                .document(review.getReviewTitle()) // Use review title as the unique ID
-                .set(review) // This will overwrite the existing review
-                .addOnCompleteListener(onCompleteListener);
+    public void updateReview(Review review, String oldReviewTitle, OnCompleteListener<Void> onCompleteListener) {
+        //delete the old review
+        db.collection("reviews").document(oldReviewTitle).delete().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                //add the new review
+                addReview(review, onCompleteListener);
+            } else {
+                onCompleteListener.onComplete(Tasks.forException(task.getException()));
+            }
+        });
     }
 
 
