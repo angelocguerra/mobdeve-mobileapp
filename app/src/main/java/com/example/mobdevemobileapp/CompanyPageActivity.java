@@ -20,7 +20,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.TaskCompletionSource;
 import com.google.android.gms.tasks.Tasks;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 
@@ -46,29 +45,6 @@ public class CompanyPageActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company_page);
-
-        // Navbar
-        bottomNavigationView = findViewById(R.id.navbar);
-
-        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if (item.getItemId() == R.id.home) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, homeFragment).commit();
-                    return true;
-                } else if (item.getItemId() == R.id.search) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, searchFragment).commit();
-                    return true;
-                } else if (item.getItemId() == R.id.create) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, createFragment).commit();
-                    return true;
-                } else if (item.getItemId() == R.id.profile) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, profileFragment).commit();
-                    return true;
-                }
-                return false;
-            }
-        });
 
         // Toolbar
         Toolbar toolbar = findViewById(R.id.toolbar);
