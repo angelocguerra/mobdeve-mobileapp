@@ -3,6 +3,7 @@ package com.example.mobdevemobileapp;
 import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.android.gms.tasks.Tasks;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -124,9 +125,9 @@ public class FirestoreManager {
 
         //add test to reviews which is a field in the user document
         Map<String, Object> reviewMap = new HashMap<>();
-        reviewMap.put("workEnvironment", review.getWorkEnvironment());
-        reviewMap.put("mentorship", review.getMentorship());
-        reviewMap.put("workload", review.getWorkload());
+
+
+        
         reviewMap.put("internshipType", review.getInternshipType());
         reviewMap.put("allowanceProvision", review.getAllowanceProvision());
         reviewMap.put("reviewTitle", review.getReviewTitle());
@@ -136,6 +137,9 @@ public class FirestoreManager {
         reviewMap.put("helpful", review.getHelpful());
         reviewMap.put("companyName", review.getCompanyName());
         String uuid;
+        reviewMap.put("workEnvironment", Math.round(review.getWorkEnvironment() * 100.0) / 100.0);
+        reviewMap.put("mentorship", Math.round(review.getMentorship() * 100.0) / 100.0);
+        reviewMap.put("workload", Math.round(review.getWorkload() * 100.0) / 100.0);
         do {
             uuid = UUID.randomUUID().toString();
         } while (db.collection("reviews").document(uuid).get().isSuccessful());
@@ -281,4 +285,11 @@ public class FirestoreManager {
     }
 
 
+    public Task<DocumentSnapshot> getUserData(String username) {
+        return db.collection("users").document(username).get();
+    }
+
+    public Task<QuerySnapshot> fetchReviewData(String username) {
+        return db.collection("reviews").whereEqualTo("user", username).get();
+    }
 }

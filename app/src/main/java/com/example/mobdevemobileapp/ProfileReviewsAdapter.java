@@ -44,7 +44,7 @@ public class ProfileReviewsAdapter extends RecyclerView.Adapter<ProfileReviewsAd
         Log.d("showReview", "Content: " + review.getReviewText());
         Log.d("showReview", "Helpful: " + review.getHelpful());
 
-        holder.tvReviewRating.setText(String.valueOf(review.getRatingScore()));
+        holder.tvReviewRating.setText(String.format("%.2f", review.getRatingScore()));
         holder.tvReviewTitle.setText(review.getReviewTitle());
         holder.tvReviewAuthor.setText(review.getUser().getUsername());
 //        holder.tvReviewDate.setText(review.getDatePosted());
